@@ -50,7 +50,7 @@ export const Theme = () => {
       <MenubarMenu>
         <MenubarTrigger
           disabled={isRotating}
-          className="rounded-full bg-light-100 p-2 focus:bg-light-100 data-[state=open]:bg-light-100 dark:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent"
+          className="bg-light-100 focus:bg-light-100 data-[state=open]:bg-light-100 rounded-full p-2 dark:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent"
         >
           <div
             className={`transition-transform duration-700 ${isRotating ? 'rotate-[360deg]' : ''}`}
@@ -74,11 +74,11 @@ export const Theme = () => {
             )}
           </div>
         </MenubarTrigger>
-        <MenubarContent className="absolute -right-12 mt-3 min-w-[120px] rounded border bg-light-100 py-2 dark:border-dark-400 dark:bg-dark-300">
+        <MenubarContent className="bg-light-100 dark:border-dark-400 dark:bg-dark-300 absolute -right-12 mt-3 min-w-[120px] rounded border py-2">
           {themes.map((item, i) => (
             <MenubarItem
               key={i}
-              className="flex items-center  gap-4 px-2.5 py-2 dark:focus:bg-dark-400"
+              className="dark:focus:bg-dark-400 flex  items-center gap-4 px-2.5 py-2"
               onClick={() => handleThemeChange(item.value)}
             >
               <Image

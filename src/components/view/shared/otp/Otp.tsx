@@ -60,7 +60,7 @@ const Otp = () => {
 
   return (
     <div>
-      <div className="flex-center my-4 justify-between gap-1 rounded-md border p-2 400:p-4  sm:p-5">
+      <div className="flex-center 400:p-4 my-4 justify-between gap-1 rounded-md border p-2  sm:p-5">
         <OtpBox otp={otp} setOtp={setOtp} setVerifyDisabled={setVerifyDisabled} />
       </div>
       <div className="flex justify-between">

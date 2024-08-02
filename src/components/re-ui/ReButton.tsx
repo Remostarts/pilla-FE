@@ -22,7 +22,7 @@ export function ReButton({
   children,
   ...props
 }: TButton) {
-  const defaultClassName = cn('bg-green-500 text-black', {
+  const defaultClassName = cn('bg-primary-500 text-white rounded-full font-inter', {
     'bg-sky-700 text-white': children === 'Edit',
     'bg-red-500 text-white': children === 'Delete',
   });

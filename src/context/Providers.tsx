@@ -10,12 +10,11 @@ import { store } from '@/redux/store';
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <div>
-      {' '}
       <Provider store={store}>
         <NextThemesProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          forcedTheme="light"
+          defaultTheme="light"
           disableTransitionOnChange
         >
           {children}

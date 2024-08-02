@@ -166,7 +166,7 @@ export default function NavbarMobile() {
               </svg>
             </span>
           </SheetTrigger>
-          <SheetContent side="left" className="flex flex-col bg-primary-100/60 dark:text-typo-100 ">
+          <SheetContent side="left" className="dark:text-typo-100 flex flex-col bg-primary-100/60 ">
             <SheetHeader className="mt-2 flex items-center justify-between">
               <Image
                 className=""
@@ -176,7 +176,7 @@ export default function NavbarMobile() {
                 alt=""
               />
             </SheetHeader>
-            <ul className="mt-10 flex flex-col gap-y-6 text-lg font-bold text-dark-100 dark:text-typo-100 ">
+            <ul className="text-dark-100 dark:text-typo-100 mt-10 flex flex-col gap-y-6 text-lg font-bold ">
               <SheetClose asChild>
                 <li>
                   <Link href="/">HOME</Link>
@@ -190,7 +190,7 @@ export default function NavbarMobile() {
                       SERVICES
                     </AccordionTrigger>
                     <AccordionContent className="!border-0">
-                      <ul className="!z-[200] grid w-[400px] gap-3 p-2  font-bold text-dark-100 dark:text-typo-100  md:grid-cols-2">
+                      <ul className="text-dark-100 dark:text-typo-100 !z-[200] grid w-[400px]  gap-3 p-2 font-bold  md:grid-cols-2">
                         {components.map((component, i) => (
                           <Link key={i} href={component.href}>
                             {component.title}
