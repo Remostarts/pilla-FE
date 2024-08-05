@@ -4,14 +4,14 @@ const solutionData = [
   {
     heading: 'Instant Settlement',
     subHeading: 'Receive your payments instantly in your bank account.',
-    imageSrc: '/assets/png/business-bell.png',
+    imageSrc: '/assets/home/business-bell.png',
     alt: 'locker',
     gradient: 'linear-gradient(75deg, rgba(219,253,244,1) 0%, rgba(247,253,253,1) 50%)',
   },
   {
     heading: 'Api Integration',
     subHeading: 'Seamless integration for your business growth. ',
-    imageSrc: '/assets/png/business-api.png',
+    imageSrc: '/assets/home/business-api.png',
     alt: 'home',
     gradient: 'linear-gradient(75deg, rgba(255,239,222,1) 0%, rgba(255,255,249,1) 50%)',
   },
@@ -36,7 +36,7 @@ export default function BusinessAccount() {
         </div>
         <div className="flex justify-center">
           <div className="relative w-full max-w-3xl">
-            <Image src="/assets/png/tablet.png" alt="smilingWoman" width={700} height={700} />
+            <Image src="/assets/home/tablet.png" alt="smilingWoman" width={700} height={700} />
           </div>
         </div>
 

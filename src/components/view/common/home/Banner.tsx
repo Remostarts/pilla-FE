@@ -24,9 +24,9 @@ export default function Banner() {
 
           {/* Customer satisfaction */}
           <div className="mt-12 flex items-center gap-4 sm:mt-16">
-            <Image src="/assets/svg/avatars.svg" width={150} height={150} alt="avatars" />
+            <Image src="/assets/common/avatars.png" width={150} height={150} alt="avatars" />
             <div>
-              <Image src="/assets/svg/stars.svg" width={100} height={100} alt="stars" />
+              <Image src="/assets/home/stars.svg" width={100} height={100} alt="stars" />
               <p className="mt-1 font-inter text-sm text-gray-500">Join 10,000+ happy customers</p>
             </div>
           </div>
@@ -35,7 +35,7 @@ export default function Banner() {
         {/* Right side image */}
         <div className="mx-auto w-full max-w-md lg:w-[64vh] lg:max-w-none">
           <Image
-            src="/assets/png/home-banner.png"
+            src="/assets/home/home-banner.png"
             alt="hero-image"
             width={400}
             height={400}

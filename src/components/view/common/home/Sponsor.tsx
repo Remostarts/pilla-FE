@@ -2,25 +2,25 @@ import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
 
 const partnerImages = [
-  '/assets/png/pnt-providus-bank.png',
-  '/assets/png/pnt-alder.png',
-  '/assets/png/pnt-olaniwun.png',
-  '/assets/png/pnt-cfg.png',
-  '/assets/png/pnt-huawei.png',
-  '/assets/png/pnt-qore.png',
-  '/assets/png/pnt-proptech-hub.png',
-  '/assets/png/pnt-adloyalty.png',
+  '/assets/home/pnt-providus-bank.png',
+  '/assets/home/pnt-alder.png',
+  '/assets/home/pnt-olaniwun.png',
+  '/assets/home/pnt-cfg.png',
+  '/assets/home/pnt-huawei.png',
+  '/assets/home/pnt-qore.png',
+  '/assets/home/pnt-proptech-hub.png',
+  '/assets/home/pnt-adloyalty.png',
 ];
 
 const supportByImages = [
-  '/assets/png/spt-fiabci.png',
-  '/assets/png/spt-proptech-nigeria.png',
-  '/assets/png/spt-fintech.png',
-  '/assets/png/spt-ncs.png',
-  '/assets/png/spt-itan.png',
-  '/assets/png/spt-nigeria-british.png',
-  '/assets/png/spt-premia-bn.png',
-  '/assets/png/spt-bni.png',
+  '/assets/home/spt-fiabci.png',
+  '/assets/home/spt-proptech-nigeria.png',
+  '/assets/home/spt-fintech.png',
+  '/assets/home/spt-ncs.png',
+  '/assets/home/spt-itan.png',
+  '/assets/home/spt-nigeria-british.png',
+  '/assets/home/spt-premia-bn.png',
+  '/assets/home/spt-bni.png',
 ];
 
 export default function Sponsor() {

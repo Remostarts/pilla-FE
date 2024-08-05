@@ -14,26 +14,36 @@ export default function OurValues() {
       <div className="container mx-auto px-6 md:px-8 lg:px-12">
         <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
           <div className="md:w-1/2">
-            <h2 className="mb-4 font-spaceGrotesk text-2xl font-bold md:text-3xl">Our Values</h2>
-            <p className="mb-6 font-inter text-lg text-gray-800 lg:text-xl">
+            {/* Heading */}
+            <h2 className="mb-4 font-spaceGrotesk text-2xl font-bold lg:text-3xl">Our Values</h2>
+            <p className="mb-6 font-inter text-lg text-gray-800 lg:text-xl xl:mb-8">
               We&apos;re a deeply mission-driven company, and these are the core ideas we return to
               when we make decisions.
             </p>
-            <ul className="space-y-2 xl:space-y-4">
+
+            {/* Values list */}
+            <ul className="space-y-2 lg:space-y-3 xl:space-y-5">
               {values.map((value, index) => (
                 <li
                   key={index}
                   className="flex items-center gap-3 font-spaceGrotesk font-medium text-gray-600 lg:text-xl"
                 >
-                  <Image src="/assets/svg/round-tick.svg" alt="round-tick" width={20} height={20} />
+                  <Image
+                    src="/assets/about-us/round-tick.svg"
+                    alt="round-tick"
+                    width={20}
+                    height={20}
+                  />
                   {value}
                 </li>
               ))}
             </ul>
           </div>
+
+          {/* Values Image */}
           <div className="md:w-1/2">
             <Image
-              src="/assets/png/our-values.png"
+              src="/assets/about-us/our-values.png"
               alt="our-values"
               width={800}
               height={600}

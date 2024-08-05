@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
-import AboutUs from '@/components/view/common/about/AboutUs';
-import MissionVision from '@/components/view/common/about/MIssionVision';
-import OurValues from '@/components/view/common/about/OurValues';
-import WhyChooseUs from '@/components/view/common/about/WhyChooseUs';
+import AboutUs from '@/components/view/common/about-us/AboutUs';
+import MissionVision from '@/components/view/common/about-us/MIssionVision';
+import OurValues from '@/components/view/common/about-us/OurValues';
+import WhyChooseUs from '@/components/view/common/about-us/WhyChooseUs';
 
 export const metadata = {
   title: 'About',
@@ -15,7 +15,7 @@ export default function Page() {
       {/* Hero Banner */}
       <div className="relative mx-6 h-[30vh] sm:mx-10 sm:h-[40vh] md:h-[50vh] lg:mx-12">
         <Image
-          src="/assets/png/about-banner.png"
+          src="/assets/about-us/about-banner.png"
           alt="about-banner"
           fill
           className="rounded-xl object-cover object-center sm:object-cover md:object-top"
@@ -26,7 +26,7 @@ export default function Page() {
       <AboutUs />
       <MissionVision />
       <OurValues />
-      {/* <WhyChooseUs /> */}
+      <WhyChooseUs />
     </div>
   );
 }

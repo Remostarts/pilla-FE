@@ -6,14 +6,17 @@ export default function AboutUs() {
       <div className="container mx-auto px-6 md:px-10 lg:px-12">
         <div className="grid gap-8 md:grid-cols-2">
           <div>
+            {/* Heading */}
             <span className="mb-6 inline-block rounded-full bg-orange-100 px-4 py-2 font-spaceGrotesk text-sm font-semibold text-primary-500">
               About Us
             </span>
             <h2 className="mb-6 font-spaceGrotesk text-3xl font-bold md:text-4xl">
               Join us as we pave the way for innovation and progress in real estate finance.
             </h2>
+
+            {/* Avatars image */}
             <div className="-ml-1">
-              <Image src="/assets/svg/avatars.svg" width={170} height={170} alt="avatars" />
+              <Image src="/assets/common/avatars.png" width={170} height={170} alt="avatars" />
             </div>
           </div>
           <div>

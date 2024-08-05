@@ -14,9 +14,9 @@ export default function MobileMenu() {
         className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
       >
         {mobileMenuOpen ? (
-          <Image src="/assets/svg/close.svg" alt="menu-close" width={28} height={28} />
+          <Image src="/assets/common/close.svg" alt="menu-close" width={28} height={28} />
         ) : (
-          <Image src="/assets/svg/hamburger.svg" alt="menu-open" width={28} height={28} />
+          <Image src="/assets/common/hamburger.svg" alt="menu-open" width={28} height={28} />
         )}
       </button>
 
@@ -26,7 +26,7 @@ export default function MobileMenu() {
       >
         <div className="space-y-1 px-4 pb-6 pt-2 font-spaceGrotesk">
           <Link
-            href="/company"
+            href="/about-us"
             className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
           >
             Company

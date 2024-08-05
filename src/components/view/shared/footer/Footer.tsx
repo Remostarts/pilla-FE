@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 py-12 sm:grid-cols-2 sm:py-20 md:grid-cols-3 lg:grid-cols-5">
           <div className="col-span-1">
             <Image
-              src="/assets/svg/logo-white.svg"
+              src="/assets/common/logo-white.svg"
               alt="Company Logo"
               width={70}
               height={70}
@@ -41,7 +41,7 @@ export default function Footer() {
             <div className="mt-4 flex items-center space-x-5">
               <a href="/" className="mr-1">
                 <Image
-                  src="/assets/svg/facebook-icon.svg"
+                  src="/assets/common/facebook-icon.svg"
                   alt="facebook-logo"
                   width={13}
                   height={13}
@@ -49,7 +49,7 @@ export default function Footer() {
               </a>
               <a href="/">
                 <Image
-                  src="/assets/svg/twitter-icon.svg"
+                  src="/assets/common/twitter-icon.svg"
                   alt="twitter-logo"
                   width={26}
                   height={26}
@@ -57,7 +57,7 @@ export default function Footer() {
               </a>
               <a href="/">
                 <Image
-                  src="/assets/svg/instagram-icon.svg"
+                  src="/assets/common/instagram-icon.svg"
                   alt="instagram-logo"
                   width={24}
                   height={24}
@@ -69,7 +69,7 @@ export default function Footer() {
           {/* Certification logo */}
           <div className="flex size-fit lg:w-full lg:justify-end">
             <Image
-              src="/assets/svg/pilla-certification-logo.svg"
+              src="/assets/common/pilla-certification.svg"
               alt="Certification logo"
               width={70}
               height={70}

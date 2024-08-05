@@ -5,7 +5,7 @@ export default function Welcome() {
   return (
     <div className="mx-auto mt-12 flex max-w-8xl flex-col-reverse items-center gap-8 px-0 sm:px-10 md:flex-row md:justify-between lg:mt-16 lg:px-12">
       <div className="w-fit px-6 sm:px-0">
-        <Image src="/assets/png/smiling-woman.png" alt="smilingWoman" width={400} height={400} />
+        <Image src="/assets/home/smiling-woman.png" alt="smilingWoman" width={400} height={400} />
       </div>
       <div className="flex flex-col gap-2 p-8 sm:text-center md:w-1/2 md:text-left">
         <h1 className="font-spaceGrotesk text-3xl font-bold">Welcome to Pilla</h1>

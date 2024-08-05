@@ -4,7 +4,7 @@ const solutionData = [
   {
     heading: 'Pilla Saving',
     subHeading: 'Earn up to 16.5% returns per annum on your savings.',
-    imageSrc: '/assets/png/solution-locker.png',
+    imageSrc: '/assets/home/solution-locker.png',
     alt: 'locker',
     gradient: 'linear-gradient(75deg, rgba(223,222,254,1) 0%, rgba(250,250,255,1) 50%)',
   },
@@ -12,14 +12,14 @@ const solutionData = [
     heading: 'Pilla Rent Finance',
     subHeading:
       'Our rent finance solution ensures you don’t default on your next rent payment. We are Pilla, you can rely on us.',
-    imageSrc: '/assets/png/solution-home.png',
+    imageSrc: '/assets/home/solution-home.png',
     alt: 'home',
     gradient: 'linear-gradient(75deg, rgba(215,248,239,1) 0%, rgba(249,255,255, 1) 50%)',
   },
   {
     heading: 'Pilla Invest',
     subHeading: 'Earn up to 35% returns per annum on your investments.',
-    imageSrc: '/assets/png/solution-coin.png',
+    imageSrc: '/assets/home/solution-coin.png',
     alt: 'coin',
     gradient: 'linear-gradient(75deg, rgba(255,254,228,1) 0%, rgba(255,255,249,1) 50%)',
   },
@@ -27,7 +27,7 @@ const solutionData = [
     heading: 'Pilla Construction Finance',
     subHeading:
       'Bid farewell to building projects delays by embracing our tailored construction finance.',
-    imageSrc: '/assets/png/solution-construction.png',
+    imageSrc: '/assets/home/solution-construction.png',
     alt: 'construction',
     gradient: 'linear-gradient(75deg, rgba(233,233,233,1) 0%, rgba(255,255,255,1) 50%)',
   },
@@ -35,7 +35,7 @@ const solutionData = [
     heading: 'Pilla Pay',
     subHeading:
       'From rent collections to dream homes payments, land use charge and utilities, we simplify it all. Join us for effortless transactions today.',
-    imageSrc: '/assets/png/solution-money.png',
+    imageSrc: '/assets/home/solution-money.png',
     alt: 'money',
     gradient: 'linear-gradient(75deg, rgba(255,239,222,1) 0%, rgba(255,255,249,1) 50%)',
   },
