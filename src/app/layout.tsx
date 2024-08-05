@@ -22,7 +22,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   // title: 'Pilla', -> version 1
   title: {
-    template: 'Pilla - %s',
+    template: 'Pilla – %s',
     default: 'Pilla',
   },
   description:

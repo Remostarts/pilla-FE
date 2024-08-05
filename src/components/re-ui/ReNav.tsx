@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import ArrowDrop from '../../../public/assets/icons-react/ArrowDrop';
+// import ArrowDrop from '../../../public/assets/icons-react/ArrowDrop';
 
 import {
   NavigationMenu,
@@ -194,7 +194,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                                   animate={{ opacity: 1, transition: { duration: 0 } }}
                                   exit={{ opacity: 0, transition: { duration: 0, delay: 0 } }}
                                 >
-                                  <ArrowDrop />
+                                  {/* <ArrowDrop /> */}
                                 </motion.div>
                               )}
                             </>
@@ -246,7 +246,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                                   animate={{ opacity: 1, transition: { duration: 0 } }}
                                   exit={{ opacity: 0, transition: { duration: 0, delay: 0 } }}
                                 >
-                                  <ArrowDrop />
+                                  {/* <ArrowDrop /> */}
                                 </motion.div>
                               )}
                             </>
@@ -305,7 +305,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                                 animate={{ opacity: 1, transition: { duration: 0 } }}
                                 exit={{ opacity: 0, transition: { duration: 0, delay: 0 } }}
                               >
-                                <ArrowDrop />
+                                {/* <ArrowDrop /> */}
                               </motion.div>
                             )}
                           </>

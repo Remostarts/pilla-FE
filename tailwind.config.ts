@@ -25,11 +25,15 @@ const config = {
         },
       },
       maxWidth: {
-        '8xl': '84rem',
+        '8xl': '88rem',
       },
       fontFamily: {
         inter: ['var(--font-inter)'],
         spaceGrotesk: ['var(--font-spaceGrotesk)'],
+      },
+      backgroundImage: {
+        'home-saving-gradient':
+          'linear-gradient(30deg, rgba(223,222,254,1) 0%, rgba(250,250,255,1) 50%)',
       },
       keyframes: {
         'accordion-down': {
