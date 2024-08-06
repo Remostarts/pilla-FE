@@ -36,9 +36,9 @@ export default function page() {
       <div className="px-6 md:px-8 lg:px-12">
         <div className="flex flex-col items-center justify-between gap-16 md:flex-row">
           <div className="sm:w-4/5 md:w-3/5 lg:w-2/5">
-            <span className="mb-4 flex w-fit items-center gap-2 rounded-full bg-orange-100 px-4 py-2 font-spaceGrotesk text-sm font-semibold text-primary-500">
+            <span className="mb-6 flex w-fit items-center gap-2 rounded-full bg-primary-100 px-4 py-2 font-spaceGrotesk text-sm font-semibold text-primary-500">
               <Image
-                src="/assets/pilla-savings/target-icon.svg"
+                src="/assets/pilla-savings/pilla-savings-icon.svg"
                 alt="Pilla Savings"
                 width={20}
                 height={20}
@@ -56,7 +56,7 @@ export default function page() {
             </p>
             <Link
               href="/"
-              className="rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
+              className="-ml-1 rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
             >
               Save Now
             </Link>
@@ -66,7 +66,7 @@ export default function page() {
           <div className="rounded-t-3xl bg-[#FFF5EB] px-20 pt-16 md:w-4/5 lg:w-1/2 xl:w-2/5">
             <div className="relative">
               <Image
-                src="/assets/pilla-savings/half-phone.png"
+                src="/assets/pilla-savings/savings-half-phone.png"
                 alt="Pilla Savings App"
                 width={350}
                 height={550}
@@ -79,7 +79,9 @@ export default function page() {
 
       {/* Savings Section */}
       <div className="mt-24 px-6 sm:mx-auto sm:w-4/5 md:w-full md:px-8 lg:px-12">
-        <h2 className="mb-12 font-spaceGrotesk text-3xl font-bold lg:text-4xl">Savings Plans</h2>
+        <h2 className="mb-12 ml-1 font-spaceGrotesk text-3xl font-bold lg:text-4xl">
+          Savings Plans
+        </h2>
         <div className="grid grid-cols-1 gap-x-24 gap-y-16 md:w-full md:grid-cols-2 xl:gap-x-40 xl:gap-y-24">
           {savingsPlans.map((plan, index) => (
             <div key={index} className="flex flex-col rounded-3xl">
@@ -115,7 +117,12 @@ export default function page() {
       <div className="mt-12 md:px-8 lg:px-12">
         <div className="flex items-start space-x-5 bg-primary-100 p-4 md:rounded-lg">
           <div className="mt-2 scale-150 md:mt-1 md:scale-100">
-            <Image src="/assets/pilla-savings/caution.svg" alt="Warning" width={40} height={40} />
+            <Image
+              src="/assets/pilla-savings/savings-caution.svg"
+              alt="Warning"
+              width={40}
+              height={40}
+            />
           </div>
           <div>
             <h4 className="mb-1 font-spaceGrotesk text-2xl font-semibold">Please note:</h4>

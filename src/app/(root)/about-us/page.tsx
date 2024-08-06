@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import AboutUs from '@/components/view/common/about-us/AboutUs';
-import MissionVision from '@/components/view/common/about-us/MIssionVision';
+import MissionVision from '@/components/view/common/about-us/MissionVision';
 import OurValues from '@/components/view/common/about-us/OurValues';
 import WhyChooseUs from '@/components/view/common/about-us/WhyChooseUs';
 

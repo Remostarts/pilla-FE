@@ -20,7 +20,7 @@ export default function MissionVision() {
               <h1 className="mb-2 mt-1 font-spaceGrotesk text-2xl font-bold md:mb-4 lg:text-3xl">
                 Our Mission
               </h1>
-              <p className="font-inter text-lg text-gray-800 sm:tracking-[0.02em]">
+              <p className="font-inter text-lg text-gray-800 sm:tracking-wide lg:text-xl">
                 We will be a Pilla of support for our clients and provide convenient financial
                 solutions.
               </p>
@@ -41,7 +41,7 @@ export default function MissionVision() {
               <h1 className="mb-2 mt-1 font-spaceGrotesk text-2xl font-bold md:mb-4 lg:text-3xl">
                 Our Vision
               </h1>
-              <p className="font-inter text-lg text-gray-800 sm:tracking-[0.02em]">
+              <p className="font-inter text-lg text-gray-800 sm:tracking-wide lg:text-xl">
                 Build the preferred real estate finance corporation, first in Nigeria, then West
                 Africa, and then Africa.
               </p>
