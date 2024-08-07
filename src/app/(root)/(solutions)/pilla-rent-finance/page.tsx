@@ -2,48 +2,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Savings',
+  title: 'Rent',
 };
-
-const savingsPlans = [
-  {
-    title: 'Regular Savings',
-    description:
-      'A savings account where the user earns 10% interest rate annually and can withdraw at anytime.',
-    image: '/assets/pilla-savings/regular-savings.png',
-    border: 'border-[#fffebe]',
-  },
-  {
-    title: 'Target Savings',
-    description:
-      'A savings account where the user saves towards a goal for a period of time, with 12% interest rate annually and can break savings but will be penalized.',
-    image: '/assets/pilla-savings/target-savings.png',
-    border: 'border-[#d4fff2]',
-  },
-  {
-    title: 'Lock Savings',
-    description:
-      "A savings account where the user locks money for a period of time, with 18% interest rate annually and can't withdraw until maturity date.",
-    image: '/assets/pilla-savings/lock-savings.png',
-    border: 'border-[#fff0e5]',
-  },
-];
 
 const requiredDocuments = [
   {
-    icon: '📄',
+    icon: '/assets/pilla-rent-finance/license-icon.svg',
     text: "Valid means of identification (National ID card, Driver's Licence, international passport, voter's card) and passport photograph.",
   },
   {
-    icon: '🆔',
+    icon: '/assets/pilla-rent-finance/employment-id-icon.svg',
     text: 'Employment ID card and Employment letter.',
   },
   {
-    icon: '📃',
+    icon: '/assets/pilla-rent-finance/bill-icon.svg',
     text: 'Utility bill, not more than 3 months old.',
   },
   {
-    icon: '🏦',
+    icon: '/assets/pilla-rent-finance/bank-statement.svg',
     text: 'Up-to-date bank statements of not less than 6 months',
   },
 ];
@@ -103,13 +79,13 @@ export default function page() {
         <div className="flex flex-col-reverse items-center justify-between gap-16 md:flex-row">
           {/* Hero Image */}
           <div className="rounded-3xl">
-            <div className="mx-auto -ml-2 sm:w-4/5 md:mx-0 md:w-full lg:w-[85%]">
+            <div className="mx-auto w-full sm:w-[85%] md:mx-0 md:w-full lg:w-[85%]">
               <Image
                 src="/assets/pilla-rent-finance/details-half-phone.png"
                 alt="details-half-phone"
                 width={400}
                 height={400}
-                className="w-full"
+                className="mx-auto w-full"
               />
             </div>
           </div>
@@ -122,24 +98,25 @@ export default function page() {
             <ul className="mb-6 ml-5 list-disc space-y-2 font-inter text-lg md:text-base lg:text-lg">
               <li>
                 <span>
-                  <strong>Type of loan</strong> - Short-term loans
+                  <strong className="font-spaceGrotesk">Type of loan</strong> - Short-term loans
                 </span>
               </li>
               <li>
                 <span>
-                  <strong>Interest Rate</strong> - 3.5% - 5% monthly depending on the amount
-                  disbursed.
+                  <strong className="font-spaceGrotesk">Interest Rate</strong> - 3.5% - 5% monthly
+                  depending on the amount disbursed.
                 </span>
               </li>
               <li>
                 <span>
-                  <strong>Loan Repayment Instrument</strong> - Salary account direct debit mandate
-                  or debit card setup.
+                  <strong className="font-spaceGrotesk">Loan Repayment Instrument</strong> - Salary
+                  account direct debit mandate or debit card setup.
                 </span>
               </li>
               <li>
                 <span>
-                  <strong>Mode of payment</strong> - Loan is disbursed directly to the Landlord.
+                  <strong className="font-spaceGrotesk">Mode of payment</strong> - Loan is disbursed
+                  directly to the Landlord.
                 </span>
               </li>
             </ul>
@@ -159,15 +136,18 @@ export default function page() {
       </div>
 
       {/* Document Required */}
-      <div className="mx-auto mt-24 px-6 md:px-8 lg:px-12">
-        <div className="flex flex-col items-center justify-between gap-24 md:flex-row">
-          <div className="mb-8 md:mb-0 md:w-1/2">
+      <div className="mt-24 px-6 md:px-8 lg:px-12">
+        <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
+          <div className="mb-8 sm:w-4/5 md:mb-0 md:w-1/2">
             <h2 className="mb-6 font-spaceGrotesk text-3xl font-bold">Documents Required</h2>
-            <ul className="mb-16 space-y-4">
+            <ul className="mb-16 space-y-5">
               {requiredDocuments.map((doc, index) => (
-                <li key={index} className="flex items-start font-inter text-lg text-gray-800">
-                  <span className="mr-4 text-2xl text-blue-500">{doc.icon}</span>
-                  <span>{doc.text}</span>
+                <li
+                  key={index}
+                  className="flex items-start gap-6 font-inter text-lg text-gray-800 sm:items-center"
+                >
+                  <Image src={doc.icon} alt="document-icons" width={50} height={50} />
+                  <span className="text-gray-800">{doc.text}</span>
                 </li>
               ))}
             </ul>
@@ -178,7 +158,7 @@ export default function page() {
               Get Loan Now
             </Link>
           </div>
-          <div className="md:w-1/2">
+          <div className="flex justify-end md:w-1/2">
             <Image
               src="/assets/pilla-rent-finance/happy-customers.png"
               alt="Happy customers discussing documents"
