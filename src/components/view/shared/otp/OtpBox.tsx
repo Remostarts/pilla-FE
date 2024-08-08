@@ -104,7 +104,7 @@ const OtpBox = ({ otp, setOtp, setVerifyDisabled }: TOtpBoxProps) => {
   };
 
   return (
-    <div className="flex-center 400:p-4 my-4 justify-between gap-1  rounded-md p-2  sm:p-5">
+    <div className="flex w-full justify-between gap-2">
       {otp.map((value, index) => (
         <input
           key={index}
@@ -112,7 +112,7 @@ const OtpBox = ({ otp, setOtp, setVerifyDisabled }: TOtpBoxProps) => {
             inputRefs.current[index] = ref!;
           }}
           type="text"
-          className="400:h-8 400:w-12  mx-1 h-6 w-8 rounded border border-gray-300   text-center focus:border-blue-500 focus:outline-none sm:h-10 sm:w-16"
+          className="size-8 rounded-lg border border-gray-300 text-center focus:border-blue-500 focus:outline-none sm:h-12 sm:w-16"
           value={value}
           maxLength={1}
           onChange={(e) => handleInputChange(e, index)}

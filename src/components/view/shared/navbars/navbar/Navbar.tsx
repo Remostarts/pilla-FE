@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronDown, UserCircle } from 'lucide-react';
+import { ChevronDown, UserCircle, ArrowRight } from 'lucide-react';
 
 import MobileMenu from './MobileMenu';
 
@@ -33,7 +33,7 @@ export default function Navbar() {
               <DropdownMenuTrigger className="flex items-center text-gray-600 hover:text-gray-900 focus:outline-none">
                 Solutions <ChevronDown className="ml-1 size-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="ml-16 mt-2 bg-white p-2 font-spaceGrotesk font-medium text-gray-800">
+              <DropdownMenuContent className="ml-12 mt-3 bg-white p-2 font-spaceGrotesk font-medium text-gray-800">
                 <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
                   <Link href="/pilla-savings" className="flex w-full gap-2">
                     <Image
@@ -101,13 +101,26 @@ export default function Navbar() {
 
           {/* Desktop sign in */}
           <div className="hidden scale-75 font-spaceGrotesk sm:flex sm:items-center md:scale-100">
-            <Link
-              href="/signin"
-              className="flex items-center gap-1 rounded-full bg-primary-500 px-4 py-2 text-white transition duration-300 hover:bg-primary-600"
-            >
-              <UserCircle size={24} />
-              Sign in
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 rounded-full bg-primary-500 px-4 py-2 text-white transition duration-300 hover:bg-primary-600 focus:outline-none">
+                <UserCircle size={24} />
+                <span>Sign in</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="mt-3 bg-white p-2 font-spaceGrotesk font-medium text-gray-800">
+                <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
+                  <Link href="/personal-account/sign-in" className="flex w-full gap-2">
+                    Personal Login
+                    <ArrowRight size={20} />
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
+                  <Link href="/business-account/sign-in" className="flex w-full gap-2">
+                    Business Login
+                    <ArrowRight size={20} />
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Mobile menu */}

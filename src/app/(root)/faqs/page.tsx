@@ -5,6 +5,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
+export const metadata = {
+  title: 'FAQs',
+};
+
 const faqData = [
   {
     id: 'fq1',
@@ -109,7 +113,7 @@ export default function page() {
               <AccordionTrigger className="my-1 text-left font-spaceGrotesk text-lg hover:no-underline focus:text-primary-500 lg:text-xl">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="my-1 font-inter text-base text-gray-700 lg:text-lg lg:tracking-wide">
+              <AccordionContent className="my-1 font-inter text-base text-gray-800 lg:text-lg lg:tracking-wide">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

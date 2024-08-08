@@ -4,7 +4,6 @@ import './stepper.css';
 
 type TStepperProps = {
   currentStep: number;
-
   steps: string[];
   setFormStep: (value: number) => void;
 };

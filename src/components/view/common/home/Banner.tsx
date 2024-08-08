@@ -17,7 +17,7 @@ export default function Banner() {
 
           <Link
             className="rounded-full bg-primary-500 px-6 py-3 font-inter text-sm text-white transition duration-300 hover:bg-primary-600 sm:text-base md:px-8 md:py-4"
-            href="/"
+            href="/sign-up"
           >
             Open an account
           </Link>

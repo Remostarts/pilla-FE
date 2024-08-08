@@ -9,13 +9,6 @@ const config = {
     './src/**/*.{ts,tsx}',
   ],
   theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
-    },
     extend: {
       colors: {
         primary: {
@@ -30,10 +23,6 @@ const config = {
       fontFamily: {
         inter: ['var(--font-inter)'],
         spaceGrotesk: ['var(--font-spaceGrotesk)'],
-      },
-      backgroundImage: {
-        'home-saving-gradient':
-          'linear-gradient(30deg, rgba(223,222,254,1) 0%, rgba(250,250,255,1) 50%)',
       },
       keyframes: {
         'accordion-down': {

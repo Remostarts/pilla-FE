@@ -2,6 +2,11 @@ import Image from 'next/image';
 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+
+export const metadata = {
+  title: 'Contact',
+};
 
 export default function page() {
   return (
@@ -112,7 +117,7 @@ export default function page() {
                 </label>
                 <Input name="emailAddress" type="text" />
               </div>
-              <div className="mb-4">
+              <div className="mb-10">
                 <label
                   htmlFor="message"
                   className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
@@ -123,12 +128,11 @@ export default function page() {
               </div>
 
               {/* Submit Btn */}
-              <button
-                type="submit"
-                className="mt-6 w-full rounded-full bg-primary-500 px-4 py-3 font-inter text-white transition duration-300 hover:bg-primary-600"
+              <Button
+                className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
               >
                 Submit
-              </button>
+              </Button>
             </form>
           </div>
         </div>
