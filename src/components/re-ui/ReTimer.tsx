@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { counterState, setCounter } from '@/redux/features/optVerify/otpCounterSlice';
-import { setTimerOn, timerState } from '@/redux/features/optVerify/otpTimerSlice';
+import { counterState, setCounter } from '@/redux/features/otpVerify/otpCounterSlice';
+import { setTimerOn, timerState } from '@/redux/features/otpVerify/otpTimerSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 const ReTimer = ({ initialTime = 10 }: { initialTime?: number }) => {

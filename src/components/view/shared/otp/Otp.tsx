@@ -8,8 +8,8 @@ import Timer from '../../../re-ui/ReTimer';
 import OtpBox from './OtpBox';
 
 import { useToast } from '@/components/ui/use-toast';
-import { counterState, setCounter } from '@/redux/features/optVerify/otpCounterSlice';
-import { setTimerOn } from '@/redux/features/optVerify/otpTimerSlice';
+import { counterState, setCounter } from '@/redux/features/otpVerify/otpCounterSlice';
+import { setTimerOn } from '@/redux/features/otpVerify/otpTimerSlice';
 import { completedStepsState, setCompletedSteps } from '@/redux/features/shared/StepperSlices';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 

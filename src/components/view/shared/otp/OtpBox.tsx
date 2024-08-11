@@ -10,7 +10,7 @@ import {
   useRef,
 } from 'react';
 
-import { timerState } from '@/redux/features/optVerify/otpTimerSlice';
+import { timerState } from '@/redux/features/otpVerify/otpTimerSlice';
 import { useAppSelector } from '@/redux/hooks';
 
 type TOtpBoxProps = {
