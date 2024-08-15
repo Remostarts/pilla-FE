@@ -10,26 +10,26 @@ const savingsPlans = [
     title: 'Regular Savings',
     description:
       'A savings account where the user earns 10% interest rate annually and can withdraw at anytime.',
-    image: '/assets/pilla-savings/regular-savings.png',
+    image: '/assets/root/pilla-savings/regular-savings.png',
     border: 'border-[#fffebe]',
   },
   {
     title: 'Target Savings',
     description:
       'A savings account where the user saves towards a goal for a period of time, with 12% interest rate annually and can break savings but will be penalized.',
-    image: '/assets/pilla-savings/target-savings.png',
+    image: '/assets/root/pilla-savings/target-savings.png',
     border: 'border-[#d4fff2]',
   },
   {
     title: 'Lock Savings',
     description:
       "A savings account where the user locks money for a period of time, with 18% interest rate annually and can't withdraw until maturity date.",
-    image: '/assets/pilla-savings/lock-savings.png',
+    image: '/assets/root/pilla-savings/lock-savings.png',
     border: 'border-[#fff0e5]',
   },
 ];
 
-export default function page() {
+export default function Page() {
   return (
     <section className="mx-auto mt-4 max-w-8xl sm:mt-12">
       {/* Hero Section */}
@@ -38,7 +38,7 @@ export default function page() {
           <div className="sm:w-4/5 md:w-3/5 lg:w-2/5">
             <span className="mb-6 flex w-fit items-center gap-2 rounded-full bg-primary-100 px-4 py-2 font-spaceGrotesk text-sm font-semibold text-primary-500">
               <Image
-                src="/assets/pilla-savings/pilla-savings-icon.svg"
+                src="/assets/root/pilla-savings/pilla-savings-icon.svg"
                 alt="Pilla Savings"
                 width={20}
                 height={20}
@@ -66,7 +66,7 @@ export default function page() {
           <div className="rounded-t-3xl bg-[#FFF5EB] px-20 pt-16 md:w-4/5 lg:w-1/2 xl:w-2/5">
             <div className="relative">
               <Image
-                src="/assets/pilla-savings/savings-half-phone.png"
+                src="/assets/root/pilla-savings/savings-half-phone.png"
                 alt="Pilla Savings App"
                 width={350}
                 height={550}
@@ -118,7 +118,7 @@ export default function page() {
         <div className="flex items-start space-x-5 bg-primary-100 p-4 md:rounded-lg">
           <div className="mt-2 scale-150 md:mt-1 md:scale-100">
             <Image
-              src="/assets/pilla-savings/savings-caution.svg"
+              src="/assets/root/pilla-savings/savings-caution.svg"
               alt="Warning"
               width={40}
               height={40}

@@ -4,10 +4,10 @@ import { ArrowLeft } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import Stepper from '@/components/ui/stepper';
-import FillDetails from '@/components/view/user/auth/sign-up/FillDetails';
-import VerifyEmail from '@/components/view/user/auth/sign-up/VerifyEmail';
-import VerifyPhone from '@/components/view/user/auth/sign-up/VerifyPhone';
-import CreatePassword from '@/components/view/user/auth/sign-up/CreatePassword';
+import FillDetails from '@/components/view/auth/sign-up/FillDetails';
+import VerifyEmail from '@/components/view/auth/sign-up/VerifyEmail';
+import VerifyPhone from '@/components/view/auth/sign-up/VerifyPhone';
+import CreatePassword from '@/components/view/auth/sign-up/CreatePassword';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 
 export default function Page() {

@@ -22,10 +22,13 @@ export function ReButton({
   children,
   ...props
 }: TButton) {
-  const defaultClassName = cn('bg-primary-500 text-white rounded-full font-inter', {
-    'bg-sky-700 text-white': children === 'Edit',
-    'bg-red-500 text-white': children === 'Delete',
-  });
+  const defaultClassName = cn(
+    'bg-primary-500 hover:bg-primary-600 text-white font-spaceGrotesk w-full text-base',
+    {
+      'bg-sky-700 text-white': children === 'Edit',
+      'bg-red-500 text-white': children === 'Delete',
+    }
+  );
   return (
     <Button type={type} className={className || defaultClassName} {...props}>
       {isSubmitting ? `${children} loading..` : children}

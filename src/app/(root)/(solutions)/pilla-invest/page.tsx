@@ -8,7 +8,7 @@ export const metadata = {
 const investmentPlans = [
   {
     title: 'Bronze Plan',
-    icon: '/assets/pilla-invest/bronze-plan.svg',
+    icon: '/assets/root/pilla-invest/bronze-plan.svg',
     tenure: '3 months (90 Days)',
     roi: '22% ROI per annum when you invest up to N4,999,999',
     minimum: 'From N1,000,000',
@@ -16,7 +16,7 @@ const investmentPlans = [
   },
   {
     title: 'Silver Plan',
-    icon: '/assets/pilla-invest/silver-plan.svg',
+    icon: '/assets/root/pilla-invest/silver-plan.svg',
     tenure: '6 months (180 Days)',
     roi: '24% ROI per annum when you invest up to N9,999,999',
     minimum: 'From N5,000,000',
@@ -24,7 +24,7 @@ const investmentPlans = [
   },
   {
     title: 'Gold Plan',
-    icon: '/assets/pilla-invest/gold-plan.svg',
+    icon: '/assets/root/pilla-invest/gold-plan.svg',
     tenure: '9 months (270 Days)',
     roi: '26% ROI per annum when you invest up to N19,999,999',
     minimum: 'From N10,000,000',
@@ -32,7 +32,7 @@ const investmentPlans = [
   },
   {
     title: 'Diamond Plan',
-    icon: '/assets/pilla-invest/diamond-plan.svg',
+    icon: '/assets/root/pilla-invest/diamond-plan.svg',
     tenure: '12 months (365 Days)',
     roi: '28% ROI per annum when you invest from N20,000,000',
     minimum: 'From N20,000,000',
@@ -40,7 +40,7 @@ const investmentPlans = [
   },
 ];
 
-export default function page() {
+export default function Page() {
   return (
     <section className="mx-auto mt-4 max-w-8xl sm:mt-12">
       {/* Hero Section */}
@@ -49,7 +49,7 @@ export default function page() {
           <div className="sm:w-4/5 md:w-3/5 lg:w-2/5">
             <span className="mb-6 flex w-fit items-center gap-2 rounded-full bg-[#e9ffe5] px-4 py-2 font-spaceGrotesk text-sm font-semibold text-[#1bcc00]">
               <Image
-                src="/assets/pilla-invest/pilla-invest-icon.svg"
+                src="/assets/root/pilla-invest/pilla-invest-icon.svg"
                 alt="Pilla Savings"
                 width={20}
                 height={20}
@@ -78,7 +78,7 @@ export default function page() {
           <div className="rounded-t-3xl bg-[#e9ffe5] px-20 pt-16 md:w-4/5 lg:w-1/2 xl:w-2/5">
             <div className="relative">
               <Image
-                src="/assets/pilla-invest/invest-half-phone.png"
+                src="/assets/root/pilla-invest/invest-half-phone.png"
                 alt="Pilla Savings App"
                 width={350}
                 height={550}
@@ -93,7 +93,7 @@ export default function page() {
       <div className="px-6 sm:px-10 lg:px-12">
         <div className="relative mb-6 mt-20 h-[30vh] sm:h-[40vh] md:mb-8 md:h-[50vh]">
           <Image
-            src="/assets/pilla-invest/capital-growth-banner.png"
+            src="/assets/root/pilla-invest/capital-growth-banner.png"
             alt="about-banner"
             fill
             className="rounded-xl object-cover object-center sm:object-cover md:object-top"
@@ -137,7 +137,7 @@ export default function page() {
         <div className="flex items-start space-x-5 bg-[#e5fff7] p-4 md:rounded-lg">
           <div className="mt-2 scale-150 md:mt-1 md:scale-100">
             <Image
-              src="/assets/pilla-invest/invest-caution.svg"
+              src="/assets/root/pilla-invest/invest-caution.svg"
               alt="Warning"
               width={40}
               height={40}

@@ -7,28 +7,28 @@ export const metadata = {
 
 const requiredDocuments = [
   {
-    icon: '/assets/pilla-construction-finance/company-registration-icon.svg',
+    icon: '/assets/root/pilla-construction-finance/company-registration-icon.svg',
     text: 'Company CAC registration document and Board Resolution',
   },
   {
-    icon: '/assets/pilla-construction-finance/signatories-icon.svg',
+    icon: '/assets/root/pilla-construction-finance/signatories-icon.svg',
     text: 'Details of account signatories ID cards, TIN, BVN and passport photographs',
   },
   {
-    icon: '/assets/pilla-construction-finance/building-plan-icon.svg',
+    icon: '/assets/root/pilla-construction-finance/building-plan-icon.svg',
     text: 'Building plan and Building permit',
   },
   {
-    icon: '/assets/pilla-construction-finance/bank-statement-icon.svg',
+    icon: '/assets/root/pilla-construction-finance/bank-statement-icon.svg',
     text: 'Bank statement (one year)',
   },
   {
-    icon: '/assets/pilla-construction-finance/liability-icon.svg',
+    icon: '/assets/root/pilla-construction-finance/liability-icon.svg',
     text: 'Asset and liability statement (two years)',
   },
 ];
 
-export default function page() {
+export default function Page() {
   return (
     <section className="mx-auto mt-4 max-w-8xl sm:mt-12">
       {/* Hero Section */}
@@ -37,7 +37,7 @@ export default function page() {
           <div className="sm:w-4/5 md:w-3/5 lg:w-2/5">
             <span className="mb-6 flex w-fit items-center gap-2 rounded-full bg-[#fffee5] px-4 py-2 font-spaceGrotesk text-sm font-semibold">
               <Image
-                src="/assets/pilla-construction-finance/pilla-construction-finance-icon.svg"
+                src="/assets/root/pilla-construction-finance/pilla-construction-finance-icon.svg"
                 alt="Pilla Savings"
                 width={20}
                 height={20}
@@ -65,7 +65,7 @@ export default function page() {
           <div className="rounded-t-3xl bg-[#fffee5] py-12 pl-16">
             <div className="relative">
               <Image
-                src="/assets/pilla-construction-finance/construction-finance-tablet.png"
+                src="/assets/root/pilla-construction-finance/construction-finance-tablet.png"
                 alt="Pilla Savings App"
                 width={500}
                 height={600}
@@ -83,7 +83,7 @@ export default function page() {
           <div className="rounded-3xl">
             <div className="mx-auto w-full sm:w-[85%] md:mx-0 md:w-full lg:w-[85%]">
               <Image
-                src="/assets/pilla-construction-finance/details-half-phone.png"
+                src="/assets/root/pilla-construction-finance/details-half-phone.png"
                 alt="details-half-phone"
                 width={400}
                 height={400}
@@ -172,7 +172,7 @@ export default function page() {
           </div>
           <div className="flex justify-end md:w-1/2">
             <Image
-              src="/assets/pilla-construction-finance/construction-worker.png"
+              src="/assets/root/pilla-construction-finance/construction-worker.png"
               alt="Happy customers discussing documents"
               width={550}
               height={350}

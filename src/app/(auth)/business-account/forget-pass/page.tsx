@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 
-import FillEmail from '@/components/view/user/auth/forget-pass/FillEmail';
-import VerifyEmail from '@/components/view/user/auth/sign-up/VerifyEmail';
-import ResetPasswordBusiness from '@/components/view/user/auth/forget-pass/ResetPasswordBusiness';
+import FillEmail from '@/components/view/auth/forget-pass/FillEmail';
+import VerifyEmail from '@/components/view/auth/sign-up/VerifyEmail';
+import ResetPasswordBusiness from '@/components/view/auth/forget-pass/ResetPasswordBusiness';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 
 export default function Page() {

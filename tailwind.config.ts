@@ -3,7 +3,7 @@ import type { Config } from 'tailwindcss';
 const config = {
   darkMode: ['class'],
   content: [
-    './pages/**/*.{ts,tsx}',
+    './Pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
@@ -13,8 +13,11 @@ const config = {
       colors: {
         primary: {
           100: '#fff0e5',
+          400: '#ffa666',
           500: '#FF6900',
           600: '#ea580c',
+          800: '#ff334b',
+          950: '#1a1a1a',
         },
       },
       maxWidth: {

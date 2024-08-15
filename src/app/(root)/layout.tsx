@@ -1,5 +1,5 @@
-import Footer from '@/components/view/shared/footer/Footer';
-import Navbar from '@/components/view/shared/navbars/navbar/Navbar';
+import Footer from '@/components/view/root/shared/Footer';
+import Navbar from '@/components/view/root/shared/navbar/Navbar';
 import { TChildrenProps } from '@/types';
 
 export default function Layout({ children }: TChildrenProps) {

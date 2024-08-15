@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Pay',
 };
 
-export default function page() {
+export default function Page() {
   return (
     <section className="mx-auto mt-4 max-w-8xl sm:mt-12">
       {/* Hero Section */}
@@ -14,7 +14,7 @@ export default function page() {
           <div className="sm:w-4/5 md:w-3/5 lg:w-2/5">
             <span className="mb-6 flex w-fit items-center gap-2 rounded-full bg-[#e5fff7] px-4 py-2 font-spaceGrotesk text-sm font-semibold text-[#007a53]">
               <Image
-                src="/assets/pilla-pay/pilla-pay-icon.svg"
+                src="/assets/root/pilla-pay/pilla-pay-icon.svg"
                 alt="Pilla Savings"
                 width={20}
                 height={20}
@@ -44,7 +44,7 @@ export default function page() {
           <div className="rounded-t-3xl py-12">
             <div className="relative">
               <Image
-                src="/assets/pilla-pay/hero-tablet.png"
+                src="/assets/root/pilla-pay/hero-tablet.png"
                 alt="Pilla Savings App"
                 width={500}
                 height={600}
@@ -62,7 +62,7 @@ export default function page() {
           <div className="mt-12 rounded-t-3xl md:mt-0">
             <div className="relative mx-auto w-full sm:w-[90%] md:w-full">
               <Image
-                src="/assets/pilla-pay/feature-tablet.png"
+                src="/assets/root/pilla-pay/feature-tablet.png"
                 alt="Pilla Savings App"
                 width={650}
                 height={650}

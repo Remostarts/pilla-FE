@@ -7,24 +7,24 @@ export const metadata = {
 
 const requiredDocuments = [
   {
-    icon: '/assets/pilla-rent-finance/license-icon.svg',
+    icon: '/assets/root/pilla-rent-finance/license-icon.svg',
     text: "Valid means of identification (National ID card, Driver's Licence, international passport, voter's card) and passport photograph.",
   },
   {
-    icon: '/assets/pilla-rent-finance/employment-id-icon.svg',
+    icon: '/assets/root/pilla-rent-finance/employment-id-icon.svg',
     text: 'Employment ID card and Employment letter.',
   },
   {
-    icon: '/assets/pilla-rent-finance/bill-icon.svg',
+    icon: '/assets/root/pilla-rent-finance/bill-icon.svg',
     text: 'Utility bill, not more than 3 months old.',
   },
   {
-    icon: '/assets/pilla-rent-finance/bank-statement.svg',
+    icon: '/assets/root/pilla-rent-finance/bank-statement.svg',
     text: 'Up-to-date bank statements of not less than 6 months',
   },
 ];
 
-export default function page() {
+export default function Page() {
   return (
     <section className="mx-auto mt-4 max-w-8xl sm:mt-12">
       {/* Hero Section */}
@@ -33,7 +33,7 @@ export default function page() {
           <div className="sm:w-4/5 md:w-3/5 lg:w-2/5">
             <span className="mb-6 flex w-fit items-center gap-2 rounded-full bg-[#e6e6fe] px-4 py-2 font-spaceGrotesk text-sm font-semibold text-[#3b37fb]">
               <Image
-                src="/assets/pilla-rent-finance/pilla-rent-finance-icon.svg"
+                src="/assets/root/pilla-rent-finance/pilla-rent-finance-icon.svg"
                 alt="Pilla Savings"
                 width={20}
                 height={20}
@@ -63,7 +63,7 @@ export default function page() {
           <div className="rounded-t-3xl bg-[#e6e6fe] px-20 pt-16 md:w-4/5 lg:w-1/2 xl:w-2/5">
             <div className="relative">
               <Image
-                src="/assets/pilla-rent-finance/rent-finance-half-phone.png"
+                src="/assets/root/pilla-rent-finance/rent-finance-half-phone.png"
                 alt="Pilla Savings App"
                 width={350}
                 height={550}
@@ -81,7 +81,7 @@ export default function page() {
           <div className="rounded-3xl">
             <div className="mx-auto w-full sm:w-[85%] md:mx-0 md:w-full lg:w-[85%]">
               <Image
-                src="/assets/pilla-rent-finance/details-half-phone.png"
+                src="/assets/root/pilla-rent-finance/details-half-phone.png"
                 alt="details-half-phone"
                 width={400}
                 height={400}
@@ -160,7 +160,7 @@ export default function page() {
           </div>
           <div className="flex justify-end md:w-1/2">
             <Image
-              src="/assets/pilla-rent-finance/happy-customers.png"
+              src="/assets/root/pilla-rent-finance/happy-customers.png"
               alt="Happy customers discussing documents"
               width={550}
               height={350}
