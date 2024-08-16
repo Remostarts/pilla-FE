@@ -25,7 +25,7 @@ export default function BvnVerification({ setIsDone }: BvnVerificationProps) {
         <ReSelect
           name="gender"
           label="Gender"
-          placeholder="Select Gender"
+          placeholder="Select"
           options={[
             { value: 'male', label: 'Male' },
             { value: 'female', label: 'Female' },
@@ -38,7 +38,7 @@ export default function BvnVerification({ setIsDone }: BvnVerificationProps) {
 
       <div className="mt-12">
         <ReButton size="lg" onClick={() => setIsDone(true)}>
-          Verify
+          Submit
         </ReButton>
       </div>
     </>

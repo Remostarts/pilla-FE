@@ -1,5 +1,7 @@
 import Header from '@/components/view/dashboard/personal-dashboard/Header';
 import SideNav from '@/components/view/dashboard/personal-dashboard/SideNav';
+import { Sidebar } from '@/components/view/dashboard/shared/SideBar';
+import { PaymentSummaryProvider } from '@/context/PaymentSummaryProvider';
 import { TChildrenProps } from '@/types';
 
 export default function Layout({ children }: TChildrenProps) {
@@ -8,7 +10,11 @@ export default function Layout({ children }: TChildrenProps) {
       <Header />
       <SideNav />
 
-      <main className="bg-[#f2f2f2] p-10">{children}</main>
+      <main className="bg-[#f2f2f2] p-10">
+        <PaymentSummaryProvider>
+          <Sidebar>{children}</Sidebar>
+        </PaymentSummaryProvider>
+      </main>
     </div>
   );
 }

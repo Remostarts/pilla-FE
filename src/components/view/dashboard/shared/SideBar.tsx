@@ -1,39 +1,37 @@
 'use client';
 
+import React, { createContext, useState, useContext, cloneElement } from 'react';
 import Image from 'next/image';
-import React, { cloneElement, createContext, useContext, useState } from 'react';
 
 import { OpenProps, SidebarContextType, SidebarProps, WindowProps } from '@/types/sidebar.type';
 
+// Context
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
-// Compound Sidebar Component
+// Main Sidebar Component
 function Sidebar({ children }: SidebarProps) {
-  const [openName, setOpenName] = useState('');
+  const [openNames, setOpenNames] = useState<string[]>([]);
 
-  const close = () => setOpenName('');
-  const open = setOpenName;
+  const open = (name: string) => setOpenNames((prev) => [...prev, name]);
+  const close = (name: string) => setOpenNames((prev) => prev.filter((n) => n !== name));
 
   return (
-    <SidebarContext.Provider
-      value={{
-        openName,
-        close,
-        open,
-      }}
-    >
-      {children}
-    </SidebarContext.Provider>
+    <SidebarContext.Provider value={{ openNames, open, close }}>{children}</SidebarContext.Provider>
   );
 }
 
-// Open Function
-function Open({ children, opens: opensWindowName }: OpenProps) {
+// Custom Hook to use context
+function useSidebar() {
   const context = useContext(SidebarContext);
-  if (!context) {
-    throw new Error('Open must be used within a Sidebar');
+  if (context === undefined) {
+    throw new Error('useSidebar must be used within a SidebarProvider');
   }
-  const { open } = context;
+  return context;
+}
+
+// Sidebar Open Component
+function Open({ children, opens: opensWindowName }: OpenProps) {
+  const { open } = useSidebar();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     if (children.props.onClick) {
@@ -47,21 +45,19 @@ function Open({ children, opens: opensWindowName }: OpenProps) {
   });
 }
 
-// Window Component to render inside the sidebar
+// Sidebar Window Component
 function Window({ children, name }: WindowProps) {
-  const context = useContext(SidebarContext);
-  if (!context) {
-    throw new Error('Window must be used within a Sidebar');
-  }
-  const { openName, close } = context;
+  const { openNames, close } = useSidebar();
 
-  if (name !== openName) return null;
+  if (!openNames.includes(name)) return null;
+
+  const isFirstOpen = openNames[0] === name;
 
   return (
     <aside className="fixed inset-0 flex justify-end">
-      <div className="grow bg-slate-800 opacity-50"></div>
+      {isFirstOpen && <div className="grow bg-slate-800 opacity-50"></div>}
       <div className="w-[30rem] overflow-y-auto bg-white px-6 py-8 xl:w-[32rem]">
-        <button className="absolute right-6 top-10" onClick={close}>
+        <button className="absolute right-6 top-10" onClick={() => close(name)}>
           <Image
             src="/assets/personal-dashboard/shared/close-icon.svg"
             alt="close-icon"
@@ -75,7 +71,8 @@ function Window({ children, name }: WindowProps) {
   );
 }
 
+// Assigning sub-components as Property
 Sidebar.Open = Open;
 Sidebar.Window = Window;
 
-export default Sidebar;
+export { Sidebar, useSidebar };

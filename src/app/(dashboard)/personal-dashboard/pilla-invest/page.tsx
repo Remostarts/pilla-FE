@@ -17,7 +17,7 @@ export default function Page() {
         <DashboardCard
           cardHead="28 % Anually"
           cardSubHead="Earn ROI of up to"
-          Img="/assets/personal-dashboard/money-growth-img.png"
+          Img="/assets/personal-dashboard/pilla-invest/money-growth-img.png"
         />
       </div>
 

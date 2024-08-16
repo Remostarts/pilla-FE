@@ -1,8 +1,8 @@
 import { ReactElement, ReactNode } from 'react';
 
 export type SidebarContextType = {
-  openName: string;
-  close: () => void;
+  openNames: string[];
+  close: (name: string) => void;
   open: (name: string) => void;
 };
 

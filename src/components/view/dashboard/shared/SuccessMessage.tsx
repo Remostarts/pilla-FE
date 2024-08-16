@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ReactNode } from 'react';
 
 import { Heading } from './Heading';
 import SubHeading from './SubHeading';
@@ -10,6 +11,7 @@ interface SucessMessageProp {
   subHeading: string;
   btnName: string;
   btnOnClick: () => void;
+  children?: ReactNode;
 }
 
 export default function SuccessMessage({
@@ -17,6 +19,7 @@ export default function SuccessMessage({
   subHeading,
   btnName,
   btnOnClick,
+  children,
 }: SucessMessageProp) {
   return (
     <div className="flex flex-col items-center gap-8">
@@ -33,7 +36,13 @@ export default function SuccessMessage({
         <SubHeading subHeading={subHeading} />
       </div>
 
-      <ReButton size="lg" onClick={btnOnClick}>
+      {children}
+
+      <ReButton
+        size="lg"
+        className="w-full bg-primary-950 font-spaceGrotesk text-lg text-white hover:bg-primary-950"
+        onClick={btnOnClick}
+      >
         {btnName}
       </ReButton>
     </div>

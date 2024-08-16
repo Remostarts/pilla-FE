@@ -23,7 +23,7 @@ export default function ProofOfAddress({ setIsDone }: ProofOfAddressProps) {
       <div className="mt-6 space-y-5">
         <ReInput label="Address" placeholder="Enter your Address" name="address" />
 
-        <ReSelect name="state" label="State" placeholder="Select state" options={nigeriaState} />
+        <ReSelect name="state" label="State" placeholder="Select" options={nigeriaState} />
 
         <div className="flex justify-between gap-6">
           <div className="w-1/2">
@@ -46,7 +46,7 @@ export default function ProofOfAddress({ setIsDone }: ProofOfAddressProps) {
         <ReSelect
           name="docType"
           label="Document Type"
-          placeholder="Select a Document Type"
+          placeholder="Select"
           options={[
             { value: 'electricityBill', label: 'Electricity Bill' },
             { value: 'waterBill', label: 'Water Bill' },

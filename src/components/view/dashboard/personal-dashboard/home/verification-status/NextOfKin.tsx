@@ -31,7 +31,7 @@ export default function NextOfKin({ setIsDone }: NextOfKinProps) {
           <ReSelect
             name="gender"
             label="Gender"
-            placeholder="Select Gender"
+            placeholder="Select"
             options={[
               { value: 'male', label: 'Male' },
               { value: 'female', label: 'Female' },
@@ -59,7 +59,7 @@ export default function NextOfKin({ setIsDone }: NextOfKinProps) {
         <div className="mt-4 space-y-5">
           <ReInput label="Address" placeholder="Enter your Address" name="address" />
 
-          <ReSelect name="state" label="State" placeholder="Select state" options={nigeriaState} />
+          <ReSelect name="state" label="State" placeholder="Select" options={nigeriaState} />
 
           <div className="flex justify-between gap-6">
             <div className="w-1/2">

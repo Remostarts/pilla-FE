@@ -15,7 +15,7 @@ export default function Page() {
         <h2 className=" font-spaceGrotesk text-2xl font-bold lg:text-3xl">Personal Account</h2>
 
         <button
-          className="font-inter text-sm text-primary-600 lg:underline"
+          className="font-inter text-sm text-primary-600 underline xl:text-base"
           onClick={() => router.push('/business-account/sign-in')}
         >
           Switch to Business account
@@ -23,7 +23,7 @@ export default function Page() {
       </div>
 
       <div className="rounded-xl border px-8 py-12">
-        <h2 className="mb-4 font-spaceGrotesk text-xl font-bold lg:text-2xl">Sign in</h2>
+        <h2 className="mb-6 font-spaceGrotesk text-xl font-bold lg:text-2xl">Sign in</h2>
         <form>
           <div className="mb-6">
             <Input
@@ -33,7 +33,7 @@ export default function Page() {
               className="px-4 py-7 font-inter"
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <Input
               name="password"
               type="text"
@@ -43,7 +43,7 @@ export default function Page() {
           </div>
           <Link
             href="/personal-account/forget-pass?step=1"
-            className="mb-8 mt-4 flex justify-end font-inter text-sm text-gray-600"
+            className="mb-10 flex justify-end font-inter text-sm text-gray-600"
           >
             Forgot your password?
           </Link>

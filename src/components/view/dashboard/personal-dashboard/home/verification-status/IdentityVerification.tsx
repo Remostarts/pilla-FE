@@ -28,7 +28,7 @@ export default function IdentityVerification({ setIsDone }: IdentityVerification
         <ReSelect
           name="docType"
           label="Select ID"
-          placeholder="Select Doc Type"
+          placeholder="Select"
           options={[
             { value: 'voter-card', label: "Voter's card" },
             { value: 'driver-license', label: 'Driver License' },
