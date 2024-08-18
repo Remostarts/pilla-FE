@@ -1,6 +1,6 @@
 import { Heading } from './Heading';
 import SubHeading from './SubHeading';
-import { Sidebar, useSidebar } from './SideBar';
+import { useSidebar } from './SideBar';
 
 import ReOtp from '@/components/re-ui/ReOtp';
 import { ReButton } from '@/components/re-ui/ReButton';
@@ -15,11 +15,14 @@ interface PinPropType {
 
 export default function Pin({ heading, subHeading, btnName, opens, closes }: PinPropType) {
   // Use Sidebar Context
-  const { close } = useSidebar();
+  const { close, open } = useSidebar();
 
-  const handleVerify = () => {
+  const handleBtnClick = () => {
     if (closes) {
       close(closes);
+    }
+    if (opens) {
+      open(opens);
     }
   };
 
@@ -37,11 +40,9 @@ export default function Pin({ heading, subHeading, btnName, opens, closes }: Pin
 
       {/* Btn */}
       <div className="mt-16">
-        <Sidebar.Open opens={opens ?? ''}>
-          <ReButton size="lg" onClick={handleVerify}>
-            {btnName}
-          </ReButton>
-        </Sidebar.Open>
+        <ReButton size="lg" onClick={handleBtnClick}>
+          {btnName}
+        </ReButton>
       </div>
     </div>
   );

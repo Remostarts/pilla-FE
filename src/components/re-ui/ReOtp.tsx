@@ -78,7 +78,7 @@ export default function ReOtp({ count = 6, onChange }: ReOtpProps) {
           inputMode="numeric"
           pattern="\d*"
           maxLength={1}
-          className="h-10 w-8 rounded-md border border-gray-300 text-center text-lg transition-all duration-200 focus:border-primary-500 focus:outline-none sm:size-12 sm:text-xl md:size-14 md:text-2xl"
+          className="h-10 w-8 rounded-md border border-gray-300 text-center font-spaceGrotesk text-lg transition-all duration-200 focus:border-primary-500 focus:outline-none sm:size-12 sm:text-xl md:size-14"
           value={digit}
           onChange={(e) => handleInputChange(e, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}

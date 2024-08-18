@@ -1,19 +1,22 @@
-import { Dispatch, SetStateAction } from 'react';
-
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
+import { useSidebar } from '../../../shared/SideBar';
 
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReButton } from '@/components/re-ui/ReButton';
+import { BVN_VERIFICATION_WINDOW, VERIFICATION_SUCCESS_WINDOW } from '@/constants/homeData';
 
-interface BvnVerificationProps {
-  setIsDone: Dispatch<SetStateAction<boolean>>;
-}
+export default function BvnVerification() {
+  const { open, close } = useSidebar();
 
-export default function BvnVerification({ setIsDone }: BvnVerificationProps) {
+  const handleSubmit = () => {
+    close(BVN_VERIFICATION_WINDOW);
+    open(VERIFICATION_SUCCESS_WINDOW);
+  };
+
   return (
-    <>
+    <div className="p-4">
       <div>
         <Heading heading="BVN Verification" size="2xl" />
         <SubHeading subHeading="Enter BVN to complete BVN verification" />
@@ -37,10 +40,10 @@ export default function BvnVerification({ setIsDone }: BvnVerificationProps) {
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg" onClick={() => setIsDone(true)}>
+        <ReButton size="lg" onClick={handleSubmit}>
           Submit
         </ReButton>
       </div>
-    </>
+    </div>
   );
 }

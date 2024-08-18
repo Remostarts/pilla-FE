@@ -1,20 +1,23 @@
-import { Dispatch, SetStateAction } from 'react';
-
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
+import { useSidebar } from '../../../shared/SideBar';
 
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReButton } from '@/components/re-ui/ReButton';
 import { nigeriaState } from '@/lib/data/nigeriaStates';
+import { NEXT_OF_KIN_SUCCESS_WINDOW, NEXT_OF_KIN_WINDOW } from '@/constants/homeData';
 
-interface NextOfKinProps {
-  setIsDone: Dispatch<SetStateAction<boolean>>;
-}
+export default function NextOfKin() {
+  const { open, close } = useSidebar();
 
-export default function NextOfKin({ setIsDone }: NextOfKinProps) {
+  const handleSubmit = () => {
+    close(NEXT_OF_KIN_WINDOW);
+    open(NEXT_OF_KIN_SUCCESS_WINDOW);
+  };
+
   return (
-    <>
+    <div className="p-4">
       <div>
         <Heading heading="Next of Kin" size="2xl" />
         <SubHeading subHeading="Enter your next of kin information" />
@@ -82,10 +85,10 @@ export default function NextOfKin({ setIsDone }: NextOfKinProps) {
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg" onClick={() => setIsDone(true)}>
+        <ReButton size="lg" onClick={handleSubmit}>
           Submit
         </ReButton>
       </div>
-    </>
+    </div>
   );
 }

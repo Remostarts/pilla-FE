@@ -1,64 +1,61 @@
+import ArrowedActionButton from '../../../shared/ArrowedActionBtn';
 import { Heading } from '../../../shared/Heading';
-import { Sidebar } from '../../../shared/SideBar';
-import SubHeading from '../../../shared/SubHeading';
-import PaymentSummary from '../../../shared/summary/PaymentSummary';
 import Pin from '../../../shared/Pin';
+import { Sidebar } from '../../../shared/SideBar';
 import { SuccessMessage } from '../../../shared/SuccessMessage';
+import PaymentSummary from '../../../shared/summary/PaymentSummary';
 
-import ReInput from '@/components/re-ui/re-input/ReInput';
-import { ReButton } from '@/components/re-ui/ReButton';
+import BankTransfer from './BankTransfer';
+import PillaTransfer from './PillaTransfer';
+
+import { formatNumber } from '@/helpers/utils/formatNumber';
 import {
-  PAY_RENT_SERVICE_CHARGE,
   PAYMENT_SUMMARY_WINDOW,
+  TO_BANK_ACCOUNT_WINDOW,
+  TO_PILLA_ACCOUNT_WINDOW,
   TRANSACTION_PIN_WINDOW,
   TRANSACTION_RECEIPT_WINDOW,
 } from '@/constants/homeData';
-import { formatNumber } from '@/helpers/utils/formatNumber';
-import { usePaymentSummaryAction } from '@/hooks/useSummaryAction';
 import { usePaymentSummary } from '@/context/PaymentSummaryProvider';
 
-export default function PayRent() {
-  const { paymentSummary } = usePaymentSummary();
-  const { handlePaymentSummary } = usePaymentSummaryAction();
+const sendMoneyBtnData = [
+  {
+    id: 1,
+    name: 'To Pilla Account',
+    window: 'to-pilla-account-window',
+  },
+  {
+    id: 2,
+    name: 'To Other Bank Account',
+    window: 'to-other-bank-account-window',
+  },
+];
 
-  const handleContinueClick = () => {
-    handlePaymentSummary(2100, PAY_RENT_SERVICE_CHARGE);
-  };
+export default function SendMoneyHome() {
+  const { paymentSummary } = usePaymentSummary();
 
   return (
     <div className="p-4">
-      <div>
-        <Heading heading="Pay Rent" size="2xl" />
-        <SubHeading subHeading="Effortlessly Pay Rent to your Landlord on Pilla" />
+      <Heading heading="Send Money" size="2xl" />
+
+      <div className="mt-10 space-y-4">
+        {/* Side Open Functionality */}
+        {sendMoneyBtnData.map((data) => (
+          <Sidebar.Open key={data.id} opens={data.window}>
+            <ArrowedActionButton btnName={data.name} />
+          </Sidebar.Open>
+        ))}
       </div>
 
-      {/* Profile Details */}
-      <div className="mt-6">
-        <Heading heading="Select Beneficiary" size="lg" />
-        <div className="mt-4 space-y-5">
-          <ReInput
-            label="Pilla Account Number"
-            placeholder="Enter Account Number"
-            name="pillaAccountNumber"
-          />
+      {/* To Pilla Account Window */}
+      <Sidebar.Window name={TO_PILLA_ACCOUNT_WINDOW}>
+        <PillaTransfer />
+      </Sidebar.Window>
 
-          <ReInput
-            label="Beneficiary Name"
-            placeholder="Enter Beneficiary Name"
-            name="beneficiaryName"
-          />
-
-          <ReInput label="Enter Amount" name="amount" placeholder="0.00" />
-
-          <ReInput label="Narration" name="narration" placeholder="Enter Narration" />
-        </div>
-      </div>
-
-      <div className="mt-12">
-        <ReButton size="lg" onClick={handleContinueClick}>
-          Continue
-        </ReButton>
-      </div>
+      {/* To Other Bank Account Window */}
+      <Sidebar.Window name={TO_BANK_ACCOUNT_WINDOW}>
+        <BankTransfer />
+      </Sidebar.Window>
 
       {/* Transfer Payment Summary Window */}
       <Sidebar.Window name={PAYMENT_SUMMARY_WINDOW}>
@@ -85,7 +82,7 @@ export default function PayRent() {
         <SuccessMessage>
           <SuccessMessage.Title>Transaction Reciept</SuccessMessage.Title>
           <SuccessMessage.Content>
-            <SuccessMessage.Description>Rent Pay Successful</SuccessMessage.Description>
+            <SuccessMessage.Description>Money Sent Successful</SuccessMessage.Description>
           </SuccessMessage.Content>
           <SuccessMessage.AmountAndDate amount={formatNumber(paymentSummary?.finalAmount)} />
           <SuccessMessage.ActionButton onClick={() => console.log('share reciept')}>

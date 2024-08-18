@@ -1,13 +1,13 @@
 export type ActionsBtnDataType = {
   id: number;
-  action: string;
+  window: string;
   actionName: string;
   actionImg: string;
 };
 
 export type ActionsNeededDataType = {
   id: number;
-  actionLabel: string;
+  window: string;
   actionName: string;
 };
 

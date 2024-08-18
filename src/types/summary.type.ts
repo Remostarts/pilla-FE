@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type PaymentContextType = {
+export type SummaryContextType = {
   selectedMethod: string;
   setSelectedMethod: (method: string) => void;
   agreementChecked: boolean;
@@ -8,9 +8,10 @@ export type PaymentContextType = {
   hasAgreement: boolean;
 };
 
-export type PaymentProps = {
+export type SummaryProps = {
   children: ReactNode;
   hasAgreement?: boolean;
+  className?: string;
 };
 
 export type MethodProps = {
@@ -21,11 +22,16 @@ export type MethodProps = {
   onChangeClick?: () => void;
 };
 
+// Payment Summary types
 export type PaymentSummaryProps = {
   amount: number;
+  serviceCharge: number;
+  finalAmount: number;
 };
 
 export type PaymentSummaryContextType = {
   paymentSummary: PaymentSummaryProps | null;
-  openPaymentSummary: (props: PaymentSummaryProps) => void;
+  setPaymentSummaryData: (props: PaymentSummaryProps) => void;
 };
+
+// More Summary types

@@ -1,9 +1,18 @@
 import { Heading } from '../../../shared/Heading';
+import { useSidebar } from '../../../shared/SideBar';
 
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReButton } from '@/components/re-ui/ReButton';
+import { ADD_CARD_WINDOW, ADD_MONEY_WINDOW } from '@/constants/homeData';
 
 export default function AddCard() {
+  const { open, close } = useSidebar();
+
+  const handleSaveCard = () => {
+    close(ADD_CARD_WINDOW);
+    open(ADD_MONEY_WINDOW);
+  };
+
   return (
     <div className="p-4">
       <div>
@@ -28,14 +37,16 @@ export default function AddCard() {
             </div>
 
             <div className="w-1/2">
-              <ReInput label="CVV" name="cvv" />
+              <ReInput label="CVV" name="cvv" placeholder="000" />
             </div>
           </div>
         </div>
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg">Save Card</ReButton>
+        <ReButton size="lg" onClick={handleSaveCard}>
+          Save Card
+        </ReButton>
       </div>
     </div>
   );

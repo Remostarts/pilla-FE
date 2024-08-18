@@ -1,20 +1,23 @@
-import { Dispatch, SetStateAction } from 'react';
-
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
+import { useSidebar } from '../../../shared/SideBar';
 
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReButton } from '@/components/re-ui/ReButton';
 import { nigeriaState } from '@/lib/data/nigeriaStates';
+import { PROOF_OF_ADDRESS_WINDOW, VERIFICATION_SUCCESS_WINDOW } from '@/constants/homeData';
 
-interface ProofOfAddressProps {
-  setIsDone: Dispatch<SetStateAction<boolean>>;
-}
+export default function ProofOfAddress() {
+  const { open, close } = useSidebar();
 
-export default function ProofOfAddress({ setIsDone }: ProofOfAddressProps) {
+  const handleSubmit = () => {
+    close(PROOF_OF_ADDRESS_WINDOW);
+    open(VERIFICATION_SUCCESS_WINDOW);
+  };
+
   return (
-    <>
+    <div className="p-4">
       <div>
         <Heading heading="Proof of Address" size="2xl" />
         <SubHeading subHeading="We would like to confirm your address with a valid utility bill within the last 3 months" />
@@ -59,10 +62,10 @@ export default function ProofOfAddress({ setIsDone }: ProofOfAddressProps) {
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg" onClick={() => setIsDone(true)}>
+        <ReButton size="lg" onClick={handleSubmit}>
           Submit
         </ReButton>
       </div>
-    </>
+    </div>
   );
 }

@@ -3,8 +3,17 @@ import { Heading } from '../../../shared/Heading';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
 import { ReButton } from '@/components/re-ui/ReButton';
+import { usePaymentSummaryAction } from '@/hooks/useSummaryAction';
+import { UTILITY_CABLE_WINDOW, UTILITY_SERVICE_CHARGE } from '@/constants/homeData';
 
 export default function Cable() {
+  const { handlePaymentSummary } = usePaymentSummaryAction();
+
+  // Sets a amount and closes itself
+  const handleProceedClick = () => {
+    handlePaymentSummary(2100, UTILITY_SERVICE_CHARGE, UTILITY_CABLE_WINDOW);
+  };
+
   return (
     <div className="p-4">
       <Heading heading="Cable TV" size="2xl" img="/assets/personal-dashboard/home/cable-icon.svg" />
@@ -38,7 +47,9 @@ export default function Cable() {
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg">Proceed</ReButton>
+        <ReButton size="lg" onClick={handleProceedClick}>
+          Proceed
+        </ReButton>
       </div>
     </div>
   );

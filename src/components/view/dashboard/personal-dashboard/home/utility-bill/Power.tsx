@@ -1,26 +1,17 @@
 import { Heading } from '../../../shared/Heading';
-import { Sidebar, useSidebar } from '../../../shared/SideBar';
 
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
 import { ReButton } from '@/components/re-ui/ReButton';
-import { PaymentSummaryProps } from '@/types/payment.type';
-import { usePaymentSummary } from '@/context/PaymentSummaryProvider';
+import { usePaymentSummaryAction } from '@/hooks/useSummaryAction';
+import { UTILITY_POWER_WINDOW, UTILITY_SERVICE_CHARGE } from '@/constants/homeData';
 
 export default function Power() {
-  // Use Sidebar Context
-  const { close } = useSidebar();
+  const { handlePaymentSummary } = usePaymentSummaryAction();
 
-  // Use Payment Summary Context
-  const { openPaymentSummary } = usePaymentSummary();
-
-  // Proceed Btn Handler
+  // Sets a amount and closes itself
   const handleProceedClick = () => {
-    const paymentData: PaymentSummaryProps = {
-      amount: 2400,
-    };
-    openPaymentSummary(paymentData);
-    close('utility-power');
+    handlePaymentSummary(2100, UTILITY_SERVICE_CHARGE, UTILITY_POWER_WINDOW);
   };
 
   return (
@@ -53,12 +44,9 @@ export default function Power() {
       </div>
 
       <div className="mt-12">
-        {/* Open Payment Summary Sidebar + handle Proceed */}
-        <Sidebar.Open opens="payment-summary">
-          <ReButton size="lg" onClick={handleProceedClick}>
-            Proceed
-          </ReButton>
-        </Sidebar.Open>
+        <ReButton size="lg" onClick={handleProceedClick}>
+          Proceed
+        </ReButton>
       </div>
     </div>
   );

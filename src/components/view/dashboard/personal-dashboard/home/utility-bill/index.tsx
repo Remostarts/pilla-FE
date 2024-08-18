@@ -1,13 +1,11 @@
 'use client';
 
-import Image from 'next/image';
-import { ChevronRight } from 'lucide-react';
-
 import { Heading } from '../../../shared/Heading';
-import { Sidebar, useSidebar } from '../../../shared/SideBar';
-import PaymentSummary from '../../../shared/payment/PaymentSummary';
+import { Sidebar } from '../../../shared/SideBar';
 import Pin from '../../../shared/Pin';
-import SuccessMessage from '../../../shared/SuccessMessage';
+import { SuccessMessage } from '../../../shared/SuccessMessage';
+import ArrowedActionButton from '../../../shared/ArrowedActionBtn';
+import PaymentSummary from '../../../shared/summary/PaymentSummary';
 
 import Power from './Power';
 import Airtime from './Airtime';
@@ -16,60 +14,73 @@ import Cable from './Cable';
 import Water from './Water';
 import Waste from './Waste';
 
-const verificationBtnData = [
+import {
+  PAYMENT_SUMMARY_WINDOW,
+  TRANSACTION_PIN_WINDOW,
+  TRANSACTION_RECEIPT_WINDOW,
+  UTILITY_AIRTIME_WINDOW,
+  UTILITY_CABLE_WINDOW,
+  UTILITY_DATA_WINDOW,
+  UTILITY_POWER_WINDOW,
+  UTILITY_WASTE_WINDOW,
+  UTILITY_WATER_WINDOW,
+} from '@/constants/homeData';
+import { usePaymentSummary } from '@/context/PaymentSummaryProvider';
+import { formatNumber } from '@/helpers/utils/formatNumber';
+
+const utilityBtnData = [
   {
     id: 1,
-    heading: 'Power',
+    name: 'Power',
     img: '/assets/personal-dashboard/home/power-icon.svg',
-    action: 'utility-power',
+    window: 'utility-power-window',
   },
   {
     id: 2,
-    heading: 'Airtime',
+    name: 'Airtime',
     img: '/assets/personal-dashboard/home/airtime-icon.svg',
-    action: 'utility-airtime',
+    window: 'utility-airtime-window',
   },
   {
     id: 3,
-    heading: 'Data',
+    name: 'Data',
     img: '/assets/personal-dashboard/home/data-icon.svg',
-    action: 'utility-data',
+    window: 'utility-data-window',
   },
   {
     id: 4,
-    heading: 'Cable',
+    name: 'Cable',
     img: '/assets/personal-dashboard/home/cable-icon.svg',
-    action: 'utility-cable',
+    window: 'utility-cable-window',
   },
   {
     id: 5,
-    heading: 'Water',
+    name: 'Water',
     img: '/assets/personal-dashboard/home/water-icon.svg',
-    action: 'utility-water',
+    window: 'utility-water-window',
   },
   {
     id: 6,
-    heading: 'Security',
+    name: 'Security',
     img: '/assets/personal-dashboard/home/security-icon.svg',
-    action: 'utility-security',
+    window: 'utility-security-window',
   },
   {
     id: 7,
-    heading: 'Waste',
+    name: 'Waste',
     img: '/assets/personal-dashboard/home/waste-icon.svg',
-    action: 'utility-waste',
+    window: 'utility-waste-window',
   },
   {
     id: 8,
-    heading: 'Estate Charge',
+    name: 'Estate Charge',
     img: '/assets/personal-dashboard/home/estate-charge-icon.svg',
-    action: 'utility-estate-charge',
+    window: 'utility-estate-charge-window',
   },
 ];
 
 export default function UtilityBillHome() {
-  // Use Sidebar Context
-  const { close } = useSidebar();
+  const { paymentSummary } = usePaymentSummary();
 
   return (
     <div className="p-4">
@@ -80,74 +91,74 @@ export default function UtilityBillHome() {
 
       <div className="mt-4 space-y-4">
         {/* Side Open Functionality */}
-        {verificationBtnData.map((data) => (
-          <Sidebar.Open key={data.id} opens={data.action}>
-            <button className="flex w-full items-center justify-between rounded-lg border border-gray-200 px-5 py-4">
-              <div className="flex items-center gap-4">
-                <Image src={data.img} alt={data.action} width={25} height={25} />
-                <Heading heading={data.heading} size="base" />
-              </div>
-
-              <ChevronRight />
-            </button>
+        {utilityBtnData.map((data) => (
+          <Sidebar.Open key={data.id} opens={data.window}>
+            <ArrowedActionButton img={data.img} btnName={data.name} />
           </Sidebar.Open>
         ))}
       </div>
-      {/* Sidebar Window Functionality */}
+
+      {/* Sidebar Windows */}
 
       {/* Buy Power Container */}
-      <Sidebar.Window name="utility-power">
+      <Sidebar.Window name={UTILITY_POWER_WINDOW}>
         <Power />
       </Sidebar.Window>
 
       {/* Buy Airtime Container */}
-      <Sidebar.Window name="utility-airtime">
+      <Sidebar.Window name={UTILITY_AIRTIME_WINDOW}>
         <Airtime />
       </Sidebar.Window>
 
       {/* Buy Data Container */}
-      <Sidebar.Window name="utility-data">
+      <Sidebar.Window name={UTILITY_DATA_WINDOW}>
         <Data />
       </Sidebar.Window>
 
       {/* Cable TV Container */}
-      <Sidebar.Window name="utility-cable">
+      <Sidebar.Window name={UTILITY_CABLE_WINDOW}>
         <Cable />
       </Sidebar.Window>
 
       {/* Water Bill Container */}
-      <Sidebar.Window name="utility-water">
+      <Sidebar.Window name={UTILITY_WATER_WINDOW}>
         <Water />
       </Sidebar.Window>
 
       {/* Waste Bill Container */}
-      <Sidebar.Window name="utility-waste">
+      <Sidebar.Window name={UTILITY_WASTE_WINDOW}>
         <Waste />
       </Sidebar.Window>
 
       {/* Payment Summary */}
-      <Sidebar.Window name="payment-summary">
-        <PaymentSummary />
+      <Sidebar.Window name={PAYMENT_SUMMARY_WINDOW}>
+        <PaymentSummary isDestination={false} />
       </Sidebar.Window>
 
       {/* Transaction Pin */}
-      <Sidebar.Window name="transaction-pin">
+      <Sidebar.Window name={TRANSACTION_PIN_WINDOW}>
         <Pin
           heading="Enter Transaction PIN"
           subHeading="Input your 4 digit passcode to authorize this transaction"
           btnName="Verify"
-          opens="transaction-receipt" // Opens the next component
-          closes="transaction-pin" // Closes itself
+          opens={TRANSACTION_RECEIPT_WINDOW}
+          closes={TRANSACTION_PIN_WINDOW}
         />
       </Sidebar.Window>
 
-      <Sidebar.Window name="transaction-receipt">
-        <SuccessMessage
-          heading="Transaction Receipt"
-          subHeading="Bill Payment Successful"
-          btnName="Done"
-          btnOnClick={() => close('transaction-receipt')}
-        />
+      {/* Receipt + Succes Message Window */}
+      <Sidebar.Window name={TRANSACTION_RECEIPT_WINDOW}>
+        <SuccessMessage>
+          <SuccessMessage.Title>Transaction Reciept</SuccessMessage.Title>
+          <SuccessMessage.Content>
+            <SuccessMessage.Description>Bill Payment Successful</SuccessMessage.Description>
+          </SuccessMessage.Content>
+          <SuccessMessage.AmountAndDate amount={formatNumber(paymentSummary?.finalAmount)} />
+          <SuccessMessage.ActionButton onClick={() => console.log('share reciept')}>
+            Share Receipt
+          </SuccessMessage.ActionButton>
+          <SuccessMessage.Button closes={TRANSACTION_RECEIPT_WINDOW}>Done</SuccessMessage.Button>
+        </SuccessMessage>
       </Sidebar.Window>
     </div>
   );
