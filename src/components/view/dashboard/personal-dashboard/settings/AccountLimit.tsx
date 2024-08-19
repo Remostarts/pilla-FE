@@ -12,15 +12,24 @@ const AccountLimit = () => {
     setSelectedTier(tier);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>, tier: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      handleTierSelection(tier);
+    }
+  };
+
   return (
     <div className="font size-full rounded-xl bg-white p-8">
       <h2 className="mb-6 font-spaceGrotesk text-xl font-bold">Current Level: Tier 1</h2>
 
       <div className="space-y-6">
         {/* Tier 1 */}
-        <button
+        <div
           className={`cursor-pointer rounded-xl border-2 p-6  ${selectedTier === 'tier1' ? 'border-primary-400 bg-primary-100' : 'bg-gray-100'}`}
           onClick={() => handleTierSelection('tier1')}
+          onKeyDown={(e) => handleKeyPress(e, 'tier1')}
+          role="button"
+          tabIndex={0}
         >
           <div className="mb-1 flex items-center justify-between">
             <h3
@@ -53,12 +62,15 @@ const AccountLimit = () => {
           <p className="mt-4 flex gap-2 text-sm text-orange-600">
             <CircleAlertIcon className="size-5" /> BVN Verification
           </p>
-        </button>
+        </div>
 
         {/* Tier 2 */}
-        <button
+        <div
           className={`cursor-pointer rounded-xl border-2 bg-gray-100 p-6 ${selectedTier === 'tier2' ? 'border-primary-400 bg-primary-100' : 'bg-gray-100'}`}
           onClick={() => handleTierSelection('tier2')}
+          onKeyDown={(e) => handleKeyPress(e, 'tier2')}
+          role="button"
+          tabIndex={0}
         >
           <div className="mb-1 flex items-center justify-between">
             <h3 className="font-spaceGrotesk text-lg font-bold">Tier 2</h3>
@@ -85,12 +97,15 @@ const AccountLimit = () => {
             <CircleUser className="size-5" />
             Identity Verification
           </p>
-        </button>
+        </div>
 
         {/* Tier 3 */}
-        <button
+        <div
           className={`rounded-xl border-2 p-6 ${selectedTier === 'tier3' ? 'border-primary-400 bg-primary-100' : 'bg-gray-100'}`}
           onClick={() => handleTierSelection('tier3')}
+          onKeyDown={(e) => handleKeyPress(e, 'tier3')}
+          role="button"
+          tabIndex={0}
         >
           <div className="mb-1 flex items-center justify-between">
             <h3 className="font-spaceGrotesk text-lg font-bold">Tier 3</h3>
@@ -117,7 +132,7 @@ const AccountLimit = () => {
             <MapPin className="size-5" />
             Address Verification
           </p>
-        </button>
+        </div>
       </div>
     </div>
   );

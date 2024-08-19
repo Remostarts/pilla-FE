@@ -64,6 +64,8 @@ const PersonalInformation: React.FC = () => {
                 src={profileImage}
                 alt="Profile"
                 className="size-full rounded-full object-cover"
+                width={64}
+                height={64}
               />
             ) : (
               <Image
