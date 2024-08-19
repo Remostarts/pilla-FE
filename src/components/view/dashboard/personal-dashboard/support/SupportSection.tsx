@@ -1,7 +1,8 @@
 'use client';
 
-import { Facebook, Instagram, Mail, Map, MessageSquareMore, Phone, Twitter } from 'lucide-react';
 import React from 'react';
+import Image from 'next/image';
+import { Phone, Mail, MessageSquareMore, Map } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -44,15 +45,31 @@ const SupportSection = () => {
           </div>
 
           {/* social media links */}
-          <div className="mb-4  mt-10 flex space-x-4">
-            <a href="https://facebook.com" className="text-primary-500 hover:text-orange-700 ">
-              <Facebook />
+          {/* Social Icons */}
+          <div className="flex items-center space-x-5">
+            <a href="/" className="mr-1">
+              <Image
+                src="/assets/root/contact-us/fb-icon.svg"
+                alt="facebook-logo"
+                width={13}
+                height={13}
+              />
             </a>
-            <a href="https://twitter.com" className="text-orange-500 hover:text-orange-700">
-              <Twitter />
+            <a href="/">
+              <Image
+                src="/assets/root/shared/twitter-icon.svg"
+                alt="twitter-logo"
+                width={26}
+                height={26}
+              />
             </a>
-            <a href="https://instagram.com" className="text-orange-500 hover:text-orange-700">
-              <Instagram />
+            <a href="/">
+              <Image
+                src="/assets/root/shared/instagram-icon.svg"
+                alt="instagram-logo"
+                width={24}
+                height={24}
+              />
             </a>
           </div>
         </div>
