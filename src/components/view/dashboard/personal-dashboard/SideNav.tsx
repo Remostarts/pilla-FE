@@ -44,7 +44,7 @@ const sideNavData = [
   },
 ];
 
-export default function SideNav() {
+export default function SideNav({ onNavSelect }: { onNavSelect: (value: string) => void }) {
   const pathName = usePathname();
   const currPage = pathName.split('/')[2];
 
@@ -69,6 +69,7 @@ export default function SideNav() {
                 <Link
                   href={`/personal-dashboard/${nav.alt}`}
                   className={`flex items-center gap-4 rounded-md p-4 text-white hover:bg-primary-500 ${nav.alt === currPage && 'bg-primary-500'}`}
+                  onClick={() => onNavSelect(nav.name)}
                 >
                   <Image src={nav.img} alt={`${nav.alt}-icon`} width={24} height={24} />
                   <span className="font-inter font-light tracking-wider">{nav.name}</span>
