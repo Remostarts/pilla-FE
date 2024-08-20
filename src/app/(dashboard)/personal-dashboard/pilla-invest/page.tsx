@@ -1,4 +1,4 @@
-import InvestmentJourney from '@/components/view/dashboard/personal-dashboard/pilla-invest/InvestmentJourney';
+import InvestmentJourney from '@/components/view/dashboard/personal-dashboard/pilla-invest';
 import DashboardCard from '@/components/view/dashboard/shared/DashboardCard';
 import DashboardCount from '@/components/view/dashboard/shared/DashboardCount';
 

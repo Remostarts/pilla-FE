@@ -1,7 +1,10 @@
 import Header from '@/components/view/dashboard/personal-dashboard/Header';
 import SideNav from '@/components/view/dashboard/personal-dashboard/SideNav';
 import { Sidebar } from '@/components/view/dashboard/shared/SideBar';
+import { InvestmentProvider } from '@/context/InvestmentSummaryProvider';
+import { LoanSummaryProvider } from '@/context/LoanSummaryProvider';
 import { PaymentSummaryProvider } from '@/context/PaymentSummaryProvider';
+import { SavingsSummaryProvider } from '@/context/SavingSummaryProvider';
 import { TChildrenProps } from '@/types';
 
 export default function Layout({ children }: TChildrenProps) {
@@ -12,7 +15,13 @@ export default function Layout({ children }: TChildrenProps) {
 
       <main className="bg-[#f2f2f2] p-10">
         <PaymentSummaryProvider>
-          <Sidebar>{children}</Sidebar>
+          <InvestmentProvider>
+            <LoanSummaryProvider>
+              <SavingsSummaryProvider>
+                <Sidebar>{children}</Sidebar>
+              </SavingsSummaryProvider>
+            </LoanSummaryProvider>
+          </InvestmentProvider>
         </PaymentSummaryProvider>
       </main>
     </div>

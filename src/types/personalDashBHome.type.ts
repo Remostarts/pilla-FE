@@ -21,4 +21,5 @@ export type SavingsPlanDataType = {
   heading: string;
   subHeading: string;
   img: string;
+  window: string;
 };

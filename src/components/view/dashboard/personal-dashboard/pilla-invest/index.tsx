@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
-import Active from './Active';
-import Matured from './Matured';
-import Explore from './Explore';
+import Active from './active-plan/Active';
+import Matured from './matured-plan/Matured';
+import Explore from './investment-plans';
 
 export default function InvestmentJourney() {
   const [currTab, setCurrTab] = useState('active');
@@ -81,9 +81,9 @@ export default function InvestmentJourney() {
 
       {/* Condition for switiching tabs */}
       <div className="px-4">
-        {currTab === 'active' && <Active />}
+        {currTab === 'active' && <Active setCurrTab={setCurrTab} />}
         {currTab === 'explore' && <Explore />}
-        {currTab === 'matured' && <Matured />}
+        {currTab === 'matured' && <Matured setCurrTab={setCurrTab} />}
       </div>
     </div>
   );

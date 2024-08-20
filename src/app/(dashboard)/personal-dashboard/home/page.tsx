@@ -79,9 +79,7 @@ export default function Page() {
         <div className="mt-6 grid grid-cols-4 gap-6">
           {actionsData.map((data) => (
             <Sidebar.Open opens={data.window} key={data.id}>
-              <button>
-                <ActionBtn actionName={data.actionName} actionImg={data.actionImg} />
-              </button>
+              <ActionBtn actionName={data.actionName} actionImg={data.actionImg} />
             </Sidebar.Open>
           ))}
         </div>
