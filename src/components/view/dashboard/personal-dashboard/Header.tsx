@@ -2,10 +2,11 @@ import Image from 'next/image';
 
 import { Heading } from '../shared/Heading';
 
-export default function Header() {
+export default function Header({ currentPage }: { currentPage: string }) {
   return (
     <header className="flex h-[4.6rem] items-center justify-between border-b border-gray-200 px-10">
-      <Heading heading="Home" />
+      {/* currentPage prop for changing the heading in the header component dynamically */}
+      <Heading heading={currentPage} />
       <div className="flex items-center gap-4 font-spaceGrotesk text-xl font-medium">
         {/* Welcome msg */}
         <span>Hi Alex 👋</span>
