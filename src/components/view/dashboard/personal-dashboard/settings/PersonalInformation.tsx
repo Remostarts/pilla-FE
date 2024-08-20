@@ -55,7 +55,7 @@ const PersonalInformation: React.FC = () => {
   return (
     <div className="size-full rounded-lg bg-white p-6 lg:max-w-7xl">
       <h2 className="mb-6 font-spaceGrotesk text-xl font-bold">Personal Information</h2>
-      <div className="mb-6 flex items-center">
+      <div className="mb-10 flex items-center">
         {/* Profile Image */}
         <div className="relative ml-3 flex size-16 items-center justify-center rounded-full bg-gray-200">
           <label htmlFor="profileImageInput" className="cursor-pointer">
@@ -69,7 +69,7 @@ const PersonalInformation: React.FC = () => {
               />
             ) : (
               <Image
-                src="/assets/personal-dashboard/profile.png"
+                src="/assets/personal-dashboard/settings/profile.svg"
                 alt="profile"
                 width={64}
                 height={64}
@@ -93,49 +93,49 @@ const PersonalInformation: React.FC = () => {
       {/* Starting of the personal information */}
       <div className="flex flex-col gap-4">
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">First Name</p>
+          <p className="font-inter text-gray-600">First Name</p>
           <p className="font-semibold lg:-ml-44">{userInfo.firstName}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">Last Name</p>
+          <p className="font-inter text-gray-600">Last Name</p>
           <p className="font-semibold lg:-ml-44">{userInfo.lastName}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
 
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">Email Address</p>
+          <p className="font-inter text-gray-600">Email Address</p>
           <p className="font-semibold lg:-ml-44">{userInfo.email}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
 
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">Phone Number</p>
+          <p className="font-inter text-gray-600">Phone Number</p>
           <p className="font-semibold lg:-ml-44">{userInfo.phoneNumber}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
 
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">Address</p>
+          <p className="font-inter text-gray-600">Address</p>
           <p className="font-semibold lg:-ml-44">{userInfo.address}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
 
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">City / Town</p>
+          <p className="font-inter text-gray-600">City / Town</p>
           <p className="font-semibold lg:-ml-44">{userInfo.city}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
 
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">Local Govern.</p>
+          <p className="font-inter text-gray-600">Local Govern.</p>
           <p className="font-semibold lg:-ml-44">{userInfo.localGovern}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
 
         <div className="ml-4 grid grid-cols-2">
-          <p className="text-gray-600">State</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.state}</p>
+          <p className="font-inter text-gray-600">State</p>
+          <p className="font-medium lg:-ml-44">{userInfo.state}</p>
         </div>
         <Separator className="my-1 bg-gray-200" />
       </div>

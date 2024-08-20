@@ -20,9 +20,9 @@ const AccountLimit = () => {
 
   return (
     <div className="font size-full rounded-xl bg-white p-8">
-      <h2 className="mb-6 font-spaceGrotesk text-xl font-bold">Current Level: Tier 1</h2>
+      <h2 className="font-spaceGrotesk text-xl font-bold">Current Level: Tier 1</h2>
 
-      <div className="space-y-6">
+      <div className="mt-8 space-y-6">
         {/* Tier 1 */}
         <div
           className={`cursor-pointer rounded-xl border-2 p-6  ${selectedTier === 'tier1' ? 'border-primary-400 bg-primary-100' : 'bg-gray-100'}`}

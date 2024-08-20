@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
+import { Heading } from '../../shared/Heading';
+
 // difining the stucture of the card object
 interface Card {
   id: string;
@@ -65,12 +67,12 @@ const SavedCards: React.FC = () => {
 
   return (
     <div className="mx-auto size-full rounded-xl bg-white  p-6">
-      <h2 className="mb-10 text-xl font-semibold">My Cards</h2>
+      <Heading heading="My Cards" />
 
       {/* button to add a new card */}
       <button
         onClick={handleAddCard}
-        className="mb-10 flex w-full items-center justify-center rounded-xl border border-gray-300 py-5 text-center font-bold transition duration-150 ease-in-out hover:bg-gray-50"
+        className="mb-10 mt-8 flex w-full items-center justify-center rounded-xl border border-gray-300 py-5 text-center font-inter font-semibold transition duration-150 ease-in-out hover:bg-gray-50"
       >
         <span className="mr-2 text-xl text-orange-500">
           <Image
@@ -79,7 +81,7 @@ const SavedCards: React.FC = () => {
             width={24}
             height={24}
           />
-        </span>{' '}
+        </span>
         Add Card
       </button>
 
@@ -88,7 +90,7 @@ const SavedCards: React.FC = () => {
         {cards.map((card) => (
           <div
             key={card.id}
-            className="flex items-center justify-between rounded-xl border border-gray-300 px-6 py-4 "
+            className="flex items-center justify-between rounded-xl border border-gray-300 px-6 py-4"
           >
             <div className="flex items-center">
               {card.cardType === 'visa' ? <VisaLogo /> : <MastercardLogo />}
@@ -99,7 +101,7 @@ const SavedCards: React.FC = () => {
             </div>
             <button
               onClick={() => handleRemoveCard(card.id)}
-              className="text-sm font-bold text-primary-500"
+              className="font-inter text-sm font-semibold text-primary-500"
             >
               Remove
             </button>
