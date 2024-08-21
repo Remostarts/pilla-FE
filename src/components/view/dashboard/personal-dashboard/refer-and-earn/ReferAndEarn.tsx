@@ -4,6 +4,8 @@ import React from 'react';
 import Image from 'next/image';
 import { CircleUserRound, Copy, Gift, Send } from 'lucide-react';
 
+import { Heading } from '../../shared/Heading';
+
 // defining the struncture of the object ReferralProps
 interface ReferralProps {
   referralLink: string;
@@ -22,27 +24,32 @@ const ReferralCard: React.FC<ReferralProps> = ({ referralLink, termsUrl }) => {
     <div className="flex h-full flex-col items-center justify-center rounded-xl bg-white">
       <div className="w-full max-w-xl p-14">
         {/* Refer image */}
-        <div className="mb-4 flex justify-center">
-          <Image src="/images/gift-box-icon.png" alt="Refer and Earn" width={60} height={60} />
+        <div className="mb-6 flex justify-center">
+          <Image
+            src="/assets/personal-dashboard/refer-and-earn/gift-img.png"
+            alt="Refer and Earn"
+            width={100}
+            height={100}
+          />
         </div>
 
         {/* Refer and Earn */}
-        <h2 className="mb-6 text-center font-spaceGrotesk text-2xl font-bold">Refer & Earn ₦500</h2>
-        <ul className="mb-6 space-y-4 font-semibold text-black/80">
+        <Heading heading="Refer & Earn ₦500" size="2xl" className="flex justify-center" />
+        <ul className="mb-10 mt-8 space-y-6 font-inter font-medium text-black/80">
           <li className="flex items-center">
-            <span className="mr-4 text-primary-400">
+            <span className="mr-4 text-primary-500">
               <Send />
             </span>
             Share the love - Refer friends for rewards today.
           </li>
           <li className="flex items-center">
-            <span className="mr-4 text-primary-400">
+            <span className="mr-4 text-primary-500">
               <CircleUserRound />
             </span>
             After successfully signing up, verify your account.
           </li>
           <li className="flex items-center">
-            <span className="mr-4 text-primary-400">
+            <span className="mr-4 text-primary-500">
               <Gift />
             </span>
             Earn ₦500 on the first account opening deposit of not less than ₦5000 from all your

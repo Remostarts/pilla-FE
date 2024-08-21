@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-import { PaymentSummaryContextType, PaymentSummaryProps } from '@/types/payment.type';
+import { PaymentSummaryContextType, PaymentSummaryProps } from '@/types/summary.type';
 
 interface PaymentSummaryProviderProps {
   children: ReactNode;
@@ -14,12 +14,17 @@ const PaymentSummaryContext = createContext<PaymentSummaryContextType | undefine
 export function PaymentSummaryProvider({ children }: PaymentSummaryProviderProps) {
   const [paymentSummary, setPaymentSummary] = useState<PaymentSummaryProps | null>(null);
 
-  const openPaymentSummary = (props: PaymentSummaryProps) => {
+  const setPaymentSummaryData = (props: PaymentSummaryProps) => {
     setPaymentSummary(props);
   };
 
   return (
-    <PaymentSummaryContext.Provider value={{ paymentSummary, openPaymentSummary }}>
+    <PaymentSummaryContext.Provider
+      value={{
+        paymentSummary,
+        setPaymentSummaryData,
+      }}
+    >
       {children}
     </PaymentSummaryContext.Provider>
   );

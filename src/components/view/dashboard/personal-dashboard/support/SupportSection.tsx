@@ -75,8 +75,8 @@ const SupportSection = () => {
         </div>
 
         {/* live chat btn */}
-        <div className="mt-4 flex w-full  max-w-xl">
-          <Button className="flex w-full space-x-2 rounded-full bg-primary-500 p-8  text-white">
+        <div className="mt-8 flex w-full max-w-xl">
+          <Button className="flex w-full space-x-2 rounded-full bg-primary-500 p-8 text-base text-white">
             <MessageSquareMore />
             <span>Live Chat</span>
           </Button>

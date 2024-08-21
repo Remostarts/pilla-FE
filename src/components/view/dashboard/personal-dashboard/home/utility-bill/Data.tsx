@@ -3,8 +3,17 @@ import { Heading } from '../../../shared/Heading';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
 import { ReButton } from '@/components/re-ui/ReButton';
+import { usePaymentSummaryAction } from '@/hooks/useSummaryAction';
+import { UTILITY_DATA_WINDOW, UTILITY_SERVICE_CHARGE } from '@/constants/homeData';
 
 export default function Data() {
+  const { handlePaymentSummary } = usePaymentSummaryAction();
+
+  // Sets a amount and closes itself
+  const handleProceedClick = () => {
+    handlePaymentSummary(2100, UTILITY_SERVICE_CHARGE, UTILITY_DATA_WINDOW);
+  };
+
   return (
     <div className="p-4">
       <Heading heading="Buy Data" size="2xl" img="/assets/personal-dashboard/home/data-icon.svg" />
@@ -38,7 +47,9 @@ export default function Data() {
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg">Proceed</ReButton>
+        <ReButton size="lg" onClick={handleProceedClick}>
+          Proceed
+        </ReButton>
       </div>
     </div>
   );

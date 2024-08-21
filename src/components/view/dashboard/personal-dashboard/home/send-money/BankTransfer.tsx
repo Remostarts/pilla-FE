@@ -3,8 +3,17 @@ import { Heading } from '../../../shared/Heading';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReButton } from '@/components/re-ui/ReButton';
 import ReSelect from '@/components/re-ui/ReSelect';
+import { MONEY_TRANSFER_SERVICE_CHARGE, TO_BANK_ACCOUNT_WINDOW } from '@/constants/homeData';
+import { usePaymentSummaryAction } from '@/hooks/useSummaryAction';
 
 export default function BankTransfer() {
+  const { handlePaymentSummary } = usePaymentSummaryAction();
+
+  // Sets a amount and closes itself
+  const handleContinueClick = () => {
+    handlePaymentSummary(2200, MONEY_TRANSFER_SERVICE_CHARGE, TO_BANK_ACCOUNT_WINDOW);
+  };
+
   return (
     <div className="p-4">
       <div>
@@ -13,7 +22,10 @@ export default function BankTransfer() {
 
       {/* Profile Details */}
       <div className="mt-6">
-        <Heading heading="Select Beneficiary" size="lg" />
+        <div className="flex justify-end">
+          <button className="font-inter font-medium text-gray-800">Select Beneficiary</button>
+        </div>
+
         <div className="mt-4 space-y-5">
           <ReSelect
             name="bank"
@@ -34,14 +46,21 @@ export default function BankTransfer() {
             name="beneficiaryName"
           />
 
-          <ReInput label="Enter Amount" name="amount" />
+          <ReInput label="Enter Amount" name="amount" placeholder="0.00" />
 
-          <ReInput label="Narration" name="narration" />
+          <ReInput label="Narration" name="narration" placeholder="Enter Narration" />
         </div>
       </div>
 
-      <div className="mt-12">
-        <ReButton size="lg">Continue</ReButton>
+      <div className="mt-6 flex items-center gap-3">
+        <input type="checkbox" id="saveBeneficiary" />
+        <label htmlFor="saveBeneficiary">Save as beneficiary</label>
+      </div>
+
+      <div className="mt-8">
+        <ReButton size="lg" onClick={handleContinueClick}>
+          Continue
+        </ReButton>
       </div>
     </div>
   );

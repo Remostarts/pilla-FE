@@ -6,18 +6,18 @@ import Image from 'next/image';
 import { Heading } from '../Heading';
 
 import { ReButton } from '@/components/re-ui/ReButton';
-import { MethodProps, PaymentContextType, PaymentProps } from '@/types/payment.type';
+import { MethodProps, SummaryContextType, SummaryProps } from '@/types/summary.type';
 
 // Context
-const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
+const SummaryContext = createContext<SummaryContextType | undefined>(undefined);
 
-// Main Payment Component
-function Payment({ children, hasAgreement = false }: PaymentProps) {
+// Main Summary Component
+function Summary({ children, hasAgreement = false, className }: SummaryProps) {
   const [selectedMethod, setSelectedMethod] = useState<string>('');
   const [agreementChecked, setAgreementChecked] = useState<boolean>(!hasAgreement);
 
   return (
-    <PaymentContext.Provider
+    <SummaryContext.Provider
       value={{
         selectedMethod,
         setSelectedMethod,
@@ -26,17 +26,17 @@ function Payment({ children, hasAgreement = false }: PaymentProps) {
         hasAgreement,
       }}
     >
-      <div className="p-4">{children}</div>
-    </PaymentContext.Provider>
+      <div className={className}>{children}</div>
+    </SummaryContext.Provider>
   );
 }
 
-// Payment Heading Component
-function PaymentHeading({ heading, size }: { heading: string; size: '2xl' | 'lg' }) {
+// Summary Heading Component
+function SummaryHeading({ heading, size }: { heading: string; size: '2xl' | 'lg' }) {
   return <Heading heading={heading} size={size} />;
 }
 
-// Payment Body Component
+// Summary Body Component
 function Body({ items }: { items: { label: string; value: string; isBold?: boolean }[] }) {
   return (
     <div className="mt-12 space-y-6">
@@ -55,9 +55,9 @@ function Body({ items }: { items: { label: string; value: string; isBold?: boole
   );
 }
 
-// Payment Method Component
+// Summary Method Component
 function Method({ name, value, icon, details, onChangeClick }: MethodProps) {
-  const { selectedMethod, setSelectedMethod } = usePayment();
+  const { selectedMethod, setSelectedMethod } = useSummary();
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -85,7 +85,7 @@ function Method({ name, value, icon, details, onChangeClick }: MethodProps) {
               {details}
               {onChangeClick && (
                 <button
-                  className="ml-2 text-primary-600"
+                  className="ml-2 font-inter font-semibold text-primary-600"
                   onClick={(e) => {
                     e.stopPropagation();
                     onChangeClick();
@@ -109,14 +109,14 @@ function Method({ name, value, icon, details, onChangeClick }: MethodProps) {
   );
 }
 
-// Payment Agreement Component
+// Summary Agreement Component
 function Agreement({ children }: { children: ReactNode }) {
-  const { agreementChecked, setAgreementChecked, hasAgreement } = usePayment();
+  const { agreementChecked, setAgreementChecked, hasAgreement } = useSummary();
 
   if (!hasAgreement) return null;
 
   return (
-    <div className="payment-agreement mt-8">
+    <div className="summary-agreement mt-8">
       <input
         type="checkbox"
         id="agreement"
@@ -130,9 +130,9 @@ function Agreement({ children }: { children: ReactNode }) {
   );
 }
 
-// Payment Button Component
+// Summary Button Component
 function Button({ children, onClick }: { children: ReactNode; onClick: () => void }) {
-  const { selectedMethod, agreementChecked, hasAgreement } = usePayment();
+  const { selectedMethod, agreementChecked, hasAgreement } = useSummary();
   const isDisabled = !selectedMethod || (hasAgreement && !agreementChecked);
 
   return (
@@ -145,19 +145,19 @@ function Button({ children, onClick }: { children: ReactNode; onClick: () => voi
 }
 
 // Custom Hook to use context
-function usePayment() {
-  const context = useContext(PaymentContext);
+function useSummary() {
+  const context = useContext(SummaryContext);
   if (context === undefined) {
-    throw new Error('usePayment must be used within a Payment component');
+    throw new Error('useSummary must be used within a Summary component');
   }
   return context;
 }
 
 // Assigning sub-components
-Payment.Heading = PaymentHeading;
-Payment.Body = Body;
-Payment.Method = Method;
-Payment.Agreement = Agreement;
-Payment.Button = Button;
+Summary.Heading = SummaryHeading;
+Summary.Body = Body;
+Summary.Method = Method;
+Summary.Agreement = Agreement;
+Summary.Button = Button;
 
-export { Payment, usePayment };
+export { Summary, useSummary };

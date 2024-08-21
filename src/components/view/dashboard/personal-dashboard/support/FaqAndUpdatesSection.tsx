@@ -2,6 +2,9 @@
 
 import React from 'react';
 
+import { Heading } from '../../shared/Heading';
+import SubHeading from '../../shared/SubHeading';
+
 import {
   Accordion,
   AccordionContent,
@@ -106,8 +109,8 @@ export default function Page() {
     <section className="mx-auto max-w-8xl px-6 md:px-10 lg:px-12">
       <div className="mt-4 sm:mt-10">
         {/* Heading */}
-        <h1 className="mb-2 font-spaceGrotesk text-2xl font-bold ">Updates & FAQ</h1>
-        <p className="font-inter text-lg text-black/55">Features, fixes & improvements</p>
+        <Heading heading="Updates & FAQ" size="2xl" />
+        <SubHeading subHeading="Features, fixes & improvements" className="mt-2 text-xl" />
       </div>
 
       {/* Accordion Component */}
@@ -128,8 +131,8 @@ export default function Page() {
 
       {/* contact us btn */}
       <div className="text-md mt-10 flex w-full items-center justify-center gap-3 space-x-2 rounded-xl bg-gray-100 p-4 font-medium">
-        <span>Can&apos;t find any answer?</span>
-        <Button className="bg-primary-500 text-white ">Contact Us</Button>
+        <span className="font-inter">Can&apos;t find any answer?</span>
+        <Button className="bg-primary-500 font-spaceGrotesk text-white">Contact Us</Button>
       </div>
     </section>
   );

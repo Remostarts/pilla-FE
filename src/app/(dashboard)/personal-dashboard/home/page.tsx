@@ -1,56 +1,63 @@
 'use client';
-
-import Image from 'next/image';
-import { ChevronRight } from 'lucide-react';
-
 import DashboardCount from '@/components/view/dashboard/shared/DashboardCount';
 import ActionBtn from '@/components/view/dashboard/shared/ActionBtn';
 import VerificationHome from '@/components/view/dashboard/personal-dashboard/home/verification-status';
 import { ActionsBtnDataType, ActionsNeededDataType } from '@/types/personalDashBHome.type';
 import { Heading } from '@/components/view/dashboard/shared/Heading';
 import UtilityBillHome from '@/components/view/dashboard/personal-dashboard/home/utility-bill';
-import { Sidebar, useSidebar } from '@/components/view/dashboard/shared/SideBar';
+import { Sidebar } from '@/components/view/dashboard/shared/SideBar';
 import Pin from '@/components/view/dashboard/shared/Pin';
-import SuccessMessage from '@/components/view/dashboard/shared/SuccessMessage';
-import AddCard from '@/components/view/dashboard/personal-dashboard/home/add-money/AddCard';
-import BankTransfer from '@/components/view/dashboard/personal-dashboard/home/send-money/BankTransfer';
 import PayRent from '@/components/view/dashboard/personal-dashboard/home/pay-rent/PayRent';
+import { SuccessMessage } from '@/components/view/dashboard/shared/SuccessMessage';
+import {
+  ADD_CARD_WINDOW,
+  ADD_MONEY_WINDOW,
+  CONFIRM_TRANSACTION_PIN_WINDOW,
+  PAY_RENT_WINDOW,
+  SEND_MONEY_WINDOW,
+  SET_TRANSACTION_PIN_WINDOW,
+  TRANSACTION_PIN_CREATED_WINDOW,
+  UTILITY_BILL_WINDOW,
+  VERIFICATION_STATUS_WINDOW,
+} from '@/constants/homeData';
+import AddMoney from '@/components/view/dashboard/personal-dashboard/home/add-money/AddMoney';
+import AddCard from '@/components/view/dashboard/personal-dashboard/home/add-money/AddCard';
+import ArrowedActionButton from '@/components/view/dashboard/shared/ArrowedActionBtn';
+import SendMoneyHome from '@/components/view/dashboard/personal-dashboard/home/send-money';
 
 const actionsData: ActionsBtnDataType[] = [
   {
     id: 1,
     actionName: 'Add Money',
-    action: 'home-add-money',
+    window: 'add-card-window',
     actionImg: '/assets/personal-dashboard/home/add-money-icon.svg',
   },
   {
     id: 2,
     actionName: 'Send Money',
-    action: 'home-send-money',
+    window: 'send-money-window',
     actionImg: '/assets/personal-dashboard/home/send-money-icon.svg',
   },
   {
     id: 3,
     actionName: 'Pay Rent',
-    action: 'home-pay-rent',
+    window: 'pay-rent-window',
     actionImg: '/assets/personal-dashboard/home/pay-rent-icon.svg',
   },
   {
     id: 4,
     actionName: 'Utility Bills',
-    action: 'home-utility-bill',
+    window: 'utility-bill-window',
     actionImg: '/assets/personal-dashboard/home/utility-bill-icon.svg',
   },
 ];
 
 const actionsNeededData: ActionsNeededDataType[] = [
-  { id: 1, actionLabel: 'Verification Status', actionName: 'verification-status' },
-  { id: 2, actionLabel: 'Set Transaction Pin', actionName: 'set-transaction-pin' },
+  { id: 1, actionName: 'Verification Status', window: 'verification-status-window' },
+  { id: 2, actionName: 'Set Transaction Pin', window: 'set-transaction-pin-window' },
 ];
 
 export default function Page() {
-  const { close } = useSidebar();
-
   return (
     <section>
       {/* Dashboard Count Section */}
@@ -71,10 +78,8 @@ export default function Page() {
 
         <div className="mt-6 grid grid-cols-4 gap-6">
           {actionsData.map((data) => (
-            <Sidebar.Open opens={data.action} key={data.id}>
-              <button>
-                <ActionBtn actionName={data.actionName} actionImg={data.actionImg} />
-              </button>
+            <Sidebar.Open opens={data.window} key={data.id}>
+              <ActionBtn actionName={data.actionName} actionImg={data.actionImg} />
             </Sidebar.Open>
           ))}
         </div>
@@ -88,73 +93,75 @@ export default function Page() {
         <div className="mt-6 grid grid-cols-2 gap-6">
           {actionsNeededData.map((data) => (
             // Sidebar open functionality
-            <Sidebar.Open opens={data.actionName} key={data.id}>
-              <button className="flex w-full items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-5">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src="/assets/personal-dashboard/home/caution-icon.svg"
-                    alt="add-money-icon"
-                    width={24}
-                    height={24}
-                  />
-                  <span className="font-spaceGrotesk font-semibold text-primary-800">
-                    {data.actionLabel}
-                  </span>
-                </div>
-                <ChevronRight className="text-primary-800" />
-              </button>
+            <Sidebar.Open opens={data.window} key={data.id}>
+              <ArrowedActionButton
+                img="/assets/personal-dashboard/home/caution-icon.svg"
+                btnName={data.actionName}
+                textColor="text-primary-800"
+              />
             </Sidebar.Open>
           ))}
 
           {/* Sidebar window functionality */}
 
-          <Sidebar.Window name="home-add-money">
+          {/* Add Money and Card Window */}
+          <Sidebar.Window name={ADD_CARD_WINDOW}>
             <AddCard />
           </Sidebar.Window>
 
-          <Sidebar.Window name="home-send-money">
-            <BankTransfer />
+          <Sidebar.Window name={ADD_MONEY_WINDOW}>
+            <AddMoney />
           </Sidebar.Window>
 
-          <Sidebar.Window name="home-pay-rent">
+          <Sidebar.Window name={SEND_MONEY_WINDOW}>
+            <SendMoneyHome />
+          </Sidebar.Window>
+
+          <Sidebar.Window name={PAY_RENT_WINDOW}>
             <PayRent />
           </Sidebar.Window>
 
-          <Sidebar.Window name="home-utility-bill">
+          <Sidebar.Window name={UTILITY_BILL_WINDOW}>
             <UtilityBillHome />
           </Sidebar.Window>
 
-          <Sidebar.Window name="verification-status">
+          <Sidebar.Window name={VERIFICATION_STATUS_WINDOW}>
             <VerificationHome />
           </Sidebar.Window>
 
-          <Sidebar.Window name="set-transaction-pin">
+          {/* Set Transaction Pin Window */}
+          <Sidebar.Window name={SET_TRANSACTION_PIN_WINDOW}>
             <Pin
               heading="Create PIN"
               subHeading="Create your 4 digit passcode to authorize transaction"
               btnName="Proceed"
-              opens="confirm-transaction-pin" // Opens the next component
-              closes="set-transaction-pin" // Closes itself
+              opens={CONFIRM_TRANSACTION_PIN_WINDOW} // Opens the confirm pin window
+              closes={SET_TRANSACTION_PIN_WINDOW} // Closes itself
             />
           </Sidebar.Window>
 
-          <Sidebar.Window name="confirm-transaction-pin">
+          {/* Confirm Transaction Pin Window */}
+          <Sidebar.Window name={CONFIRM_TRANSACTION_PIN_WINDOW}>
             <Pin
               heading="Confirm PIN"
               subHeading="Confirm your 4 digit passcode to authorize transaction"
               btnName="Submit"
-              opens="transaction-pin-created" // Opens the next component
-              closes="confirm-transaction-pin" // Closes itself
+              opens={TRANSACTION_PIN_CREATED_WINDOW} // Opens the next component
+              closes={CONFIRM_TRANSACTION_PIN_WINDOW} // Closes itself
             />
           </Sidebar.Window>
 
-          <Sidebar.Window name="transaction-pin-created">
-            <SuccessMessage
-              heading="PIN Created"
-              subHeading="You are secured"
-              btnName="Done"
-              btnOnClick={() => close('transaction-pin-created')}
-            />
+          {/* Transaction Pin Created Success Window */}
+          <Sidebar.Window name={TRANSACTION_PIN_CREATED_WINDOW}>
+            <SuccessMessage>
+              <SuccessMessage.Title>PIN Created</SuccessMessage.Title>
+              <SuccessMessage.Content>
+                <SuccessMessage.Description>You are secured</SuccessMessage.Description>
+              </SuccessMessage.Content>
+              <SuccessMessage.Button closes={TRANSACTION_PIN_CREATED_WINDOW}>
+                Done
+              </SuccessMessage.Button>
+            </SuccessMessage>
           </Sidebar.Window>
         </div>
       </div>

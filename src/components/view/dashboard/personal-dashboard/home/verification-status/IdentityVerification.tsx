@@ -1,20 +1,23 @@
-import { Dispatch, SetStateAction } from 'react';
-
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
 import OrStrike from '../../../shared/OrStrike';
+import { useSidebar } from '../../../shared/SideBar';
 
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReButton } from '@/components/re-ui/ReButton';
+import { IDENTITY_VERIFICATION_WINDOW, VERIFICATION_SUCCESS_WINDOW } from '@/constants/homeData';
 
-interface IdentityVerificationProps {
-  setIsDone: Dispatch<SetStateAction<boolean>>;
-}
+export default function IdentityVerification() {
+  const { open, close } = useSidebar();
 
-export default function IdentityVerification({ setIsDone }: IdentityVerificationProps) {
+  const handleSubmit = () => {
+    close(IDENTITY_VERIFICATION_WINDOW);
+    open(VERIFICATION_SUCCESS_WINDOW);
+  };
+
   return (
-    <>
+    <div className="p-4">
       <div>
         <Heading heading="Identity Verification" size="2xl" />
         <SubHeading subHeading="Enter your NIN or Upload ID to complete identity verification" />
@@ -42,10 +45,10 @@ export default function IdentityVerification({ setIsDone }: IdentityVerification
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg" onClick={() => setIsDone(true)}>
+        <ReButton size="lg" onClick={handleSubmit}>
           Submit
         </ReButton>
       </div>
-    </>
+    </div>
   );
 }

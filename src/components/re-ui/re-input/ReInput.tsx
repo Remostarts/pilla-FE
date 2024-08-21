@@ -69,7 +69,7 @@ const ReInput = ({
                 {suffix}
               </div>
             </FormControl>
-            <FormDescription>{description}</FormDescription>
+            <FormDescription className="text-gray-600">{description}</FormDescription>
             <FormMessage />
           </FormItem>
         )}
