@@ -21,7 +21,7 @@ export default function Page({ searchParams }: { searchParams: SectionProps }) {
   const currentSection = searchParams.section || 'personal-information';
 
   return (
-    <div className="flex size-full gap-10 sm:flex-wrap md:flex-wrap lg:flex-nowrap">
+    <section className="flex size-full gap-10 sm:flex-wrap md:flex-wrap lg:flex-nowrap">
       {/* Setting Navigation Section */}
       <SideNavigation />
 
@@ -33,6 +33,6 @@ export default function Page({ searchParams }: { searchParams: SectionProps }) {
         {currentSection === 'security' && <Security />}
         {currentSection === 'saved-cards' && <SavedCards />}
       </div>
-    </div>
+    </section>
   );
 }

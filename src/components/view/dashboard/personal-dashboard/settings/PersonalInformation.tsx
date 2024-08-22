@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Plus } from 'lucide-react';
+import { Plus, SquareCheckBig, SquareX } from 'lucide-react';
 
 import { Separator } from '@/components/ui/separator';
 
@@ -17,7 +17,7 @@ interface UserInfo {
   state: string;
 }
 
-const userInfo: UserInfo = {
+const initialUserInfo: UserInfo = {
   firstName: 'Seun',
   lastName: 'Ogunyemi',
   email: 'seunogunyemi@gmail.com',
@@ -28,15 +28,28 @@ const userInfo: UserInfo = {
   state: 'Lorem ipsum',
 };
 
-const PersonalInformation: React.FC = () => {
+// enter the fields you want to make readonly which will be not editable
+const readonlyFields: Array<keyof UserInfo> = ['email'];
+
+export default function PersonalInformation() {
   // state for handling profile image
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+  const [isEditing, setIsEditing] = useState<string | null>(null);
+  const [editedUserInfo, setEditedUserInfo] = useState<UserInfo>(userInfo);
 
   useEffect(() => {
     // load the profile image URL from localstorage if available
     const storedImageUrl = localStorage.getItem('profileImage');
     if (storedImageUrl) {
       setProfileImage(storedImageUrl);
+    }
+
+    // Load user info from localStorage
+    const storedUserInfo = localStorage.getItem('userInfo');
+    if (storedUserInfo) {
+      setUserInfo(JSON.parse(storedUserInfo));
+      setEditedUserInfo(JSON.parse(storedUserInfo));
     }
   }, []);
 
@@ -51,6 +64,60 @@ const PersonalInformation: React.FC = () => {
       localStorage.setItem('profileImage', imageUrl);
     }
   };
+
+  // function to handle edit
+  const handleEdit = (field: keyof UserInfo) => {
+    // conditionally checking if the filed is present in the readonlyFields or not and if not then make it editable
+    if (!readonlyFields.includes(field)) {
+      setIsEditing(field);
+    }
+  };
+
+  // function to handle cancel
+  const handleCancel = () => {
+    setIsEditing(null);
+    setEditedUserInfo(userInfo);
+  };
+
+  // function to handle save
+  const handleSave = () => {
+    setUserInfo(editedUserInfo);
+    setIsEditing(null);
+
+    // saving the updated user info to localStorage temporarily
+    localStorage.setItem('userInfo', JSON.stringify(editedUserInfo));
+  };
+
+  // function to handle change in input
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof UserInfo) => {
+    setEditedUserInfo({ ...editedUserInfo, [field]: e.target.value });
+  };
+
+  // function to render editable field
+  const renderEditableField = (label: string, value: string, field: keyof UserInfo) => (
+    <div className="ml-4 grid grid-cols-2 items-center">
+      <p className="ml-4 font-inter text-gray-600">{label}</p>
+      {isEditing === field ? (
+        <div className="relative flex items-center gap-2">
+          <input
+            className="w-full border-b-2 border-primary-500 pb-2 font-semibold focus:outline-none lg:-ml-44"
+            value={editedUserInfo[field]}
+            onChange={(e) => handleChange(e, field)}
+          />
+          <SquareCheckBig className="cursor-pointer text-green-500" onClick={handleSave} />
+          <SquareX className="cursor-pointer text-red-500" onClick={handleCancel} />
+        </div>
+      ) : (
+        <button
+          className={`cursor-pointer text-start font-semibold lg:-ml-44 ${readonlyFields.includes(field) ? 'cursor-not-allowed text-gray-400' : ''}`}
+          onClick={() => handleEdit(field)}
+        >
+          {value}
+        </button>
+      )}
+      <Separator className="col-span-2 my-3 bg-gray-200" />
+    </div>
+  );
 
   return (
     <div className="size-full rounded-lg bg-white p-6 lg:max-w-7xl">
@@ -90,63 +157,23 @@ const PersonalInformation: React.FC = () => {
         </div>
       </div>
 
-      {/* Starting of the personal information */}
+      {/* Personal Information section*/}
       <div className="flex flex-col gap-4">
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">First Name</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.firstName}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">Last Name</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.lastName}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
-
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">Email Address</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.email}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
-
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">Phone Number</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.phoneNumber}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
-
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">Address</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.address}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
-
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">City / Town</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.city}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
-
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">Local Govern.</p>
-          <p className="font-semibold lg:-ml-44">{userInfo.localGovern}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
-
-        <div className="ml-4 grid grid-cols-2">
-          <p className="font-inter text-gray-600">State</p>
-          <p className="font-medium lg:-ml-44">{userInfo.state}</p>
-        </div>
-        <Separator className="my-1 bg-gray-200" />
+        {renderEditableField('First Name', userInfo.firstName, 'firstName')}
+        {renderEditableField('Last Name', userInfo.lastName, 'lastName')}
+        {renderEditableField('Email Address', userInfo.email, 'email')}
+        {renderEditableField('Phone Number', userInfo.phoneNumber, 'phoneNumber')}
+        {renderEditableField('Address', userInfo.address, 'address')}
+        {renderEditableField('City / Town', userInfo.city, 'city')}
+        {renderEditableField('Local Govern.', userInfo.localGovern, 'localGovern')}
+        {renderEditableField('State', userInfo.state, 'state')}
       </div>
-
-      {/* Ending of the personal information */}
 
       {/* Contact us button link*/}
       <div className="mt-6">
         <p className="text-center text-sm text-gray-600">
           To make any change to your personal information, please{' '}
-          <a href="https://google.com" className="font-bold text-orange-500 hover:text-orange-700">
+          <a href="/" className="font-bold text-orange-500 hover:text-orange-700">
             click here
           </a>{' '}
           to contact us.
@@ -154,6 +181,4 @@ const PersonalInformation: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default PersonalInformation;
+}
