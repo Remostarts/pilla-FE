@@ -1,24 +1,21 @@
-import Footer from '@/components/view/shared/Footer';
-import Navbar from '@/components/view/shared/navbars/navbar/Navbar';
-import NavbarMobile from '@/components/view/shared/navbars/navbar/NavbarMobile';
-import TopNav from '@/components/view/shared/navbars/top-nav/TopNav';
+import Footer from '@/components/view/root/shared/Footer';
+import Navbar from '@/components/view/root/shared/navbar/Navbar';
 import { TChildrenProps } from '@/types';
 
-const Layout = ({ children }: TChildrenProps) => {
+export default function Layout({ children }: TChildrenProps) {
   return (
-    <div className="">
-      <TopNav />
+    <div className="flex min-h-screen flex-col">
+      <header>
+        <Navbar />
+      </header>
 
-      <Navbar />
-      <NavbarMobile />
-      <main className="">
-        <section className="">{children}</section>
+      <main>
+        <section>{children}</section>
       </main>
 
-      <Footer />
+      <footer className="mt-auto">
+        <Footer />
+      </footer>
     </div>
   );
-};
-
-export default Layout;
-// max-md:pb-14
+}

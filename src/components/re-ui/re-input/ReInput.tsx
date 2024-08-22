@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -22,18 +22,20 @@ type TReInputProps = {
   placeholder?: string;
   control?: any;
 };
+
 const ReInput = ({
   name,
   label,
   description,
   prefix,
   suffix,
-
   type = 'text',
   autoComplete = 'off',
   placeholder,
 }: TReInputProps) => {
   const { control } = useFormContext();
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <div>
       <FormField
@@ -41,22 +43,33 @@ const ReInput = ({
         name={name}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{label}</FormLabel>
+            <FormLabel className="text-base text-gray-800">{label}</FormLabel>
             <FormControl>
-              <div className="flex-center gap-2 rounded border border-gray-400 px-2 focus-visible:ring-2  focus-visible:ring-offset-2">
+              <div
+                className={`flex-center gap-2 rounded border ${
+                  isFocused ? 'border-primary-400' : 'border-gray-300'
+                }`}
+              >
                 <div className="text-sm">{prefix}</div>
-
                 <Input
-                  className="border-none px-0   focus-visible:ring-0  focus-visible:ring-offset-0"
+                  className="rounded border-none px-3"
                   placeholder={placeholder}
                   type={type}
                   autoComplete={autoComplete}
-                  {...field}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => {
+                    setIsFocused(false);
+                    field.onBlur();
+                  }}
+                  onChange={field.onChange}
+                  value={field.value}
+                  name={field.name}
+                  ref={field.ref}
                 />
                 {suffix}
               </div>
             </FormControl>
-            <FormDescription>{description}</FormDescription>
+            <FormDescription className="text-gray-600">{description}</FormDescription>
             <FormMessage />
           </FormItem>
         )}

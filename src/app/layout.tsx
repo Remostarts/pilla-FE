@@ -2,8 +2,7 @@
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 
-import '../styles/theme.css';
-import './globals.css';
+import '../styles/globals.css';
 
 import Providers from '@/context/Providers';
 import { TChildrenProps } from '@/types';
@@ -21,14 +20,18 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'pro-cleaner',
+  // title: 'Pilla', -> version 1
+  title: {
+    template: 'Pilla – %s',
+    default: 'Pilla',
+  },
   description:
-    'A community-driven platform for cleaning services. Find the best cleaning services in your area.',
+    'Pilla offers a comprehensive suite of financial solutions designed for the real estate industry. Our platform addresses key challenges such as financing, investment safety, and payment optimization, providing innovative tools for savings, investments, rent finance, and construction finance.',
   icons: {
     icon: './favicon.ico',
   },
 };
-//
+
 export default function RootLayout({ children }: TChildrenProps) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -40,8 +43,3 @@ export default function RootLayout({ children }: TChildrenProps) {
     </html>
   );
 }
-// Path: src/pages/_app.tsx
-
-//  test commit
-
-// test 3

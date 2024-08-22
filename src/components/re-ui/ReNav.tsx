@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import ArrowDrop from '../../../public/assets/icons-react/ArrowDrop';
+// import ArrowDrop from '../../../public/assets/icons-react/ArrowDrop';
 
 import {
   NavigationMenu,
@@ -33,7 +33,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
             {...props}
           >
             <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+            <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">{children}</p>
           </a>
         </NavigationMenuLink>
       </li>
@@ -174,7 +174,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                           {hoveredIndex === i && (
                             <>
                               <motion.span
-                                className="absolute  inset-0 block size-full rounded-lg bg-primary-200/30 dark:bg-slate-800/[0.8] "
+                                className="bg-primary-200/30  absolute inset-0 block size-full rounded-lg dark:bg-slate-800/[0.8] "
                                 layoutId="hoverBackground"
                                 initial={{ opacity: 0 }}
                                 animate={{
@@ -194,7 +194,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                                   animate={{ opacity: 1, transition: { duration: 0 } }}
                                   exit={{ opacity: 0, transition: { duration: 0, delay: 0 } }}
                                 >
-                                  <ArrowDrop />
+                                  {/* <ArrowDrop /> */}
                                 </motion.div>
                               )}
                             </>
@@ -226,7 +226,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                           {hoveredIndex === i && (
                             <>
                               <motion.span
-                                className="absolute  inset-0 block size-full rounded-lg bg-primary-200/30 dark:bg-slate-800/[0.8] "
+                                className="bg-primary-200/30  absolute inset-0 block size-full rounded-lg dark:bg-slate-800/[0.8] "
                                 layoutId="hoverBackground"
                                 initial={{ opacity: 0 }}
                                 animate={{
@@ -246,7 +246,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                                   animate={{ opacity: 1, transition: { duration: 0 } }}
                                   exit={{ opacity: 0, transition: { duration: 0, delay: 0 } }}
                                 >
-                                  <ArrowDrop />
+                                  {/* <ArrowDrop /> */}
                                 </motion.div>
                               )}
                             </>
@@ -285,7 +285,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                         {hoveredIndex === i && (
                           <>
                             <motion.span
-                              className="absolute  inset-0 block size-full rounded-lg bg-primary-200/30 dark:bg-slate-800/[0.8] "
+                              className="bg-primary-200/30  absolute inset-0 block size-full rounded-lg dark:bg-slate-800/[0.8] "
                               layoutId="hoverBackground"
                               initial={{ opacity: 0 }}
                               animate={{
@@ -305,7 +305,7 @@ function ReNav({ leftNav, midNav, rightNav, additionalElement, loginButton = tru
                                 animate={{ opacity: 1, transition: { duration: 0 } }}
                                 exit={{ opacity: 0, transition: { duration: 0, delay: 0 } }}
                               >
-                                <ArrowDrop />
+                                {/* <ArrowDrop /> */}
                               </motion.div>
                             )}
                           </>

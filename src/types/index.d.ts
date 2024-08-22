@@ -24,7 +24,7 @@ export interface BadgeCounts {
 export type BadgeCriteriaType = keyof typeof BADGE_CRITERIA;
 export type TMeta = {
   limit: number;
-  page: number;
+  Page: number;
   size: number;
 };
 export type ResponseSuccessType = {
