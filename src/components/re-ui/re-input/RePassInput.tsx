@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle2, EyeIcon, EyeOffIcon, Lock } from 'lucide-react';
+import { CheckCircle2, EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -93,8 +93,8 @@ const RePassInput = ({
           <FormItem className="relative">
             <FormLabel>{label}</FormLabel>
             <FormControl>
-              <div className="flex items-center gap-2 rounded border border-gray-400 px-2 focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2">
-                <Lock />
+              <div className="flex-center gap-2 rounded border border-gray-400 px-2 focus-visible:ring-2  focus-visible:ring-offset-2">
+                {/* <Lock /> */}
                 <Input
                   className="border-none px-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                   placeholder={label}
