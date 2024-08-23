@@ -6,7 +6,7 @@ export default function Welcome() {
     <div className="mx-auto mt-12 flex max-w-8xl flex-col-reverse items-center gap-8 px-0 sm:px-10 md:flex-row md:justify-between lg:mt-16 lg:px-12">
       <div className="w-fit px-6 sm:px-0">
         <Image
-          src="/assets/root/home/smiling-woman.png"
+          src="/assets/root/home/welcome-woman.png"
           alt="smilingWoman"
           width={400}
           height={400}

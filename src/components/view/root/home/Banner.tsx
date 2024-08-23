@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import HomeBanner from '../../../../../public/assets/root/home/home-banner.png';
+import Avatars from '../../../../../public/assets/root/shared/avatars.png';
+
 export default function Banner() {
   return (
     <section className="mx-auto mt-12 max-w-8xl px-6 sm:px-10 lg:px-12">
@@ -24,9 +27,9 @@ export default function Banner() {
 
           {/* Customer satisfaction */}
           <div className="mt-12 flex items-center gap-4 sm:mt-16">
-            <Image src="/assets/root/shared/avatars.png" width={150} height={150} alt="avatars" />
+            <Image src={Avatars} width={150} height={150} alt="avatars" />
             <div>
-              <Image src="/assets/root/home/stars.svg" width={100} height={100} alt="stars" />
+              <Image src="/assets/root/home/home-stars.svg" width={100} height={100} alt="stars" />
               <p className="mt-1 font-inter text-sm text-gray-500">Join 10,000+ happy customers</p>
             </div>
           </div>
@@ -35,7 +38,7 @@ export default function Banner() {
         {/* Right side image */}
         <div className="mx-auto w-full max-w-md lg:w-[64vh] lg:max-w-none">
           <Image
-            src="/assets/root/home/home-banner.png"
+            src={HomeBanner}
             alt="hero-image"
             width={400}
             height={400}
