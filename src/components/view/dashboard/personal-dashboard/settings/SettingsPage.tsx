@@ -10,7 +10,7 @@ export default function SettingsPage() {
   const [currentSection] = useState('personal-information');
 
   return (
-    <div className="grid w-full grid-cols-2 gap-6">
+    <div className="grid size-full grid-cols-2 gap-6">
       <SideNavigation />
       <SettingsContent currentSection={currentSection} />
     </div>
