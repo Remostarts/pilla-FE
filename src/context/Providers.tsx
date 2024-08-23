@@ -22,6 +22,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
             disableTransitionOnChange
           >
             {children}
+
             <Toaster />
           </NextThemesProvider>
         </FormProvider>
