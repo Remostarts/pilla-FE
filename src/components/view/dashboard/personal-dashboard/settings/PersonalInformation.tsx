@@ -100,7 +100,7 @@ export default function PersonalInformation() {
       {isEditing === field ? (
         <div className="relative flex items-center gap-2">
           <input
-            className="w-full border-b-2 border-primary-500 pb-2 font-semibold focus:outline-none lg:-ml-44"
+            className="w-full border-b-2 border-primary-500  font-semibold focus:outline-none lg:-ml-44"
             value={editedUserInfo[field]}
             onChange={(e) => handleChange(e, field)}
           />
