@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
+import ReLink from '@/components/re-ui/ReLink';
 
 export const metadata = {
   title: 'Rent',
@@ -52,12 +53,7 @@ export default function Page() {
               Our rent finance solution ensures you don&apos;t default on your next rent payment. We
               are Pilla, you can rely on us.
             </p>
-            <Link
-              href="/"
-              className="-ml-1 rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Get Loan Now
-            </Link>
+            <ReLink href="/">Get Loan Now</ReLink>
           </div>
           {/* Hero Image */}
           <div className="rounded-t-3xl bg-[#e6e6fe] px-20 pt-16 md:w-4/5 lg:w-1/2 xl:w-2/5">
@@ -125,12 +121,7 @@ export default function Page() {
               The Pilla rent finance solution is designed for Pilla account holders who are working
               class professionals aged 21 -57 years with a clean credit history.
             </p>
-            <Link
-              href="/"
-              className="rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Get Loan Now
-            </Link>
+            <ReLink href="/">Get Loan Now</ReLink>
           </div>
         </div>
       </div>
@@ -151,12 +142,7 @@ export default function Page() {
                 </li>
               ))}
             </ul>
-            <Link
-              href="/"
-              className=" rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Get Loan Now
-            </Link>
+            <ReLink href="/">Get Loan Now</ReLink>
           </div>
           <div className="flex justify-end md:w-1/2">
             <Image

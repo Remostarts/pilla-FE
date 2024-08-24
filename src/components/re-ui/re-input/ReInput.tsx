@@ -26,7 +26,6 @@ const ReInput = ({
   name,
   label,
   description,
-  prefix,
   suffix,
 
   type = 'text',
@@ -41,13 +40,11 @@ const ReInput = ({
         name={name}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{label}</FormLabel>
+            <FormLabel className="font-spaceGrotesk">{label}</FormLabel>
             <FormControl>
-              <div className="flex-center gap-2 rounded border border-gray-400 px-2 focus-visible:ring-2  focus-visible:ring-offset-2">
-                <div className="text-sm">{prefix}</div>
-
+              <div className="flex-center rounded border border-gray-300 pl-1 pr-2">
                 <Input
-                  className="border-none px-0   focus-visible:ring-0  focus-visible:ring-offset-0"
+                  className="border-none font-spaceGrotesk"
                   placeholder={placeholder}
                   type={type}
                   autoComplete={autoComplete}

@@ -44,7 +44,7 @@ function ReForm<T extends FieldValues>({
   // useEffect(() => reset(defaultValues), [defaultValues, reset, form]);
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="relative  space-y-3 overflow-x-hidden">
+      <form onSubmit={handleSubmit(onSubmit)} className="relative space-y-3 overflow-x-hidden">
         {children}
       </form>
       <NoSSRWrapper>

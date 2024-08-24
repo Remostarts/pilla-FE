@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { ReButton } from '@/components/re-ui/ReButton';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -35,11 +35,7 @@ export default function ContactForm() {
         </div>
 
         {/* Submit Btn */}
-        <Button
-          className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
-        >
-          Submit
-        </Button>
+        <ReButton size="lg">Submit</ReButton>
       </form>
     </div>
   );

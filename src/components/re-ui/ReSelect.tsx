@@ -32,7 +32,7 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="font-spaceGrotesk">
           <FormLabel className="text-base text-gray-800">{label}</FormLabel>
           <FormControl>
             <div className={`rounded border border-gray-300 bg-white`}>
@@ -45,7 +45,7 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
                     <SelectItem
                       key={option.value}
                       value={option.value}
-                      className="cursor-pointer hover:bg-primary-100"
+                      className="cursor-pointer font-spaceGrotesk hover:bg-primary-100"
                     >
                       {option.label}
                     </SelectItem>

@@ -4,6 +4,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+
 export default function MobileMenu() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -31,12 +38,75 @@ export default function MobileMenu() {
           >
             Company
           </Link>
-          <Link
-            href="/solutions"
-            className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-          >
-            Solutions
-          </Link>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="solutions" className="border-none">
+              <AccordionTrigger className="px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:no-underline">
+                Solutions
+              </AccordionTrigger>
+              <AccordionContent>
+                <Link
+                  href="/pilla-savings"
+                  className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  <Image
+                    src="/assets/root/shared/pilla-savings.svg"
+                    alt="pilla-savings"
+                    width={20}
+                    height={20}
+                  />
+                  Pilla Savings
+                </Link>
+                <Link
+                  href="/pilla-invest"
+                  className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  <Image
+                    src="/assets/root/shared/pilla-invest.svg"
+                    alt="pilla-invest"
+                    width={20}
+                    height={20}
+                  />
+                  Pilla Invest
+                </Link>
+                <Link
+                  href="/pilla-rent-finance"
+                  className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  <Image
+                    src="/assets/root/shared/pilla-rent.svg"
+                    alt="pilla-rent"
+                    width={20}
+                    height={20}
+                  />
+                  Pilla Rent Finance
+                </Link>
+                <Link
+                  href="/pilla-construction-finance"
+                  className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  <Image
+                    src="/assets/root/shared/pilla-construction.svg"
+                    alt="pilla-construction"
+                    width={20}
+                    height={20}
+                  />
+                  Pilla Construction Finance
+                </Link>
+                <Link
+                  href="/pilla-pay"
+                  className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  <Image
+                    src="/assets/root/shared/pilla-pay.svg"
+                    alt="pilla-pay"
+                    width={20}
+                    height={20}
+                  />
+                  Pilla Pay
+                </Link>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
           <Link
             href="/faqs"
             className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"

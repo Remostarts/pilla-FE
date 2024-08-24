@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
+import ReLink from '@/components/re-ui/ReLink';
 
 export default function Welcome() {
   return (
@@ -20,12 +21,7 @@ export default function Welcome() {
             from navigating financing obstacles to ensuring investment safety and optimizing payment
             services, we&apos;re dedicated to providing tailored solutions to these challenges.
           </p>
-          <Link
-            className="rounded-full bg-primary-500 px-10 py-4 font-inter text-sm text-white transition duration-300 hover:bg-primary-600 sm:text-base"
-            href="/"
-          >
-            Learn More
-          </Link>
+          <ReLink href="/">Learn More</ReLink>
         </div>
       </div>
     </div>

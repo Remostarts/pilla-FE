@@ -1,8 +1,9 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import HomeBanner from '../../../../../public/assets/root/home/home-banner.png';
 import Avatars from '../../../../../public/assets/root/shared/avatars.png';
+
+import ReLink from '@/components/re-ui/ReLink';
 
 export default function Banner() {
   return (
@@ -18,15 +19,10 @@ export default function Banner() {
             Save towards your rent with ease and obtain loan to complete your rent payments.
           </p>
 
-          <Link
-            className="rounded-full bg-primary-500 px-6 py-3 font-inter text-sm text-white transition duration-300 hover:bg-primary-600 sm:text-base md:px-8 md:py-4"
-            href="/sign-up"
-          >
-            Open an account
-          </Link>
+          <ReLink href="/">Open an account</ReLink>
 
           {/* Customer satisfaction */}
-          <div className="mt-12 flex items-center gap-4 sm:mt-16">
+          <div className="ml-1 mt-12 flex items-center gap-4 sm:mt-16">
             <Image src={Avatars} width={150} height={150} alt="avatars" />
             <div>
               <Image src="/assets/root/home/home-stars.svg" width={100} height={100} alt="stars" />
