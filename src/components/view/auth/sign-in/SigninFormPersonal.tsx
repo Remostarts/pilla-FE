@@ -3,14 +3,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
+import { useRouter } from 'next/navigation';
 
 import { Heading } from '../../dashboard/shared/Heading';
 
 import { ReButton } from '@/components/re-ui/ReButton';
 import ReForm from '@/components/re-ui/ReForm';
-import ReInput from '@/components/re-ui/re-input/ReInput';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
 import { userLoginSchema } from '@/lib/validations/userAuth.validations';
+import ReInput from '@/components/re-ui/re-input/ReInput';
 
 export type TInputs = z.infer<typeof userLoginSchema>;
 
@@ -21,10 +22,13 @@ const defaultValues = {
 };
 type DefaultValues = typeof defaultValues;
 
-const SigninForm = () => {
+export const SigninFormPersonal = () => {
+  const router = useRouter();
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
     console.log(data);
+    router.push('/personal-dashboard/home');
   };
+
   return (
     <>
       <ReForm<DefaultValues>
@@ -33,14 +37,14 @@ const SigninForm = () => {
         defaultValues={defaultValues}
         mode="onChange"
       >
-        <div className="mt-2 space-y-4">
+        <div className="mt-3 space-y-4">
           <div>
             <Heading heading="Email" />
-            <ReInput name="email" type="email" placeholder="Email Address" />
+            <ReInput name="email" />
           </div>
           <div>
             <Heading heading="Password" size="lg" />
-            <RePassInput name="signinPass" />
+            <RePassInput name="password" />
           </div>
         </div>
         <div className="flex-between">
@@ -51,7 +55,7 @@ const SigninForm = () => {
             Forgot your password?
           </Link>
         </div>
-        <div className="grid place-items-center pt-6">
+        <div className="grid place-items-center pt-2">
           <ReButton
             className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
             type="submit"
@@ -63,5 +67,3 @@ const SigninForm = () => {
     </>
   );
 };
-
-export default SigninForm;

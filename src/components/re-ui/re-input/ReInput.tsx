@@ -42,7 +42,7 @@ const ReInput = ({
           <FormItem>
             <FormLabel className="font-spaceGrotesk">{label}</FormLabel>
             <FormControl>
-              <div className="flex-center rounded border border-gray-300 pl-1 pr-2">
+              <div className="flex-center rounded border border-gray-300">
                 <Input
                   className="border-none font-spaceGrotesk"
                   placeholder={placeholder}
@@ -54,7 +54,7 @@ const ReInput = ({
               </div>
             </FormControl>
             <FormDescription>{description}</FormDescription>
-            <FormMessage />
+            <FormMessage className="text-base font-normal text-primary-800" />
           </FormItem>
         )}
       />

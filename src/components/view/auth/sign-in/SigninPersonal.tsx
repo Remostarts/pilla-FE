@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import SigninForm from './SigninForm';
+import { SigninFormPersonal } from './SigninFormPersonal';
 
-export const Signin = () => {
+export const SigninPersonal = () => {
   return (
     <>
       <div className="mb-6 items-center justify-between lg:flex">
@@ -17,7 +17,7 @@ export const Signin = () => {
       </div>
       <div className="rounded-xl border px-8 py-12">
         <h2 className="mb-6 font-spaceGrotesk text-xl font-bold lg:text-2xl">Sign in</h2>
-        <SigninForm />
+        <SigninFormPersonal />
       </div>
 
       <p className="mt-4 text-center font-inter">

@@ -1,11 +1,43 @@
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+
 import { ReButton } from '@/components/re-ui/ReButton';
-import { Input } from '@/components/ui/input';
+import ReForm from '@/components/re-ui/ReForm';
+import ReInput from '@/components/re-ui/re-input/ReInput';
 import { Textarea } from '@/components/ui/textarea';
 
+// Define the validation schema
+const contactFormSchema = z.object({
+  fullName: z.string().min(1, 'Full name is required'),
+  emailAddress: z.string().email('Invalid email address'),
+  message: z.string().optional(),
+});
+
+type TInputs = z.infer<typeof contactFormSchema>;
+
+const defaultValues = {
+  fullName: '',
+  emailAddress: '',
+  message: '',
+};
+type DefaultValues = typeof defaultValues;
+
 export default function ContactForm() {
+  const onSubmit: SubmitHandler<TInputs> = async (data) => {
+    console.log(data);
+    // Handle form submission here
+  };
+
   return (
     <div className="rounded-2xl border border-gray-200 p-8 sm:p-16 md:w-1/2">
-      <form>
+      <ReForm<DefaultValues>
+        submitHandler={onSubmit}
+        resolver={zodResolver(contactFormSchema)}
+        defaultValues={defaultValues}
+        mode="onChange"
+      >
         <div className="mb-4">
           <label
             htmlFor="fullName"
@@ -13,18 +45,18 @@ export default function ContactForm() {
           >
             Full Name *
           </label>
-          <Input name="fullName" type="text" />
+          <ReInput name="fullName" />
         </div>
         <div className="mb-4">
           <label
-            htmlFor="email"
+            htmlFor="emailAddress"
             className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
           >
             Email Address *
           </label>
-          <Input name="emailAddress" type="text" />
+          <ReInput name="emailAddress" />
         </div>
-        <div className="mb-10">
+        <div>
           <label
             htmlFor="message"
             className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
@@ -35,8 +67,15 @@ export default function ContactForm() {
         </div>
 
         {/* Submit Btn */}
-        <ReButton size="lg">Submit</ReButton>
-      </form>
+        <div className="pt-10">
+          <ReButton
+            className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
+            type="submit"
+          >
+            Submit
+          </ReButton>
+        </div>
+      </ReForm>
     </div>
   );
 }

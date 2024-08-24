@@ -93,7 +93,7 @@ const RePassInput = ({
           <FormItem className="relative">
             <FormLabel>{label}</FormLabel>
             <FormControl>
-              <div className="flex-center rounded border border-gray-300 pl-1 pr-2 focus-visible:ring-2 focus-visible:ring-offset-2">
+              <div className="flex-center rounded border border-gray-300 pr-2 focus-visible:ring-2 focus-visible:ring-offset-2">
                 <Input
                   className="border-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   placeholder={label}
@@ -120,7 +120,7 @@ const RePassInput = ({
             {isValidationDrop && isInputFocused && (
               <PasswordValidator validationRules={validationRules} />
             )}
-            <FormMessage />
+            <FormMessage className="text-base font-normal text-primary-800" />
           </FormItem>
         )}
       />
