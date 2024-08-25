@@ -1,6 +1,8 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -20,8 +22,15 @@ const defaultValues = {
 type DefaultValues = typeof defaultValues;
 
 const SigninForm = () => {
+  const router = useRouter();
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
-    console.log(data);
+    const result = await signIn('pilla-backend', { ...data, redirect: false });
+
+    if (result?.ok && !result.error) {
+      router.refresh();
+      router.push('/');
+    }
+    console.log('🌼 🔥🔥 constonSubmit:SubmitHandler<TInputs>= 🔥🔥 result🌼', result);
   };
   return (
     <>
