@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const sideNavData = [
   { id: 1, img: '/assets/personal-dashboard/side-nav/home-icon.svg', name: 'Home', alt: 'home' },
@@ -44,9 +44,10 @@ const sideNavData = [
   },
 ];
 
-export default function SideNav({ onNavSelect }: { onNavSelect: (value: string) => void }) {
+export default function SideNav() {
   const pathName = usePathname();
   const currPage = pathName.split('/')[2];
+  const router = useRouter();
 
   return (
     <aside className="side-nav flex flex-col">
@@ -69,7 +70,6 @@ export default function SideNav({ onNavSelect }: { onNavSelect: (value: string) 
                 <Link
                   href={`/personal-dashboard/${nav.alt}`}
                   className={`flex items-center gap-4 rounded-md p-4 text-white hover:bg-primary-500 ${nav.alt === currPage && 'bg-primary-500'}`}
-                  onClick={() => onNavSelect(nav.name)}
                 >
                   <Image src={nav.img} alt={`${nav.alt}-icon`} width={24} height={24} />
                   <span className="font-inter font-light tracking-wider">{nav.name}</span>
@@ -82,7 +82,10 @@ export default function SideNav({ onNavSelect }: { onNavSelect: (value: string) 
 
       {/* Log out Btn */}
       <div className="border-t border-gray-500 px-6 py-4">
-        <button className="flex w-full items-center gap-4 rounded-md px-4 py-3 text-white hover:bg-primary-500">
+        <button
+          className="flex w-full items-center gap-4 rounded-md px-4 py-3 text-white hover:bg-primary-500"
+          onClick={() => router.push('/sign-in')}
+        >
           <Image
             src="/assets/personal-dashboard/side-nav/logout-icon.svg"
             alt="logout-icon"

@@ -96,11 +96,11 @@ export default function PersonalInformation() {
   // function to render editable field
   const renderEditableField = (label: string, value: string, field: keyof UserInfo) => (
     <div className="ml-4 grid grid-cols-2 items-center">
-      <p className="ml-4 font-inter text-gray-600">{label}</p>
+      <p className="ml-4 font-spaceGrotesk text-gray-600">{label}</p>
       {isEditing === field ? (
         <div className="relative flex items-center gap-2">
           <input
-            className="w-full border-b-2 border-primary-500  font-semibold focus:outline-none lg:-ml-44"
+            className="w-full border-b-2 border-primary-500 pb-2 font-inter font-medium focus:outline-none lg:-ml-44"
             value={editedUserInfo[field]}
             onChange={(e) => handleChange(e, field)}
           />
@@ -109,7 +109,7 @@ export default function PersonalInformation() {
         </div>
       ) : (
         <button
-          className={`cursor-pointer text-start font-semibold lg:-ml-44 ${readonlyFields.includes(field) ? 'cursor-not-allowed text-gray-400' : ''}`}
+          className={`cursor-pointer text-start font-inter font-medium lg:-ml-44 ${readonlyFields.includes(field) ? 'cursor-not-allowed text-gray-400' : ''}`}
           onClick={() => handleEdit(field)}
         >
           {value}

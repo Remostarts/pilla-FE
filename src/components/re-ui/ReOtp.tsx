@@ -13,9 +13,10 @@ import React, {
 interface ReOtpProps {
   count?: number;
   onChange?: (otp: string) => void;
+  className?: string;
 }
 
-export default function ReOtp({ count = 6, onChange }: ReOtpProps) {
+export default function ReOtp({ count = 6, onChange, className }: ReOtpProps) {
   const [otp, setOtp] = useState<string[]>(Array(count).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -69,7 +70,7 @@ export default function ReOtp({ count = 6, onChange }: ReOtpProps) {
   };
 
   return (
-    <div className="flex gap-2 sm:gap-12">
+    <div className={`flex ${className}`}>
       {otp.map((digit, index) => (
         <input
           key={index}

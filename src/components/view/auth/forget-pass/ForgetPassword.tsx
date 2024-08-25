@@ -1,15 +1,15 @@
 'use client';
 
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 
 import FillEmail from '@/components/view/auth/forget-pass/FillEmail';
-import VerifyEmail from '@/components/view/auth/sign-up/VerifyEmail';
 import ResetPasswordPersonal from '@/components/view/auth/forget-pass/ResetPasswordPersonal';
+import VerifyEmail from '@/components/view/auth/sign-up/VerifyEmail';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 
-export default function Page() {
+export default function ForgetPassword() {
   const searchParams = useSearchParams();
   const currentStep = Number(searchParams.get('step'));
   const previousStep = currentStep - 1;
@@ -22,7 +22,7 @@ export default function Page() {
       goBack('step', String(previousStep));
     }
     if (currentStep === 1) {
-      router.push('/personal-account/sign-in');
+      router.push('/sign-in');
     }
   };
 
@@ -47,7 +47,7 @@ export default function Page() {
       )}
 
       <Link
-        href="/personal-account/sign-in"
+        href="/sign-in"
         className="mt-6 flex justify-center font-inter font-medium text-gray-800"
       >
         Back to Sign in

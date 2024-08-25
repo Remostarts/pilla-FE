@@ -55,7 +55,7 @@ export default function SideNavigation() {
             <li key={data.id} className="mb-6 ">
               <Link
                 href={data.href}
-                className={`text-md ml-4 flex items-center justify-between font-semibold lg:text-xl ${
+                className={`ml-4 flex items-center justify-between font-semibold lg:text-lg ${
                   isActive ? 'text-primary-500' : 'text-black hover:text-primary-500'
                 }`}
               >

@@ -39,7 +39,7 @@ const RePassInput = ({
   isValidationDrop = false,
   name,
   disabled = false,
-  label = 'Password',
+  label = '',
   className = '',
 }: RePassInputProps) => {
   const { control, watch } = useFormContext();
@@ -93,10 +93,9 @@ const RePassInput = ({
           <FormItem className="relative">
             <FormLabel>{label}</FormLabel>
             <FormControl>
-              <div className="flex-center gap-2 rounded border border-gray-400 px-2 focus-visible:ring-2  focus-visible:ring-offset-2">
-                {/* <Lock /> */}
+              <div className="flex-center rounded border border-gray-300 pr-2 focus-visible:ring-2 focus-visible:ring-offset-2">
                 <Input
-                  className="border-none px-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="border-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   placeholder={label}
                   autoComplete="off"
                   disabled={disabled}
@@ -121,7 +120,7 @@ const RePassInput = ({
             {isValidationDrop && isInputFocused && (
               <PasswordValidator validationRules={validationRules} />
             )}
-            <FormMessage />
+            <FormMessage className="text-base font-normal text-primary-800" />
           </FormItem>
         )}
       />

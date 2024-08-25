@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
+import ReLink from '@/components/re-ui/ReLink';
 
 export const metadata = {
   title: 'Savings',
@@ -54,12 +55,7 @@ export default function Page() {
               rent or owning your dream home. With customizable targets and flexible options, take
               control of your financial freedom with Pilla.
             </p>
-            <Link
-              href="/"
-              className="-ml-1 rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Save Now
-            </Link>
+            <ReLink href="/">Save Now</ReLink>
           </div>
 
           {/* Hero Image */}
@@ -95,18 +91,15 @@ export default function Page() {
                 />
               </div>
               <div
-                className={`relative h-[17rem] border-x-2 border-b-2 p-6 lg:h-60 ${plan.border} rounded-b-lg`}
+                className={`relative h-[17rem] border-x-2 border-b-2 p-6 lg:h-64 ${plan.border} rounded-b-lg`}
               >
                 <h3 className="mb-2 font-spaceGrotesk text-xl font-semibold lg:text-2xl">
                   {plan.title}
                 </h3>
                 <p className="mb-4 font-inter text-gray-800 xl:text-lg">{plan.description}</p>
-                <Link
-                  href="/"
-                  className="absolute bottom-4 right-4 rounded-full bg-orange-500 px-6 py-3 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600 xl:px-8 xl:py-4"
-                >
+                <ReLink href="/" className="absolute bottom-4 right-4 md:py-3">
                   Save Now
-                </Link>
+                </ReLink>
               </div>
             </div>
           ))}

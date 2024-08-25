@@ -18,7 +18,7 @@ export default function Download() {
               <a href="/" className="inline-block w-full sm:w-auto">
                 <div className="flex items-center justify-center rounded-md bg-black px-3 py-2 text-white sm:justify-start">
                   <Image
-                    src="/assets/root/home/apple-store.svg"
+                    src="/assets/root/home/download-apple-store.svg"
                     alt="Apple logo"
                     width={20}
                     height={20}
@@ -37,7 +37,7 @@ export default function Download() {
               <a href="/" className="inline-block w-full sm:w-auto">
                 <div className="flex items-center justify-center rounded-md bg-black px-3 py-2 text-white sm:justify-start">
                   <Image
-                    src="/assets/root/home/play-store.svg"
+                    src="/assets/root/home/download-play-store.svg"
                     alt="Google Play logo"
                     width={20}
                     height={20}
@@ -57,7 +57,7 @@ export default function Download() {
           {/* Half phone image */}
           <div className="pt-12 sm:w-[3/4] md:mt-0 md:w-1/2 lg:w-1/3">
             <Image
-              src="/assets/root/home/half-phone.png"
+              src="/assets/root/home/download-half-phone.png"
               alt="half-phone"
               width={400}
               height={400}

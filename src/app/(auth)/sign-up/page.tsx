@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 export default function Page() {
   const [selectedValue, setSelectedValue] = useState<string>('');
@@ -27,10 +27,10 @@ export default function Page() {
   const handleSubmit = () => {
     if (selectedValue === '') return;
     if (selectedValue === 'personal') {
-      router.push('/sign-up/personal-account?step=1');
+      router.push('/sign-up/personal?step=1');
     }
     if (selectedValue === 'business') {
-      router.push('/sign-up/business-account?step=1');
+      router.push('/sign-up/business?step=1');
     }
   };
 

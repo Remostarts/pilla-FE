@@ -22,9 +22,8 @@ export default function FillEmail() {
           <div className="mb-8">
             <Input
               name="email"
-              type="text"
-              placeholder="Email Address"
-              className="px-4 py-7 font-inter"
+              placeholder="Enter Email Address"
+              className="mt-2 border-gray-300 py-6"
             />
           </div>
           <Button
