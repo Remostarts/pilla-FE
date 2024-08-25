@@ -1,7 +1,9 @@
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import { getNewAccessToken } from '@/app/actions/getNewAccessToken';
 import { jwtHelpers } from '@/helpers/jwtHelpers';
+
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -19,6 +21,7 @@ export const authOptions: AuthOptions = {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
           });
           const { data } = await res.json();
           const verifiedToken: any = jwtHelpers.verifyToken(
@@ -46,7 +49,17 @@ export const authOptions: AuthOptions = {
         ...user,
       };
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
+      console.log('🌼 🔥🔥 session 🔥🔥 tokenbefore🌼', token);
+
+      const verifiedToken = jwtHelpers.verifyToken(token?.accessToken, process.env.JWT_SECRET!);
+
+      if (!verifiedToken) {
+        const { data } = await getNewAccessToken(token?.refreshToken);
+        token.accessToken = data?.accessToken;
+      }
+      console.log('🌼 🔥🔥 session 🔥🔥 tokenafter🌼', token);
+
       return {
         ...session,
         ...token,
@@ -63,6 +76,7 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
-    signIn: '/sign-ina',
+    signIn: '/sign-in',
+    signOut: '/sign-in',
   },
 };

@@ -28,5 +28,5 @@ export default function SettingsContent({ currentSection }: { currentSection: st
     }
   };
 
-  return <div className="w-full">{renderSection()}</div>;
+  return <div className="size-full">{renderSection()}</div>;
 }

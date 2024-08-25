@@ -1,9 +1,33 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+
+import { ReButton } from '@/components/re-ui/ReButton';
+import ReForm from '@/components/re-ui/ReForm';
+import ReInput from '@/components/re-ui/re-input/ReInput';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
+import { personalSignUpSchema } from '@/lib/validations/userAuth.validations';
+
+type TInputs = z.infer<typeof personalSignUpSchema>;
+
+const defaultValues = {
+  firstName: '',
+  middleName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  referralCode: '',
+};
+type DefaultValues = typeof defaultValues;
 
 export default function FillDetails() {
   const handleProceed = useSearchParamsHandler();
+
+  const onSubmit: SubmitHandler<TInputs> = (data) => {
+    console.log(data);
+    handleProceed('step', '2');
+  };
 
   return (
     <div>
@@ -12,25 +36,30 @@ export default function FillDetails() {
         Provide your personal information as it appears on your bank verification documents.
       </p>
 
-      <form>
+      <ReForm<DefaultValues>
+        submitHandler={onSubmit}
+        resolver={zodResolver(personalSignUpSchema)}
+        defaultValues={defaultValues}
+        mode="onChange"
+      >
         <div className="mb-4">
           <label
             htmlFor="firstName"
             className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
           >
-            First Name
+            First Name *
           </label>
-          <Input name="firstName" type="text" />
+          <ReInput name="firstName" />
         </div>
 
         <div className="mb-4">
           <label
             htmlFor="middleName"
-            className=" mb-2 block font-spaceGrotesk font-medium text-gray-700"
+            className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
           >
             Middle Name
           </label>
-          <Input name="middleName" type="text" />
+          <ReInput name="middleName" />
         </div>
 
         <div className="mb-4">
@@ -38,28 +67,23 @@ export default function FillDetails() {
             htmlFor="lastName"
             className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
           >
-            Last Name
+            Last Name *
           </label>
-          <Input name="lastName" type="text" />
+          <ReInput name="lastName" />
         </div>
 
         <div className="mb-4">
           <label htmlFor="email" className="mb-2 block font-spaceGrotesk font-medium text-gray-700">
-            Email Address
+            Email Address *
           </label>
-          <Input name="email" type="text" />
+          <ReInput name="email" />
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="phone"
-            className=" mb-2 block font-spaceGrotesk font-medium text-gray-700"
-          >
-            Phone Number
+          <label htmlFor="phone" className="mb-2 block font-spaceGrotesk font-medium text-gray-700">
+            Phone Number *
           </label>
-          <div className="mt-1 flex rounded-md shadow-sm">
-            <Input name="phone" type="text" />
-          </div>
+          <ReInput name="phone" />
         </div>
 
         <div className="mb-8">
@@ -69,21 +93,22 @@ export default function FillDetails() {
           >
             Referral Code (optional)
           </label>
-          <Input name="referralCode" type="text" />
+          <ReInput name="referralCode" />
         </div>
 
-        <div className="mb-10 font-inter text-sm text-gray-600">
-          By continuing, you are agreeing to out terms of service, privacy policy and e-sign.
+        <div className="font-inter text-sm text-gray-600">
+          By continuing, you are agreeing to our terms of service, privacy policy and e-sign.
         </div>
 
-        <Button
-          onClick={() => handleProceed('step', '2')}
-          type="button"
-          className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
-        >
-          Proceed
-        </Button>
-      </form>
+        <div className="pt-10">
+          <ReButton
+            type="submit"
+            className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
+          >
+            Proceed
+          </ReButton>
+        </div>
+      </ReForm>
     </div>
   );
 }

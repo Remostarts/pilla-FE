@@ -36,12 +36,17 @@ export default function BusinessAccount() {
         </div>
         <div className="flex justify-center">
           <div className="relative w-full max-w-3xl">
-            <Image src="/assets/root/home/tablet.png" alt="smilingWoman" width={700} height={700} />
+            <Image
+              src="/assets/root/home/business-tablet.png"
+              alt="smilingWoman"
+              width={700}
+              height={700}
+            />
           </div>
         </div>
 
         {/* Card */}
-        <div className="mt-8 grid grid-cols-1 gap-8 md:mt-12 md:grid-cols-2 md:gap-16">
+        <div className="mt-8 grid grid-cols-1 gap-10 md:mt-12 md:grid-cols-2 md:gap-16">
           {solutionData.map((data) => (
             <div
               className="rounded-lg px-6 pt-8 shadow-md"

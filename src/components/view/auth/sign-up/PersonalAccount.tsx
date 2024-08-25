@@ -10,7 +10,7 @@ import VerifyPhone from '@/components/view/auth/sign-up/VerifyPhone';
 import CreatePassword from '@/components/view/auth/sign-up/CreatePassword';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 
-export default function Page() {
+export default function PersonalAccount() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentStep = Number(searchParams.get('step'));

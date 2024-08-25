@@ -6,62 +6,70 @@ import { userRoles } from './constants/shared';
 
 const { ADMIN, BUSINESS, PERSONAL } = userRoles;
 // This function can be marked `async` if using `await` inside'
-const hybridRoutes = ['/', '/personal-account/sign-ina', '/sign-up'];
+const hybridRoutes = [
+  '/',
+  '/sign-in',
+  '/sign-in/admin',
+  '/sign-in/business',
+  '/sign-up',
+  '/sign-up/admin',
+  '/sign-up/business',
+  '/sign-up/personal',
+];
 // hybrid routes are those which routes are not accessible by a signed in user
-const patientAccesibleRoutes = ['/dashboard'];
+const personalRoutes = ['/dashboard'];
 const rolesRedirect: Record<string, unknown> = {
-  //   doctor: `${process.env.FRONTEND_URL}/doctor/dashboard`,
-  //   patient: `${process.env.FRONTEND_URL}/dashboard`,
-  //   admin: `${process.env.FRONTEND_URL}/admins/dashboard`,
+  business: `${process.env.FRONTEND_URL}/business`,
+  personal: `${process.env.FRONTEND_URL}/personal`,
+  admin: `${process.env.FRONTEND_URL}/admin`,
 };
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
-  console.log('🌼 🔥🔥 middleware 🔥🔥 token🌼', token);
-
   const { pathname } = request.nextUrl;
   if (!token) {
     if (hybridRoutes.includes(pathname)) {
       return NextResponse.next();
     }
-    return NextResponse.redirect(`${process.env.FRONTEND_URL}/personal-account/sign-ina`);
+    return NextResponse.redirect(`${process.env.FRONTEND_URL}/sign-in`);
   }
 
   const role = token?.role as string;
-  //   // console.log(role, "role middleware")
+
   if (
-    (role === 'admin' && pathname.startsWith('/admins')) ||
-    (role === 'doctor' && pathname.startsWith('/doctor')) ||
-    (role === 'patient' && patientAccesibleRoutes.includes(pathname))
+    (role === ADMIN && pathname.startsWith('/admin')) ||
+    (role === BUSINESS && pathname.startsWith('/business')) ||
+    // (role === PERSONAL && personalRoutes.includes(pathname))
+    (role === PERSONAL && pathname.startsWith('/personal'))
   ) {
-    // console.log("next")
     return NextResponse.next();
   }
 
-  //   if (pathname === "/" && role && role in rolesRedirect) {
-  //     return NextResponse.redirect(rolesRedirect[role] as string);
-  //   }
+  if (pathname === '/' && role && role in rolesRedirect) {
+    return NextResponse.redirect(rolesRedirect[role] as string);
+  }
 
-  //   // NextResponse.rewrite(request.
-  //   NextResponse.rewrite("/login");
+  // NextResponse.rewrite(request.
+  NextResponse.rewrite(`${process.env.FRONTEND_URL}/sign-in`);
 
-  //   return NextResponse.redirect(`${process.env.FRONTEND_URL}`);
+  return NextResponse.redirect(`${process.env.FRONTEND_URL}`);
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    // //hybrid routes
+    // hybrid routes
     '/',
-    // "/login",
-    // "/register",
-    // //patient routes
-    // "/dashboard",
-    // "/my-profile",
-    // "/my-appointments",
-    // //doctor routes
-    // "/doctor/:page*",
-    // //admin routes
-    // "/admins/:page*",
+    '/sign-in/:page*',
+    '/sign-up/:page*',
+    // '/sign-up/personal',
+    // '/sign-up/business',
+    // personal routes
+    '/personal/:page*',
+
+    // business routes
+    '/business/:page*',
+    // admin routes
+    '/admin/:page*',
   ],
 };
 

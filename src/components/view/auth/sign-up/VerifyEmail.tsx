@@ -15,7 +15,7 @@ export default function VerifyEmail() {
       <h1 className="mb-2 font-spaceGrotesk text-xl font-bold md:text-2xl">Verify Email Address</h1>
       <p className="mb-6 font-inter text-sm text-gray-600">We sent an OTP to Email Address</p>
 
-      <ReOtp count={6} onChange={handleOtpChange} />
+      <ReOtp count={6} onChange={handleOtpChange} className="gap-2 sm:gap-8" />
       <Button
         onClick={() => handleVerifyEmail('step', '3')}
         className={`mt-10 w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}

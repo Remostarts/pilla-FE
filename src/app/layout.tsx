@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk } from 'next/font/google';
 
 import '../styles/globals.css';
 
+import { Toaster } from '@/components/ui/toaster';
 import Providers from '@/context/Providers';
 import { TChildrenProps } from '@/types';
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: TChildrenProps) {
       <body className={` ${inter.variable} ${spaceGrotesk.variable} `}>
         <Providers>
           <div>{children}</div>
+          <Toaster />
         </Providers>
       </body>
     </html>

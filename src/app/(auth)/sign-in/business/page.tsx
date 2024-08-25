@@ -1,16 +1,16 @@
 import { Metadata } from 'next';
 
-import { Signin } from '@/components/view/auth/sign-in/Signin';
+import { SigninBusiness } from '@/components/view/auth/sign-in/SigninBusiness';
 
 export const metadata: Metadata = {
-  title: 'Pilla-signin',
+  title: 'Signin',
   description: 'sign in to your account',
 };
 
 const SigninPage = () => {
   return (
     <div>
-      <Signin />
+      <SigninBusiness />
     </div>
   );
 };

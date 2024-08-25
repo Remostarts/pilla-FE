@@ -1,14 +1,14 @@
-import Link from 'next/link';
+import { ArrowRight, ChevronDown, UserCircle } from 'lucide-react';
 import Image from 'next/image';
-import { ChevronDown, UserCircle, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 import MobileMenu from './MobileMenu';
 
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 export default function Navbar() {
@@ -108,13 +108,13 @@ export default function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-3 bg-white p-2 font-spaceGrotesk font-medium text-gray-800">
                 <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
-                  <Link href="/personal-account/sign-in" className="flex w-full gap-2">
+                  <Link href="/sign-in" className="flex w-full gap-2">
                     Personal Login
                     <ArrowRight size={20} />
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
-                  <Link href="/business-account/sign-in" className="flex w-full gap-2">
+                  <Link href="/sign-in/business" className="flex w-full gap-2">
                     Business Login
                     <ArrowRight size={20} />
                   </Link>

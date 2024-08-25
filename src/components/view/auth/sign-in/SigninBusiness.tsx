@@ -1,23 +1,23 @@
 import Link from 'next/link';
 
-import SigninForm from './SigninForm';
+import { SigninFormBusiness } from './SigninFormBusiness';
 
-export const Signin = () => {
+export const SigninBusiness = () => {
   return (
     <>
       <div className="mb-6 items-center justify-between lg:flex">
-        <h2 className=" font-spaceGrotesk text-2xl font-bold lg:text-3xl">Personal Account</h2>
+        <h2 className=" font-spaceGrotesk text-2xl font-bold lg:text-3xl">Business Account</h2>
 
         <Link
-          href="/business-account/sign-in"
+          href="/sign-in"
           className="font-inter text-sm text-primary-600 underline xl:text-base"
         >
-          Switch to Business account
+          Switch to Personal account
         </Link>
       </div>
       <div className="rounded-xl border px-8 py-12">
         <h2 className="mb-6 font-spaceGrotesk text-xl font-bold lg:text-2xl">Sign in</h2>
-        <SigninForm />
+        <SigninFormBusiness />
       </div>
 
       <p className="mt-4 text-center font-inter">

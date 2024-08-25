@@ -35,7 +35,7 @@ export default function Pin({ heading, subHeading, btnName, opens, closes }: Pin
 
       {/* Otp Section */}
       <div className="mt-10">
-        <ReOtp count={4} />
+        <ReOtp count={4} className="gap-8" />
       </div>
 
       {/* Btn */}

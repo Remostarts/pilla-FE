@@ -22,7 +22,7 @@ export default function Page() {
           </p>
           <Link
             className="w-full rounded-full bg-primary-500 px-6 py-3 text-center font-inter font-semibold text-white sm:text-lg md:px-8 md:py-4"
-            href="/personal-account/sign-in"
+            href="/sign-in"
           >
             Login
           </Link>

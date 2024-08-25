@@ -1,13 +1,16 @@
 'use client';
-import DashboardCount from '@/components/view/dashboard/shared/DashboardCount';
-import ActionBtn from '@/components/view/dashboard/shared/ActionBtn';
-import VerificationHome from '@/components/view/dashboard/personal-dashboard/home/verification-status';
-import { ActionsBtnDataType, ActionsNeededDataType } from '@/types/personalDashBHome.type';
-import { Heading } from '@/components/view/dashboard/shared/Heading';
-import UtilityBillHome from '@/components/view/dashboard/personal-dashboard/home/utility-bill';
-import { Sidebar } from '@/components/view/dashboard/shared/SideBar';
-import Pin from '@/components/view/dashboard/shared/Pin';
+import AddCard from '@/components/view/dashboard/personal-dashboard/home/add-money/AddCard';
+import AddMoney from '@/components/view/dashboard/personal-dashboard/home/add-money/AddMoney';
 import PayRent from '@/components/view/dashboard/personal-dashboard/home/pay-rent/PayRent';
+import SendMoneyHome from '@/components/view/dashboard/personal-dashboard/home/send-money';
+import UtilityBillHome from '@/components/view/dashboard/personal-dashboard/home/utility-bill';
+import VerificationHome from '@/components/view/dashboard/personal-dashboard/home/verification-status';
+import ActionBtn from '@/components/view/dashboard/shared/ActionBtn';
+import ArrowedActionButton from '@/components/view/dashboard/shared/ArrowedActionBtn';
+import DashboardCount from '@/components/view/dashboard/shared/DashboardCount';
+import { Heading } from '@/components/view/dashboard/shared/Heading';
+import Pin from '@/components/view/dashboard/shared/Pin';
+import { Sidebar } from '@/components/view/dashboard/shared/SideBar';
 import { SuccessMessage } from '@/components/view/dashboard/shared/SuccessMessage';
 import {
   ADD_CARD_WINDOW,
@@ -20,10 +23,7 @@ import {
   UTILITY_BILL_WINDOW,
   VERIFICATION_STATUS_WINDOW,
 } from '@/constants/homeData';
-import AddMoney from '@/components/view/dashboard/personal-dashboard/home/add-money/AddMoney';
-import AddCard from '@/components/view/dashboard/personal-dashboard/home/add-money/AddCard';
-import ArrowedActionButton from '@/components/view/dashboard/shared/ArrowedActionBtn';
-import SendMoneyHome from '@/components/view/dashboard/personal-dashboard/home/send-money';
+import { ActionsBtnDataType, ActionsNeededDataType } from '@/types/personalDashBHome.type';
 
 const actionsData: ActionsBtnDataType[] = [
   {

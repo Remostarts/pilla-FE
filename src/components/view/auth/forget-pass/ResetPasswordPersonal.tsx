@@ -7,7 +7,7 @@ export default function ResetPasswordPersonal() {
   const router = useRouter();
 
   const handleSubmit = () => {
-    router.push('/personal-account/done');
+    router.push('/personal/done');
   };
 
   return (

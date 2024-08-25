@@ -57,7 +57,7 @@ export default function Solutions() {
       </div>
 
       {/* Solution Cards */}
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
         {solutionData.map((data) => (
           <div
             className="rounded-lg px-6 pt-8 shadow-md"
