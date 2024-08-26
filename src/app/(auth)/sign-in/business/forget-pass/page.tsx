@@ -1,12 +1,12 @@
 'use client';
 
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 
 import FillEmail from '@/components/view/auth/forget-pass/FillEmail';
-import VerifyEmail from '@/components/view/auth/sign-up/VerifyEmail';
 import ResetPasswordBusiness from '@/components/view/auth/forget-pass/ResetPasswordBusiness';
+import VerifyEmail from '@/components/view/auth/sign-up/VerifyEmail';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 
 export default function Page() {
@@ -47,7 +47,7 @@ export default function Page() {
       )}
 
       <Link
-        href="/personal-account/sign-in"
+        href="/sign-in"
         className="mt-6 flex justify-center font-inter font-medium text-gray-800"
       >
         Back to Sign in

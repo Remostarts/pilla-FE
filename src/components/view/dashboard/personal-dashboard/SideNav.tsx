@@ -84,7 +84,7 @@ export default function SideNav() {
       <div className="border-t border-gray-500 px-6 py-4">
         <button
           className="flex w-full items-center gap-4 rounded-md px-4 py-3 text-white hover:bg-primary-500"
-          onClick={() => router.push('/personal-account/sign-in')}
+          onClick={() => router.push('/sign-in')}
         >
           <Image
             src="/assets/personal-dashboard/side-nav/logout-icon.svg"

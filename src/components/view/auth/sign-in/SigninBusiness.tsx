@@ -9,7 +9,7 @@ export const SigninBusiness = () => {
         <h2 className=" font-spaceGrotesk text-2xl font-bold lg:text-3xl">Business Account</h2>
 
         <Link
-          href="/personal-account/sign-in"
+          href="/sign-in"
           className="font-inter text-sm text-primary-600 underline xl:text-base"
         >
           Switch to Personal account

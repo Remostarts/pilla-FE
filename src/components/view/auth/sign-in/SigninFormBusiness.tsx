@@ -1,6 +1,8 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -8,9 +10,9 @@ import { Heading } from '../../dashboard/shared/Heading';
 
 import { ReButton } from '@/components/re-ui/ReButton';
 import ReForm from '@/components/re-ui/ReForm';
+import ReInput from '@/components/re-ui/re-input/ReInput';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
 import { userLoginSchema } from '@/lib/validations/userAuth.validations';
-import { Input } from '@/components/ui/input';
 
 export type TInputs = z.infer<typeof userLoginSchema>;
 
@@ -22,8 +24,19 @@ const defaultValues = {
 type DefaultValues = typeof defaultValues;
 
 export const SigninFormBusiness = () => {
+  const pathname = usePathname();
+  const role = pathname?.split('/')[2];
+  console.log('🌼 🔥🔥 SigninFormBusiness 🔥🔥 pathname🌼', role);
+
+  const router = useRouter();
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
-    console.log(data);
+    const result = await signIn('pilla-backend', { ...data, role, redirect: false });
+
+    if (result?.ok && !result.error) {
+      router.refresh();
+      router.push('/');
+    }
+    console.log('🌼 🔥🔥 constonSubmit:SubmitHandler<TInputs>= 🔥🔥 result🌼', result);
   };
 
   return (
@@ -37,16 +50,16 @@ export const SigninFormBusiness = () => {
         <div className="mt-3 space-y-4">
           <div>
             <Heading heading="Email" />
-            <Input name="email" className="mt-2 border-gray-300 py-5" />
+            <ReInput name="email" />
           </div>
           <div>
             <Heading heading="Password" size="lg" />
-            <RePassInput name="signinPass" />
+            <RePassInput name="password" />
           </div>
         </div>
         <div className="flex-between">
           <Link
-            href="/business-account/forget-pass?step=1"
+            href="/forget-pass?step=1"
             className="mb-10 flex justify-end font-inter text-sm text-gray-600"
           >
             Forgot your password?
