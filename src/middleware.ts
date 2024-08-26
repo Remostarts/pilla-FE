@@ -16,8 +16,6 @@ const hybridRoutes = [
   '/sign-up/business',
   '/sign-up/personal',
 ];
-// hybrid routes are those which routes are not accessible by a signed in user
-const personalRoutes = ['/dashboard'];
 const rolesRedirect: Record<string, unknown> = {
   business: `${process.env.FRONTEND_URL}/business`,
   personal: `${process.env.FRONTEND_URL}/personal`,
@@ -61,8 +59,6 @@ export const config = {
     '/',
     '/sign-in/:page*',
     '/sign-up/:page*',
-    // '/sign-up/personal',
-    // '/sign-up/business',
     // personal routes
     '/personal/:page*',
 
@@ -72,19 +68,3 @@ export const config = {
     '/admin/:page*',
   ],
 };
-
-/**
- * next auth amader ekta next-auth.session-token provide kore -
- * amader backend amader arekta accessToken
- * tahole project er modhe 2 ta token parallel
- * next auth er token ta amadedr login ta dhore rakhe
- * next auth behaviour hocche eta apni jokhoni reload marben next-auth token ta refresh kore
- * amader backend er accessToken ta ache sheta kintu refresh hocche na
- * tar mane auth token reload marle refresh holeo, accesstoken refresh. ebong accessToken amadxer login persist kortese
- * tar mane emon ekta time ashbe jokhon amader next auth er token refresh hoye valid hoye jabe but accessToken expire hoye jabe
- * tokhon amader site loggedIn thakbe but data ashbe na
- *
- * so amader strategy hobe:
- * 1. amra check korbo accessToken expire hoye geche kina
- * 2. jodi hoye jay tahole notun kore refresh token generate kore amader access token ta update korte hobe jaate user logged in thakleo data jate ashte pare
- */
