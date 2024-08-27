@@ -1,13 +1,16 @@
 import ReOtp from '@/components/re-ui/ReOtp';
 import { Button } from '@/components/ui/button';
+import { useOtp } from '@/context/OtpProvider';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 
 export default function VerifyEmail() {
   const handleVerifyEmail = useSearchParamsHandler();
 
+  const { setOtp } = useOtp();
+
   const handleOtpChange = (otp: string) => {
-    console.log('Current OTP:', otp);
-    // Push this Otp to a state variable when the OTP changes
+    setOtp(otp);
+    handleVerifyEmail('step', '2');
   };
 
   return (

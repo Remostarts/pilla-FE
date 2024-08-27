@@ -5,7 +5,7 @@ export const personalSignUpSchema = z.object({
   middleName: z.string().optional(),
   lastName: z.string().min(1, 'Last name is required'),
   email: z.string().email('Invalid email address'),
-  phone: z.string().min(10, 'Phone number must be at least 10 digits'),
+  phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
   referralCode: z.string().optional(),
 });
 

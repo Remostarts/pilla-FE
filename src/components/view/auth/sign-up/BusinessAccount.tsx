@@ -10,7 +10,7 @@ import VerifyEmail from '@/components/view/auth/sign-up/VerifyEmail';
 import CreatePassword from '@/components/view/auth/sign-up/CreatePassword';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 
-export default function PersonalAccount() {
+export default function BusinessAccount() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentStep = Number(searchParams.get('step'));
