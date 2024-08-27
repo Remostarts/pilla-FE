@@ -8,6 +8,8 @@ import { ReButton } from '@/components/re-ui/ReButton';
 import ReForm from '@/components/re-ui/ReForm';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
 import { passwordSchema } from '@/lib/validations/userAuth.validations';
+import { toast } from '@/components/ui/use-toast';
+import { useOtp } from '@/context/OtpProvider';
 
 type TInputs = z.infer<typeof passwordSchema>;
 
@@ -20,9 +22,38 @@ type DefaultValues = typeof defaultValues;
 export default function CreatePassword() {
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<TInputs> = (data) => {
-    console.log(data);
-    router.push('/sign-up/done');
+  const { otp, email } = useOtp();
+
+  const onSubmit: SubmitHandler<TInputs> = async (data) => {
+    try {
+      const response = await fetch(`https://pilla-be-two.vercel.app/api/v1/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+          emailVerificationCode: otp,
+          role: 'personal',
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: 'Sign up Success',
+        });
+        router.push('/sign-in');
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Sign up failed');
+      }
+    } catch (error) {
+      console.error('Sign up error:', error);
+      toast({
+        title: 'Sign up failed',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+      });
+    }
   };
 
   return (
