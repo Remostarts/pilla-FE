@@ -2,12 +2,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
+import { usePathname } from 'next/navigation';
 
 import { ReButton } from '@/components/re-ui/ReButton';
 import ReForm from '@/components/re-ui/ReForm';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 import { personalSignUpSchema } from '@/lib/validations/userAuth.validations';
+import { toast } from '@/components/ui/use-toast';
+import { useOtp } from '@/context/OtpProvider';
 
 type TInputs = z.infer<typeof personalSignUpSchema>;
 
@@ -16,22 +19,55 @@ const defaultValues = {
   middleName: '',
   lastName: '',
   email: '',
-  phone: '',
+  phoneNumber: '',
   referralCode: '',
 };
 type DefaultValues = typeof defaultValues;
 
 export default function FillDetails() {
   const handleProceed = useSearchParamsHandler();
+  const pathname = usePathname().split('/')[2];
 
-  const onSubmit: SubmitHandler<TInputs> = (data) => {
-    console.log(data);
-    handleProceed('step', '2');
+  const { setEmail } = useOtp();
+
+  const onSubmit: SubmitHandler<TInputs> = async (data) => {
+    try {
+      setEmail(data.email);
+      const response = await fetch(
+        `https://pilla-be-two.vercel.app/api/v1/auth/create-partial-user`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: data.email,
+            firstName: data.firstName,
+            middleName: data.middleName,
+            lastName: data.lastName,
+            phoneNumber: data.phoneNumber,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        handleProceed('step', '2');
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Sign up failed');
+      }
+    } catch (error) {
+      console.error('Sign up error:', error);
+      toast({
+        title: 'Sign up failed',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+      });
+    }
   };
 
   return (
     <div>
-      <h1 className="mb-2 font-spaceGrotesk text-xl font-bold md:text-2xl">Personal Information</h1>
+      <h1 className="mb-2 font-spaceGrotesk text-xl font-bold md:text-2xl">
+        {pathname === 'business' ? 'Business Information' : 'Personal Information'}
+      </h1>
       <p className="mb-6 font-inter text-sm text-gray-600">
         Provide your personal information as it appears on your bank verification documents.
       </p>
@@ -80,10 +116,13 @@ export default function FillDetails() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="phone" className="mb-2 block font-spaceGrotesk font-medium text-gray-700">
+          <label
+            htmlFor="phoneNumber"
+            className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
+          >
             Phone Number *
           </label>
-          <ReInput name="phone" />
+          <ReInput name="phoneNumber" />
         </div>
 
         <div className="mb-8">

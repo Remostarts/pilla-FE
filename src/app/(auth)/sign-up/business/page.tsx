@@ -1,3 +1,7 @@
+import React from 'react';
+
+import BusinessAccount from '@/components/view/auth/sign-up/BusinessAccount';
+
 export default function Page() {
-  return <div>Business Account</div>;
+  return <BusinessAccount />;
 }
