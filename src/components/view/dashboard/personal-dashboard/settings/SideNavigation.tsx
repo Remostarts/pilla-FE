@@ -18,27 +18,27 @@ const links: SettingsLink[] = [
   {
     id: 1,
     label: 'Personal Information',
-    href: '/personal-dashboard/settings?section=personal-information',
+    href: '/personal/settings?section=personal-information',
   },
   {
     id: 2,
     label: 'Account Limit',
-    href: '/personal-dashboard/settings?section=account-limit',
+    href: '/personal/settings?section=account-limit',
   },
   {
     id: 3,
     label: 'Notifications',
-    href: '/personal-dashboard/settings?section=notifications',
+    href: '/personal/settings?section=notifications',
   },
   {
     id: 4,
     label: 'Security',
-    href: '/personal-dashboard/settings?section=security',
+    href: '/personal/settings?section=security',
   },
   {
     id: 5,
     label: 'Saved Cards',
-    href: '/personal-dashboard/settings?section=saved-cards',
+    href: '/personal/settings?section=saved-cards',
   },
 ];
 

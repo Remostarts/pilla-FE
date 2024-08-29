@@ -5,12 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
 const sideNavData = [
-  {
-    id: 1,
-    img: '/assets/personal-dashboard/side-nav/home-icon.svg',
-    name: 'Home',
-    alt: '/',
-  },
+  { id: 1, img: '/assets/personal-dashboard/side-nav/home-icon.svg', name: 'Home', alt: 'home' },
   {
     id: 2,
     img: '/assets/personal-dashboard/side-nav/pilla-savings-icon.svg',
@@ -73,7 +68,7 @@ export default function SideNav() {
             {sideNavData.map((nav) => (
               <li className="my-4" key={nav.id}>
                 <Link
-                  href={`/personal/${nav.alt}`}
+                  href={`/business/${nav.alt}`}
                   className={`flex items-center gap-4 rounded-md p-4 text-white hover:bg-primary-500 ${nav.alt === currPage && 'bg-primary-500'}`}
                 >
                   <Image src={nav.img} alt={`${nav.alt}-icon`} width={24} height={24} />
