@@ -29,7 +29,7 @@ const ReInput = ({
   suffix,
 
   type = 'text',
-  autoComplete = 'off',
+  autoComplete = 'on',
   placeholder,
 }: TReInputProps) => {
   const { control } = useFormContext();

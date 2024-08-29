@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
@@ -21,6 +21,9 @@ type DefaultValues = typeof defaultValues;
 
 export default function CreatePassword() {
   const router = useRouter();
+  const pathname = usePathname().split('/')[2];
+
+  const role = pathname;
 
   const { otp, email } = useOtp();
 
@@ -34,7 +37,7 @@ export default function CreatePassword() {
           password: data.password,
           confirmPassword: data.confirmPassword,
           emailVerificationCode: otp,
-          role: 'personal',
+          role,
         }),
       });
 
