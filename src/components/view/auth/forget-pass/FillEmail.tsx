@@ -1,48 +1,20 @@
+'use client';
+
 import { useState } from 'react';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useSearchParamsHandler } from '@/hooks/useSearchParamsHandler';
 import { toast } from '@/components/ui/use-toast';
+import { sendForgetPasswordOtp } from '@/lib/actions/auth/signup.actions';
+import { useOtp } from '@/context/OtpProvider';
 
 export default function FillEmail() {
   const [email, setEmail] = useState('');
+  const { setEmail: setEmailOtp } = useOtp();
   const handleSendCode = useSearchParamsHandler();
 
-  const sendForgetPasswordOtp = async (email: string) => {
-    try {
-      const response = await fetch(
-        `https://pilla-be-two.vercel.app/api/v1/auth/forget-password-otp-send`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send verification code');
-      }
-
-      toast({
-        title: 'Code Sent',
-        description: 'A verification code has been sent to your email address.',
-      });
-
-      handleSendCode('step', '2');
-    } catch (error) {
-      console.error('Error sending verification code:', error);
-      toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
-      });
-    }
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (email.trim() === '') {
       toast({
         title: 'Invalid Email',
@@ -51,7 +23,20 @@ export default function FillEmail() {
       return;
     }
 
-    sendForgetPasswordOtp(email);
+    try {
+      await sendForgetPasswordOtp(email);
+      toast({
+        title: 'Code Sent',
+        description: 'A verification code has been sent to your email address.',
+      });
+      handleSendCode('step', '2');
+    } catch (error) {
+      console.error('Error sending verification code:', error);
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+      });
+    }
   };
 
   return (
@@ -72,7 +57,10 @@ export default function FillEmail() {
               name="email"
               placeholder="Enter Email Address"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailOtp(e.target.value);
+              }}
               className="mt-2 border-gray-300 py-6"
             />
           </div>
