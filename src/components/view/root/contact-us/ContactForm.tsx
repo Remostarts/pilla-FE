@@ -1,15 +1,17 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { ReButton } from '@/components/re-ui/ReButton';
-import ReForm from '@/components/re-ui/ReForm';
 import ReInput from '@/components/re-ui/re-input/ReInput';
+import { Form } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/components/ui/use-toast';
+import { createFeedback } from '@/lib/actions/root/contact.action';
 
 // Define the validation schema
-const contactFormSchema = z.object({
+export const contactFormSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   emailAddress: z.string().email('Invalid email address'),
   message: z.string().optional(),
@@ -22,60 +24,96 @@ const defaultValues = {
   emailAddress: '',
   message: '',
 };
-type DefaultValues = typeof defaultValues;
 
 export default function ContactForm() {
+  // rhf
+  const form = useForm<TInputs>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues,
+    mode: 'onChange',
+  });
+  const { handleSubmit, formState } = form;
+  const { isSubmitting } = formState;
+
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
-    console.log(data);
-    // Handle form submission here
+    try {
+      const response = await createFeedback({
+        name: data.fullName,
+        email: data.emailAddress,
+        message: data.message || '',
+      });
+
+      if (response.success) {
+        toast({
+          title: 'Success',
+          description: 'Your feedback has been submitted successfully.',
+        });
+        // Reset form or redirect user as needed
+        form.reset();
+      } else {
+        toast({
+          title: 'Error',
+          description: response.error || 'Failed to submit feedback',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      toast({
+        title: 'Error',
+        description: 'An unexpected error occurred',
+        variant: 'destructive',
+      });
+    }
   };
 
   return (
     <div className="rounded-2xl border border-gray-200 p-8 sm:p-16 md:w-1/2">
-      <ReForm<DefaultValues>
-        submitHandler={onSubmit}
-        resolver={zodResolver(contactFormSchema)}
-        defaultValues={defaultValues}
-        mode="onChange"
-      >
-        <div className="mb-4">
-          <label
-            htmlFor="fullName"
-            className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
-          >
-            Full Name *
-          </label>
-          <ReInput name="fullName" />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="emailAddress"
-            className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
-          >
-            Email Address *
-          </label>
-          <ReInput name="emailAddress" />
-        </div>
-        <div>
-          <label
-            htmlFor="message"
-            className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
-          >
-            Message
-          </label>
-          <Textarea name="message" rows={4} />
-        </div>
+      <Form {...form}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex-col-between min-h-[450px] space-y-3 overflow-x-hidden"
+        >
+          <div className="mb-4">
+            <label
+              htmlFor="fullName"
+              className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
+            >
+              Full Name *
+            </label>
+            <ReInput name="fullName" />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="emailAddress"
+              className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
+            >
+              Email Address *
+            </label>
+            <ReInput name="emailAddress" />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="message"
+              className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
+            >
+              Message
+            </label>
+            <Textarea name="message" rows={4} />
+          </div>
 
-        {/* Submit Btn */}
-        <div className="pt-10">
-          <ReButton
-            className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
-            type="submit"
-          >
-            Submit
-          </ReButton>
-        </div>
-      </ReForm>
+          {/* Submit Btn */}
+          <div className="pt-10">
+            <ReButton
+              type="submit"
+              isSubmitting={isSubmitting}
+              className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
+            >
+              Submit
+            </ReButton>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

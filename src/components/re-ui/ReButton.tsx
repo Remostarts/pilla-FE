@@ -31,7 +31,7 @@ export function ReButton({
   );
   return (
     <Button type={type} className={className || defaultClassName} {...props}>
-      {isSubmitting ? `${children} loading..` : children}
+      {isSubmitting ? `Loading...` : children}
     </Button>
   );
 }

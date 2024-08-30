@@ -34,6 +34,6 @@ export const userLoginSchema = z.object({
 
 export type UserLoginFormData = z.infer<typeof userLoginSchema>;
 
-export type PasswordFormData = z.infer<typeof passwordSchema>;
+export type TPassword = z.infer<typeof passwordSchema>;
 
-export type PersonalSignUpFormData = z.infer<typeof personalSignUpSchema>;
+export type TPersonalSignup = z.infer<typeof personalSignUpSchema>;

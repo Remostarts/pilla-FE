@@ -1,61 +1,65 @@
 'use client';
-import { usePathname, useRouter } from 'next/navigation';
+
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitHandler } from 'react-hook-form';
-import { z } from 'zod';
+import { usePathname, useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { ReButton } from '@/components/re-ui/ReButton';
-import ReForm from '@/components/re-ui/ReForm';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
-import { passwordSchema } from '@/lib/validations/userAuth.validations';
+import { Form } from '@/components/ui/form';
 import { toast } from '@/components/ui/use-toast';
 import { useOtp } from '@/context/OtpProvider';
-
-type TInputs = z.infer<typeof passwordSchema>;
+import { passwordSchema, TPassword } from '@/lib/validations/userAuth.validations';
+import { createPassword } from '@/lib/actions/auth/signup.actions';
 
 const defaultValues = {
   password: '',
   confirmPassword: '',
 };
-type DefaultValues = typeof defaultValues;
 
 export default function CreatePassword() {
-  const router = useRouter();
   const pathname = usePathname().split('/')[2];
-
-  const role = pathname;
-
+  const router = useRouter();
   const { otp, email } = useOtp();
 
-  const onSubmit: SubmitHandler<TInputs> = async (data) => {
+  const form = useForm<TPassword>({
+    resolver: zodResolver(passwordSchema),
+    defaultValues,
+    mode: 'onChange',
+  });
+  const { handleSubmit, formState } = form;
+  const { isSubmitting } = formState;
+
+  const onSubmit: SubmitHandler<TPassword> = async (data) => {
     try {
-      const response = await fetch(`https://pilla-be-two.vercel.app/api/v1/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          password: data.password,
-          confirmPassword: data.confirmPassword,
-          emailVerificationCode: otp,
-          role,
-        }),
+      const response = await createPassword({
+        email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+        emailVerificationCode: otp,
+        role: pathname,
       });
 
-      if (response.ok) {
-        toast({
-          title: 'Sign up Success',
-        });
+      if (response?.success) {
         router.push('/sign-in');
+        toast({
+          title: 'Success',
+          description: 'Password created successfully!',
+        });
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Sign up failed');
+        toast({
+          title: 'Error',
+          description: response.error,
+          variant: 'destructive',
+        });
       }
-    } catch (error) {
-      console.error('Sign up error:', error);
+    } catch (e: any) {
       toast({
-        title: 'Sign up failed',
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+        title: 'Error',
+        description: e.message,
+        variant: 'destructive',
       });
+      console.log('Error while creating password', e);
     }
   };
 
@@ -66,46 +70,49 @@ export default function CreatePassword() {
         Create strong and easy to remember password.
       </p>
 
-      <ReForm<DefaultValues>
-        submitHandler={onSubmit}
-        resolver={zodResolver(passwordSchema)}
-        defaultValues={defaultValues}
-        mode="onChange"
-      >
-        <div className="mb-4">
-          <label
-            htmlFor="password"
-            className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <RePassInput name="password" />
-        </div>
-
-        <div className="mb-6">
-          <label
-            htmlFor="confirmPassword"
-            className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
-          >
-            Confirm Password
-          </label>
-          <RePassInput name="confirmPassword" />
-        </div>
-
-        <div className="mb-10 flex flex-col font-inter text-sm text-gray-600">
-          <span>* Password must be at least 8 characters long.</span>
-          <span>* Password must contain at least one upper case.</span>
-          <span>* Password must contain at least one lower case.</span>
-          <span>* Password must contain at least one number or special character.</span>
-        </div>
-
-        <ReButton
-          type="submit"
-          className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
+      <Form {...form}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex-col-between min-h-[450px] space-y-3 overflow-x-hidden"
         >
-          Submit
-        </ReButton>
-      </ReForm>
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <RePassInput name="password" />
+          </div>
+
+          <div className="mb-6">
+            <label
+              htmlFor="confirmPassword"
+              className="mb-2 block font-spaceGrotesk font-medium text-gray-700"
+            >
+              Confirm Password
+            </label>
+            <RePassInput name="confirmPassword" />
+          </div>
+
+          <div className="mb-10 flex flex-col font-inter text-sm text-gray-600">
+            <span>* Password must be at least 8 characters long.</span>
+            <span>* Password must contain at least one upper case.</span>
+            <span>* Password must contain at least one lower case.</span>
+            <span>* Password must contain at least one number or special character.</span>
+          </div>
+
+          <div className="pt-10">
+            <ReButton
+              type="submit"
+              isSubmitting={isSubmitting}
+              className={`w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg`}
+            >
+              Submit
+            </ReButton>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

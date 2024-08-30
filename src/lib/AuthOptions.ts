@@ -1,7 +1,7 @@
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { getNewAccessToken } from '@/app/actions/getNewAccessToken';
+import { getNewAccessToken } from '@/lib/actions/getNewAccessToken';
 import { jwtHelpers } from '@/helpers/jwtHelpers';
 
 export const authOptions: AuthOptions = {
