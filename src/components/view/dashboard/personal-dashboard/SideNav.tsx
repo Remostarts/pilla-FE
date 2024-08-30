@@ -9,7 +9,7 @@ import { personalSideNavMenu } from '@/constants/personal/shared';
 
 export default function SideNav() {
   const pathName = usePathname();
-  const currPage = pathName.split('/')[2];
+  const currPage = pathName.split('/')[2] ?? '/';
   const router = useRouter();
 
   const handleSignOut = () => {
@@ -36,7 +36,7 @@ export default function SideNav() {
             {personalSideNavMenu.map((nav) => (
               <li className="my-4" key={nav.id}>
                 <Link
-                  href={`/personal-dashboard/${nav.alt}`}
+                  href={`/personal/${nav.alt}`}
                   className={`flex items-center gap-4 rounded-md p-4 text-white hover:bg-primary-500 ${nav.alt === currPage && 'bg-primary-500'}`}
                 >
                   <Image src={nav.img} alt={`${nav.alt}-icon`} width={24} height={24} />

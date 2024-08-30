@@ -1,5 +1,5 @@
 export const personalSideNavMenu = [
-  { id: 1, img: '/assets/personal-dashboard/side-nav/home-icon.svg', name: 'Home', alt: 'home' },
+  { id: 1, img: '/assets/personal-dashboard/side-nav/home-icon.svg', name: 'Home', alt: '/' },
   {
     id: 2,
     img: '/assets/personal-dashboard/side-nav/pilla-savings-icon.svg',
