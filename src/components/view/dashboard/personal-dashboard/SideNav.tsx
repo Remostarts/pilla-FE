@@ -9,7 +9,7 @@ import { personalSideNavMenu } from '@/constants/personal/shared';
 
 export default function SideNav() {
   const pathName = usePathname();
-  const currPage = pathName.split('/')[2];
+  const currPage = pathName.split('/')[2] ?? '/';
   const router = useRouter();
 
   const handleSignOut = () => {
