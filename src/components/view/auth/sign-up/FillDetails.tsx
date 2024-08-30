@@ -43,6 +43,7 @@ export default function FillDetails() {
     try {
       setEmail(data.email);
       const response = await partialSignup(data);
+      console.log('🌼 🔥🔥 onSubmit 🔥🔥 response🌼', response);
 
       if (response?.success) {
         handleProceed('step', '2');
