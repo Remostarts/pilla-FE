@@ -55,7 +55,7 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
             </div>
           </FormControl>
           <FormDescription className="ml-1">{description}</FormDescription>
-          <FormMessage />
+          <FormMessage className="text-base font-normal text-primary-800" />
         </FormItem>
       )}
     />

@@ -9,6 +9,8 @@ export const personalSignUpSchema = z.object({
   referralCode: z.string().optional(),
 });
 
+export type TPersonalSignup = z.infer<typeof personalSignUpSchema>;
+
 export const passwordSchema = z
   .object({
     password: z
@@ -27,13 +29,11 @@ export const passwordSchema = z
     path: ['confirmPassword'],
   });
 
+export type TPassword = z.infer<typeof passwordSchema>;
+
 export const userLoginSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters long'),
 });
 
 export type UserLoginFormData = z.infer<typeof userLoginSchema>;
-
-export type TPassword = z.infer<typeof passwordSchema>;
-
-export type TPersonalSignup = z.infer<typeof personalSignUpSchema>;
