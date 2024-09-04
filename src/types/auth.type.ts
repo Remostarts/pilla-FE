@@ -10,5 +10,5 @@ export type ResetPasswordParams = {
 export type CreatePasswordParams = TPassword & {
   email: string;
   emailVerificationCode: string;
-  role: string;
+  customerType: string;
 };

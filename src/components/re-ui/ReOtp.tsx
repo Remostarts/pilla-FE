@@ -14,9 +14,10 @@ interface ReOtpProps {
   count?: number;
   onChange?: (otp: string) => void;
   className?: string;
+  name: string;
 }
 
-export default function ReOtp({ count = 6, onChange, className }: ReOtpProps) {
+export default function ReOtp({ count = 6, onChange, className, name }: ReOtpProps) {
   const [otp, setOtp] = useState<string[]>(Array(count).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -74,6 +75,7 @@ export default function ReOtp({ count = 6, onChange, className }: ReOtpProps) {
       {otp.map((digit, index) => (
         <input
           key={index}
+          name={name}
           ref={(el) => setInputRef(el, index)}
           type="text"
           inputMode="numeric"

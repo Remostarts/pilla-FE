@@ -37,7 +37,7 @@ export default function CreatePassword() {
         password: data.password,
         confirmPassword: data.confirmPassword,
         emailVerificationCode: otp,
-        role: pathname,
+        customerType: pathname,
       });
 
       if (response?.success) {

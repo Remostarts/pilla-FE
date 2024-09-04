@@ -52,7 +52,7 @@ export async function createPassword(formData: CreatePasswordParams) {
         password: formData.password,
         confirmPassword: formData.confirmPassword,
         emailVerificationCode: formData.emailVerificationCode,
-        role: formData.role,
+        role: formData.customerType,
       }),
       cache: 'no-store',
     });

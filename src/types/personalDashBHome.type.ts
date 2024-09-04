@@ -23,3 +23,8 @@ export type SavingsPlanDataType = {
   img: string;
   window: string;
 };
+
+export type PinType = {
+  pin: string;
+  confirmPin: string;
+};
