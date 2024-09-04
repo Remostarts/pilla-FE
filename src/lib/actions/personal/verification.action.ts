@@ -19,7 +19,7 @@ import { PinType } from '@/types/personalDashBHome.type';
 // Bvn Verification
 export async function bvnVerification(formData: TBvnVerification) {
   const validation = bvnVerificationSchema.safeParse(formData);
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
 
   if (!validation.success) {
@@ -46,7 +46,7 @@ export async function bvnVerification(formData: TBvnVerification) {
 // Identity Verification
 export async function identityVerification(formData: TIdentityVerification) {
   const validation = identityVerificationSchema.safeParse(formData);
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
 
   if (!validation.success) {
@@ -73,7 +73,7 @@ export async function identityVerification(formData: TIdentityVerification) {
 // Proof of address verification
 export async function proofOfAddressVerification(formData: TProofOfAddress) {
   const validation = proofOfAddressSchema.safeParse(formData);
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
 
   if (!validation.success) {
@@ -100,7 +100,7 @@ export async function proofOfAddressVerification(formData: TProofOfAddress) {
 // Next of kin verification
 export async function nextOfKinVerification(formData: TNextOfKin) {
   const validation = nextOfKinSchema.safeParse(formData);
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
 
   if (!validation.success) {
@@ -126,7 +126,7 @@ export async function nextOfKinVerification(formData: TNextOfKin) {
 
 // Get Verification status
 export async function getVerificationStatus() {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
 
   if (!token) {
@@ -153,7 +153,7 @@ export async function getVerificationStatus() {
 
 // Create transaction pin
 export async function createPin(formData: PinType) {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
 
   try {
