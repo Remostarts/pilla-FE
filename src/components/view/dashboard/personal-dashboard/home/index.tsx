@@ -56,8 +56,31 @@ const actionsNeededData: ActionsNeededDataType[] = [
   { id: 1, actionName: 'Verification Status', window: 'verification-status-window' },
   { id: 2, actionName: 'Set Transaction Pin', window: 'set-transaction-pin-window' },
 ];
+type VerificationStatus = {
+  userVerification: boolean;
+  bankVerification: boolean;
+  identityVerification: boolean;
+  proofOfAddress: boolean;
+  nextOfKin: boolean;
+  transactionPin: boolean;
+};
 
-export default function PersonalDashboard() {
+export type VerificationData = {
+  data: {
+    verificationStatus: VerificationStatus;
+  };
+};
+
+export default function PersonalDashboard(verificationStatus: any) {
+  const {
+    userVerification,
+    bankVerification,
+    identityVerification,
+    proofOfAddress,
+    nextOfKin,
+    transactionPin,
+  } = verificationStatus;
+
   return (
     <section>
       {/* Dashboard Count Section */}
