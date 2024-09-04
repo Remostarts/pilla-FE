@@ -53,6 +53,7 @@ export default function CreatePassword() {
           variant: 'destructive',
         });
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       toast({
         title: 'Error',

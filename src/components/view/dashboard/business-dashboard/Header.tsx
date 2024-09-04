@@ -25,8 +25,15 @@ export default function Header() {
     <header className="flex h-[4.6rem] items-center justify-between border-b border-gray-200 px-10">
       <Heading heading={currentPage} />
       <div className="flex items-center gap-4 font-spaceGrotesk text-xl font-medium">
-        {/* Welcome msg */}
-        <span>Hi Alex 👋</span>
+        {/* Notification Btn */}
+        <button>
+          <Image
+            src="/assets/business-dashboard/notification-icon.svg"
+            width={35}
+            height={35}
+            alt="notification-icon"
+          />
+        </button>
 
         {/* Vertical Line Icon */}
         <Image
@@ -39,7 +46,7 @@ export default function Header() {
         {/* Notification Btn */}
         <button>
           <Image
-            src="/assets/personal-dashboard/shared/notification-icon.svg"
+            src="/assets/business-dashboard/profile-menu-icon.svg"
             width={35}
             height={35}
             alt="notification-icon"

@@ -22,9 +22,17 @@ interface TReSelectProps {
   description?: string;
   placeholder?: string;
   options: { value: string; label: string }[];
+  className?: string;
 }
 
-const ReSelect = ({ name, label, description, placeholder, options }: TReSelectProps) => {
+const ReSelect = ({
+  name,
+  label,
+  description,
+  placeholder,
+  options,
+  className,
+}: TReSelectProps) => {
   const { control } = useFormContext();
 
   return (
@@ -35,7 +43,7 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
         <FormItem className="font-spaceGrotesk">
           <FormLabel className="text-base text-gray-800">{label}</FormLabel>
           <FormControl>
-            <div className={`rounded border border-gray-300 bg-white`}>
+            <div className={`rounded border border-gray-300 bg-white ${className}`}>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="w-full border-none">
                   <SelectValue placeholder={placeholder} />

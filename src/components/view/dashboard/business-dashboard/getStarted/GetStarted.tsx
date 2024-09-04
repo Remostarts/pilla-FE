@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ChevronRight, Info, Plus } from 'lucide-react';
+import { ChevronRight, Plus } from 'lucide-react';
 import Image from 'next/image';
 
 import { Heading } from '../../shared/Heading';
 import SubHeading from '../../shared/SubHeading';
 
-import Card from './Card';
+import Card from './GetStartedCard';
 import APIDocumentationAndKeys from './APIDocumentationAndKeys';
 
 export default function GetStarted() {
@@ -81,14 +81,20 @@ export default function GetStarted() {
 
           <div className="">
             <h2 className="mb-4 flex items-center justify-start gap-2 text-xl font-semibold">
-              <Info className="text-gray-400" /> <span className=" ">Account Verification</span>
+              <Image
+                src="/assets/business-dashboard/info-circle-icon.svg"
+                alt="info-icon"
+                width={24}
+                height={24}
+              />{' '}
+              <span className=" ">Account Verification</span>
             </h2>
             <SubHeading
               className="font-inter font-semibold text-gray-500/70"
               subHeading="Provide the necessary details and documents.This helps us make sure you comply with regulations."
             />
 
-            <button className="mt-5 flex items-center justify-between gap-4 rounded-full bg-red-500 px-6 py-2 font-spaceGrotesk font-medium text-white">
+            <button className="mt-5 flex items-center justify-between gap-4 rounded-full bg-[#FF0421] px-6 py-2 font-spaceGrotesk font-medium text-white">
               <span>Verify Account</span>
               <ChevronRight />
             </button>

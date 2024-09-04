@@ -1,10 +1,10 @@
-import ProfileForm from '@/components/view/dashboard/business-dashboard/Verification/ProfileForm';
+import VerificationHomePage from '@/components/view/dashboard/business-dashboard/Verification/VerificationHomePage';
 
 export default function Page() {
   return (
     <section>
       <div>
-        <ProfileForm />
+        <VerificationHomePage />
       </div>
     </section>
   );

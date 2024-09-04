@@ -1,12 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Files } from 'lucide-react';
+import Image from 'next/image';
 
 import { Heading } from '../../shared/Heading';
 import SubHeading from '../../shared/SubHeading';
 
 export default function APIDocumentationAndKeys() {
+  const [publicKey, setPublickey] = useState<string>('WEYG27EG-rvr58jfwc2y58z8ol0kmbv86f4exvn6');
+
+  const [privateKey, setPrivateKey] = useState<string>('WEYG27EG-rvr58jfwc2y58z8ol0kmbv86f4exvn6');
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     alert('Copied to clipboard!');
@@ -37,11 +41,18 @@ export default function APIDocumentationAndKeys() {
             <span className=" flex items-center justify-between gap-2 rounded-lg bg-gray-100 p-3 text-sm text-gray-400 ">
               <input
                 type="text"
-                value="WEYG27EG-rvr58jfwc2y58z8ol0kmbv86f4exvn6"
+                value={publicKey}
                 className="w-full border-none bg-gray-100 outline-none"
                 readOnly
               />
-              <Files className="ml-2 size-5 cursor-pointer text-gray-600" />
+              <Image
+                src="/assets/business-dashboard/copy-icon.svg"
+                alt="copy"
+                width={24}
+                height={24}
+                onClick={() => copyToClipboard(publicKey)}
+                className="cursor-pointer"
+              />
             </span>
           </div>
           <div className="flex flex-col">
@@ -49,11 +60,18 @@ export default function APIDocumentationAndKeys() {
             <span className=" flex items-center justify-between gap-1 rounded-lg bg-gray-100 p-3 text-sm text-gray-400">
               <input
                 type="text"
-                value="WEYG27EG-rvr58jfwc2y58z8ol0kmbv86f4exvn6"
+                value={privateKey}
                 className="w-full border-none bg-gray-100 outline-none"
                 readOnly
               />
-              <Files className="ml-2 size-5 cursor-pointer text-gray-600" />
+              <Image
+                src="/assets/business-dashboard/copy-icon.svg"
+                alt="copy"
+                width={24}
+                height={24}
+                onClick={() => copyToClipboard(privateKey)}
+                className="cursor-pointer"
+              />
             </span>
           </div>
         </div>
