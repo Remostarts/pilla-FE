@@ -12,17 +12,19 @@ import { nigeriaState } from '@/lib/data/nigeriaStates';
 import { NEXT_OF_KIN_SUCCESS_WINDOW, NEXT_OF_KIN_WINDOW } from '@/constants/homeData';
 import { Form } from '@/components/ui/form';
 import { nextOfKinSchema, TNextOfKin } from '@/lib/validations/personal/home.validation';
+import { nextOfKinVerification } from '@/lib/actions/personal/verification.action';
+import { toast } from '@/components/ui/use-toast';
 
 const defaultValues = {
   firstName: '',
   lastName: '',
   gender: '',
   relationship: '',
-  phoneNumber: '',
+  phone: '',
   email: '',
   address: '',
   state: '',
-  localGov: '',
+  localGovernment: '',
   city: '',
 };
 
@@ -35,10 +37,34 @@ export default function NextOfKin() {
     mode: 'onChange',
   });
   const { handleSubmit, formState } = form;
+  const { isSubmitting } = formState;
 
-  const onSubmit: SubmitHandler<TNextOfKin> = () => {
-    close(NEXT_OF_KIN_WINDOW);
-    open(NEXT_OF_KIN_SUCCESS_WINDOW);
+  const onSubmit: SubmitHandler<TNextOfKin> = async (data: TNextOfKin) => {
+    try {
+      const response = await nextOfKinVerification(data);
+
+      if (response?.success) {
+        toast({
+          title: 'Success',
+          description: 'Next of Kin submitted successfully!',
+        });
+        close(NEXT_OF_KIN_WINDOW);
+        open(NEXT_OF_KIN_SUCCESS_WINDOW);
+      } else {
+        toast({
+          title: 'Error',
+          description: response.error,
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.error('Verification error:', error);
+      toast({
+        title: 'Next of Kin verification failed',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+        variant: 'destructive',
+      });
+    }
   };
 
   return (
@@ -76,11 +102,7 @@ export default function NextOfKin() {
         <div className="mt-8">
           <Heading heading="Contact Information" size="lg" />
           <div className="mt-4 space-y-5">
-            <ReInput
-              label="Phone Number"
-              placeholder="Enter your Phone Number"
-              name="phoneNumber"
-            />
+            <ReInput label="Phone Number" placeholder="Enter your Phone Number" name="phone" />
 
             <ReInput label="Email Address" placeholder="Enter your Email Address" name="email" />
           </div>
@@ -97,7 +119,7 @@ export default function NextOfKin() {
             <div className="flex justify-between gap-6">
               <div className="w-1/2">
                 <ReSelect
-                  name="localGov"
+                  name="localGovernment"
                   label="Local Government"
                   placeholder="Select"
                   options={[
@@ -115,7 +137,7 @@ export default function NextOfKin() {
         </div>
 
         <div className="mt-12">
-          <ReButton size="lg" type="submit">
+          <ReButton size="lg" type="submit" isSubmitting={isSubmitting}>
             Submit
           </ReButton>
         </div>

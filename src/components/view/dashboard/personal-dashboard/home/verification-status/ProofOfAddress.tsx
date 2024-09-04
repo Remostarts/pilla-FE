@@ -12,14 +12,16 @@ import { nigeriaState } from '@/lib/data/nigeriaStates';
 import { PROOF_OF_ADDRESS_WINDOW, VERIFICATION_SUCCESS_WINDOW } from '@/constants/homeData';
 import { Form } from '@/components/ui/form';
 import { proofOfAddressSchema, TProofOfAddress } from '@/lib/validations/personal/home.validation';
+import { proofOfAddressVerification } from '@/lib/actions/personal/verification.action';
+import { toast } from '@/components/ui/use-toast';
 
 const defaultValues = {
   address: '',
   state: '',
-  localGov: '',
+  localGovernment: '',
   city: '',
-  docType: '',
-  docImage: '',
+  documentType: '',
+  image: '',
 };
 
 export default function ProofOfAddress() {
@@ -31,10 +33,39 @@ export default function ProofOfAddress() {
     mode: 'onChange',
   });
   const { handleSubmit, formState } = form;
+  const { isSubmitting } = formState;
 
-  const onSubmit: SubmitHandler<TProofOfAddress> = () => {
-    close(PROOF_OF_ADDRESS_WINDOW);
-    open(VERIFICATION_SUCCESS_WINDOW);
+  // const onSubmit: SubmitHandler<TProofOfAddress> = () => {
+  //   close(PROOF_OF_ADDRESS_WINDOW);
+  //   open(VERIFICATION_SUCCESS_WINDOW);
+  // };
+
+  const onSubmit: SubmitHandler<TProofOfAddress> = async (data: TProofOfAddress) => {
+    try {
+      const response = await proofOfAddressVerification(data);
+
+      if (response?.success) {
+        toast({
+          title: 'Success',
+          description: 'Proof of address submitted successfully!',
+        });
+        close(PROOF_OF_ADDRESS_WINDOW);
+        open(VERIFICATION_SUCCESS_WINDOW);
+      } else {
+        toast({
+          title: 'Error',
+          description: response.error,
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.error('Verification error:', error);
+      toast({
+        title: 'Proof of Address failed',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+        variant: 'destructive',
+      });
+    }
   };
 
   return (
@@ -53,7 +84,7 @@ export default function ProofOfAddress() {
           <div className="flex justify-between gap-6">
             <div className="w-1/2">
               <ReSelect
-                name="localGov"
+                name="localGovernment"
                 label="Local Government"
                 placeholder="Select"
                 options={[
@@ -69,22 +100,22 @@ export default function ProofOfAddress() {
           </div>
 
           <ReSelect
-            name="docType"
+            name="documentType"
             label="Document Type"
             placeholder="Select"
             options={[
-              { value: 'electricityBill', label: 'Electricity Bill' },
-              { value: 'waterBill', label: 'Water Bill' },
-              { value: 'wasteBill', label: 'Waste Bill' },
-              { value: 'cableBill', label: 'Dstv / Cable Bill' },
+              { value: 'electricity_bill', label: 'Electricity Bill' },
+              { value: 'water_bill', label: 'Water Bill' },
+              { value: 'waste_bill', label: 'Waste Bill' },
+              { value: 'cable_bill', label: 'Dstv / Cable Bill' },
             ]}
           />
 
-          <ReInput label="Upload Image" name="docImage" placeholder="Select to Choose file" />
+          <ReInput label="Upload Image" name="image" placeholder="Select to Choose file" />
         </div>
 
         <div className="mt-12">
-          <ReButton size="lg" type="submit">
+          <ReButton size="lg" type="submit" isSubmitting={isSubmitting}>
             Submit
           </ReButton>
         </div>

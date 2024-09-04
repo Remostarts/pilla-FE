@@ -14,9 +14,11 @@ import {
   bvnVerificationSchema,
   TBvnVerification,
 } from '@/lib/validations/personal/home.validation';
+import { bvnVerification } from '@/lib/actions/personal/verification.action';
+import { toast } from '@/components/ui/use-toast';
 
 const defaultValues = {
-  bvnVerificationNumber: '',
+  bvn: '',
   gender: '',
   dateOfBirth: '',
 };
@@ -30,13 +32,47 @@ export default function BvnVerification() {
     mode: 'onChange',
   });
   const { handleSubmit, formState } = form;
+  const { isSubmitting } = formState;
 
-  const onSubmit: SubmitHandler<TBvnVerification> = (data) => {
-    console.log(data);
-    close(BVN_VERIFICATION_WINDOW);
-    open(VERIFICATION_SUCCESS_WINDOW);
+  // const onSubmit: SubmitHandler<TBvnVerification> = (data) => {
+  //   console.log(data);
+  //   close(BVN_VERIFICATION_WINDOW);
+  //   open(VERIFICATION_SUCCESS_WINDOW);
+  // };
+
+  const onSubmit: SubmitHandler<TBvnVerification> = async (data: TBvnVerification) => {
+    try {
+      // Convert the dateOfBirth field to an ISO-8601 string
+      const transformedData = {
+        ...data,
+        dateOfBirth: new Date(data.dateOfBirth).toISOString(),
+      };
+
+      const response = await bvnVerification(transformedData);
+
+      if (response?.success) {
+        toast({
+          title: 'Success',
+          description: 'BVN Verification submitted successfully!',
+        });
+        close(BVN_VERIFICATION_WINDOW);
+        open(VERIFICATION_SUCCESS_WINDOW);
+      } else {
+        toast({
+          title: 'Error',
+          description: response.error,
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.error('Verification error:', error);
+      toast({
+        title: 'BVN verification failed',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+        variant: 'destructive',
+      });
+    }
   };
-
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="p-4">
@@ -46,11 +82,7 @@ export default function BvnVerification() {
         </div>
 
         <div className="mt-6 space-y-5">
-          <ReInput
-            label="Bank Verification Number"
-            placeholder="Enter BVN"
-            name="bvnVerificationNumber"
-          />
+          <ReInput label="Bank Verification Number" placeholder="Enter BVN" name="bvn" />
 
           <ReSelect
             name="gender"
@@ -63,11 +95,11 @@ export default function BvnVerification() {
             ]}
           />
 
-          <ReInput label="Date of Birth" placeholder="Select Date" name="dateOfBirth" />
+          <ReInput label="Date of Birth" type="date" placeholder="Select Date" name="dateOfBirth" />
         </div>
 
         <div className="mt-12">
-          <ReButton size="lg" type="submit">
+          <ReButton size="lg" type="submit" isSubmitting={isSubmitting}>
             Submit
           </ReButton>
         </div>

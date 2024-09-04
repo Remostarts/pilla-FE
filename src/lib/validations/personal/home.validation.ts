@@ -4,29 +4,43 @@ import * as z from 'zod';
 
 // BVN Verification
 export const bvnVerificationSchema = z.object({
-  bvnVerificationNumber: z.string().min(1, 'Bank verification number is required'),
+  bvn: z
+    .string()
+    .min(11, 'Bank verification number must be exactly 11 digits')
+    .max(11, 'Bank verification number must be exactly 11 digits')
+    .regex(/^\d{11}$/, 'Bank verification number must contain only digits'),
   gender: z.string().min(1, 'Gender is required'),
   dateOfBirth: z.string().min(1, 'Date of Birth is required'),
 });
 export type TBvnVerification = z.infer<typeof bvnVerificationSchema>;
 
-// Identity Verification
-export const identityVerificationSchema = z.object({
-  ninNumber: z.string().min(1, 'NIN number is required'),
-  idType: z.string().min(1, 'ID Type is required'),
-  idNumber: z.string().min(1, 'ID Number is required'),
-  idImage: z.string().min(1, 'ID Image is required'),
-});
+export const identityVerificationSchema = z
+  .object({
+    nin: z.string().optional(),
+    documentType: z.string().optional(),
+    idNumber: z.string().optional(),
+    image: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      return data.nin || (data.documentType && data.idNumber && data.image);
+    },
+    {
+      message: 'Either NIN Number or all other ID details must be provided',
+      path: ['nin'],
+    }
+  );
+
 export type TIdentityVerification = z.infer<typeof identityVerificationSchema>;
 
 // Proof of Address
 export const proofOfAddressSchema = z.object({
   address: z.string().min(1, 'Address is required'),
   state: z.string().min(1, 'State is required'),
-  localGov: z.string().min(1, 'Local Government is required'),
+  localGovernment: z.string().min(1, 'Local Government is required'),
   city: z.string().min(1, 'City is required'),
-  docType: z.string().min(1, 'Doc Type is required'),
-  docImage: z.string().min(1, 'Doc Image is required'),
+  documentType: z.string().min(1, 'Doc Type is required'),
+  image: z.string().min(1, 'Doc Image is required'),
 });
 export type TProofOfAddress = z.infer<typeof proofOfAddressSchema>;
 
@@ -36,11 +50,11 @@ export const nextOfKinSchema = z.object({
   lastName: z.string().min(1, 'Last Name is required'),
   gender: z.string().min(1, 'Gender is required'),
   relationship: z.string().min(1, 'Relationship is required'),
-  phoneNumber: z.string().min(1, 'Phone Number is required'),
-  email: z.string().min(1, 'Email Address is required'),
+  phone: z.string().min(1, 'Phone Number is required'),
+  email: z.string().min(1, 'Email Address is required').email('Enter valid email address'),
   address: z.string().min(1, 'Address is required'),
   state: z.string().min(1, 'State is required'),
-  localGov: z.string().min(1, 'Local Government is required'),
+  localGovernment: z.string().min(1, 'Local Government is required'),
   city: z.string().min(1, 'City is required'),
 });
 export type TNextOfKin = z.infer<typeof nextOfKinSchema>;

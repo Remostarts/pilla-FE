@@ -33,7 +33,7 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
       name={name}
       render={({ field }) => (
         <FormItem className="font-spaceGrotesk">
-          <FormLabel className="text-base text-gray-800">{label}</FormLabel>
+          <FormLabel className="text-sm text-gray-800">{label}</FormLabel>
           <FormControl>
             <div className={`rounded border border-gray-300 bg-white`}>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
