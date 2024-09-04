@@ -1,11 +1,47 @@
 import * as z from 'zod';
 
 export const personalSignUpSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  middleName: z.string().optional(),
-  lastName: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Invalid email address'),
-  phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
+  email: z
+    .string({
+      required_error: 'Email is required',
+    })
+    .email({
+      message: 'Invalid email format.',
+    })
+    .trim(),
+
+  phoneNumber: z
+    .string({
+      required_error: 'Phone number is required',
+    })
+    .min(10, 'Phone number must be at least 10 digits')
+    .trim(),
+  // .regex(phoneNumberRegex, 'Invalid phone number format.'),
+
+  firstName: z
+    .string({
+      required_error: 'First name is required',
+    })
+    .trim()
+    .min(3, 'firstName too short - should be 3 chars minimum')
+    .max(100, 'firstName too long - should be 100 chars maximum'),
+
+  middleName: z
+    .string({
+      required_error: 'First name is required',
+    })
+    .trim()
+    .min(1, 'middleName too short - should be 1 chars minimum')
+    .max(100, 'middleName too long - should be 100 chars maximum'),
+
+  lastName: z
+    .string({
+      required_error: 'Last name is required',
+    })
+    .trim()
+    .min(3, 'lastName too short - should be 3 chars minimum')
+    .max(100, 'lastName too long - should be 100 chars maximum'),
+
   referralCode: z.string().optional(),
 });
 
