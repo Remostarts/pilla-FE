@@ -44,7 +44,7 @@ export default function CreatePassword() {
         router.push('/sign-in');
         toast({
           title: 'Success',
-          description: 'Password created successfully!',
+          description: 'User created successfully!',
         });
       } else {
         toast({

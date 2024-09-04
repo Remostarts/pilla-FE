@@ -54,7 +54,6 @@ export const SigninFormPersonal = () => {
         description: 'Friday, February 10, 2023 at 5:57 PM',
       });
     }
-    console.log('🌼 🔥🔥 constonSubmit:SubmitHandler<TInputs>= 🔥🔥 result🌼', result);
   };
 
   return (
