@@ -14,7 +14,7 @@ interface ReOtpProps {
   count?: number;
   onChange?: (otp: string) => void;
   className?: string;
-  name: string;
+  name?: string;
 }
 
 export default function ReOtp({ count = 6, onChange, className, name }: ReOtpProps) {

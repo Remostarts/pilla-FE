@@ -79,7 +79,7 @@ export default function PersonalDashboard(verificationStatus: any) {
     proofOfAddress,
     nextOfKin,
     transactionPin,
-  } = verificationStatus;
+  } = verificationStatus.verificationStatus.data;
 
   return (
     <section>
@@ -149,7 +149,7 @@ export default function PersonalDashboard(verificationStatus: any) {
           </Sidebar.Window>
 
           <Sidebar.Window name={VERIFICATION_STATUS_WINDOW}>
-            <VerificationHome />
+            <VerificationHome verificationStatus={verificationStatus} />
           </Sidebar.Window>
 
           {/* Set Transaction Pin Window */}
