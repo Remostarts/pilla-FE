@@ -12,7 +12,7 @@ interface PinPropType {
   opens?: string;
   closes?: string;
   onChange?: (otp: string) => void;
-  name: string;
+  name?: string;
 }
 
 export default function Pin({
