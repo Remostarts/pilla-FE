@@ -1,6 +1,7 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
+import { revalidatePath } from 'next/cache';
 
 import { authOptions } from '@/lib/AuthOptions';
 import { getErrorMessage } from '@/lib/responseError';
@@ -37,6 +38,7 @@ export async function bvnVerification(formData: TBvnVerification) {
       body: JSON.stringify(validation.data),
     });
 
+    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -48,6 +50,7 @@ export async function identityVerification(formData: TIdentityVerification) {
   const validation = identityVerificationSchema.safeParse(formData);
   const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
+  console.log(formData);
 
   if (!validation.success) {
     let zodErrors = '';
@@ -64,6 +67,7 @@ export async function identityVerification(formData: TIdentityVerification) {
       body: JSON.stringify(validation.data),
     });
 
+    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -91,6 +95,7 @@ export async function proofOfAddressVerification(formData: TProofOfAddress) {
       body: JSON.stringify(validation.data),
     });
 
+    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -118,6 +123,7 @@ export async function nextOfKinVerification(formData: TNextOfKin) {
       body: JSON.stringify(validation.data),
     });
 
+    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -139,6 +145,7 @@ export async function getVerificationStatus() {
       headers: {
         Authorization: token,
       },
+      cache: 'reload',
     });
 
     if (!response.ok) {
