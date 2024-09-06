@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
 import Image from 'next/image';
+import React, { useState } from 'react';
+import { PlusCircle } from 'lucide-react';
 
 import { Heading } from '../../shared/Heading';
 
-// difining the stucture of the card object
+import { ReButton } from '@/components/re-ui/ReButton';
+
 interface Card {
   id: string;
   bank: string;
@@ -46,7 +48,7 @@ const MastercardLogo: React.FC = () => (
   </svg>
 );
 
-const SavedCards: React.FC = () => {
+export default function Cards() {
   // defining the state of the cards
   const [cards, setCards] = useState<Card[]>([
     { id: '1', bank: 'GT Bank', number: '418745******5465', cardType: 'mastercard' },
@@ -66,24 +68,16 @@ const SavedCards: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto size-full rounded-xl bg-white  p-6">
-      <Heading heading="My Cards" />
+    <div className="w-full rounded-xl bg-white  p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <Heading heading="Cards" className="text-2xl text-[#4D4D4D]" />
 
-      {/* button to add a new card */}
-      <button
-        onClick={handleAddCard}
-        className="mb-10 mt-8 flex w-full items-center justify-center rounded-xl border border-gray-300 py-5 text-center font-inter font-semibold transition duration-150 ease-in-out hover:bg-gray-50"
-      >
-        <span className="mr-2 text-xl text-orange-500">
-          <Image
-            src="/assets/personal-dashboard/home/add-money-icon.svg"
-            alt="add-icon"
-            width={24}
-            height={24}
-          />
-        </span>
-        Add Card
-      </button>
+        {/* button to add a new card */}
+        <ReButton className="text-md text-white">
+          <PlusCircle />
+          <span className="ml-2">Add Card</span>
+        </ReButton>
+      </div>
 
       {/* cards list */}
       <div className="space-y-6">
@@ -110,6 +104,4 @@ const SavedCards: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default SavedCards;
+}

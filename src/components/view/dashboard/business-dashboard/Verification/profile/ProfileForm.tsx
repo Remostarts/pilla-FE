@@ -20,29 +20,31 @@ export default function ProfileForm() {
   };
 
   return (
-    <div className="mx-auto size-full  rounded-xl bg-white p-10">
-      <Heading heading="Profile" />
-      <SubHeading subHeading="Please tell us about yourself." className="mb-10" />
+    <form>
+      <div className="mx-auto size-full  rounded-xl bg-white p-10">
+        <Heading heading="Profile" />
+        <SubHeading subHeading="Please tell us about yourself." className="mb-10" />
 
-      <ReRadioGroup
-        name="businessCategory"
-        label="Categories of Business"
-        options={[
-          { label: 'Landlord / Property Manager', value: 'landlord' },
-          { label: 'Property Developer', value: 'developer' },
-          { label: 'Real Estate Professionals', value: 'realEstate' },
-        ]}
-        onChange={handleCategoryChange} // Passing the change handler
-      />
+        <ReRadioGroup
+          name="businessCategory"
+          label="Categories of Business"
+          options={[
+            { label: 'Landlord / Property Manager', value: 'landlord' },
+            { label: 'Property Developer', value: 'developer' },
+            { label: 'Real Estate Professionals', value: 'realEstate' },
+          ]}
+          onChange={handleCategoryChange} // Passing the change handler
+        />
 
-      {/* conditionally rendering the section as per user select an option */}
-      {showForm && (
-        <>
-          {category === 'landlord' && <LandlordManagerOption />}
-          {category === 'developer' && <PropertyDeveloperOptionForm />}
-          {category === 'realEstate' && <RealEstateOptionForm />}
-        </>
-      )}
-    </div>
+        {/* conditionally rendering the section as per user select an option */}
+        {showForm && (
+          <>
+            {category === 'landlord' && <LandlordManagerOption />}
+            {category === 'developer' && <PropertyDeveloperOptionForm />}
+            {category === 'realEstate' && <RealEstateOptionForm />}
+          </>
+        )}
+      </div>
+    </form>
   );
 }

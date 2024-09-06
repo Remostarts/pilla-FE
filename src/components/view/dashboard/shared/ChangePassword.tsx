@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { Heading } from '../../../../shared/Heading';
-import { useSidebar } from '../../../../shared/SideBar';
+import { Heading } from './Heading';
+import { useSidebar } from './SideBar';
 
 import { ReButton } from '@/components/re-ui/ReButton';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
@@ -19,7 +19,7 @@ export default function ChangePassword() {
   return (
     <div className="p-4">
       <div>
-        <Heading heading="Change Password" size="2xl" />
+        <Heading heading="Change Password" className="text-2xl " />
       </div>
 
       {/* Password Details */}
@@ -34,7 +34,7 @@ export default function ChangePassword() {
       </div>
 
       <div className="mt-12">
-        <ReButton size="lg" onClick={handleSaveCard}>
+        <ReButton type="submit" className="lg w-full text-white" onClick={handleSaveCard}>
           Save
         </ReButton>
       </div>

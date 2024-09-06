@@ -7,7 +7,7 @@ import SideNavigation from './SideNavigation';
 
 export default function SettingsPage() {
   // defining the state of the current section
-  const [currentSection] = useState('personal-information');
+  const [currentSection] = useState('profile');
 
   return (
     <div className="grid size-full grid-cols-2 gap-6">

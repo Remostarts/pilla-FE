@@ -20,6 +20,7 @@ type TReInputProps = {
   type?: string;
   autoComplete?: string;
   placeholder?: string;
+  defaultValue?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control?: any;
   className?: string;
@@ -33,6 +34,7 @@ const ReInput = ({
   type = 'text',
   autoComplete = 'on',
   placeholder,
+  defaultValue,
   className,
 }: TReInputProps) => {
   const { control } = useFormContext();
@@ -51,6 +53,7 @@ const ReInput = ({
                   placeholder={placeholder}
                   type={type}
                   autoComplete={autoComplete}
+                  defaultValue={defaultValue}
                   {...field}
                 />
                 {suffix}

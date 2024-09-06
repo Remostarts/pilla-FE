@@ -1,30 +1,37 @@
 'use client';
 
-import AccountLimit from './AccountLimit';
-import Notifications from './Notifications';
+import Profile from './Profile';
+import BusinessProfile from './BusinessProfile';
+import SettlementAccount from './settlement-account/SettlementAccount';
+import Preferences from './Preferences';
 import Security from './Security';
-import SavedCards from './SavedCards';
-
-import PersonalInformation from '@/components/view/dashboard/personal-dashboard/settings/PersonalInformation';
+import Cards from './Cards';
+import Support from './Support';
 
 export default function SettingsContent({ currentSection }: { currentSection: string }) {
   const renderSection = () => {
     switch (currentSection) {
-      case 'account-limit':
-        return <AccountLimit />;
+      case 'business-profile':
+        return <BusinessProfile />;
 
-      case 'notifications':
-        return <Notifications />;
+      case 'settlement-account':
+        return <SettlementAccount />;
+
+      case 'preferences':
+        return <Preferences />;
 
       case 'security':
         return <Security />;
 
-      case 'saved-cards':
-        return <SavedCards />;
+      case 'cards':
+        return <Cards />;
 
-      case 'personal-information':
+      case 'support':
+        return <Support />;
+
+      case 'profile':
       default:
-        return <PersonalInformation />;
+        return <Profile />;
     }
   };
 

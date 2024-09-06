@@ -7,8 +7,7 @@ import { Heading } from '../../shared/Heading';
 import { Sidebar } from '../../shared/SideBar';
 import { SuccessMessage } from '../../shared/SuccessMessage';
 import Pin from '../../shared/Pin';
-
-import ChangePassword from './Security-utils/Password/ChangePassword';
+import ChangePassword from '../../shared/ChangePassword';
 
 import {
   CHANGE_PASSWORD_WINDOW,
@@ -18,6 +17,7 @@ import {
   NEW_TRANSACTION_PIN_CREATED_WINDOW,
   PASSWORD_CHANGED_WINDOW,
 } from '@/constants/SecurityData';
+import { Button } from '@/components/ui/button';
 
 interface securityLinks {
   id: number;
@@ -45,10 +45,15 @@ export default function Security() {
       <div className="mt-8 space-y-4">
         {links.map((data) => (
           <Sidebar.Open key={data.id} opens={data.window}>
-            <div className="mb-4 flex cursor-pointer items-center justify-between rounded-xl border bg-gray-50 p-4">
-              <span className="text-lg font-bold">{data.actionName}</span>
-              <ArrowRight />
-            </div>
+            <Button
+              variant="outline"
+              className="w-full justify-between rounded-xl py-8 text-lg text-gray-700"
+            >
+              {data.actionName}
+              <span className="text-gray-400">
+                <ArrowRight />
+              </span>
+            </Button>
           </Sidebar.Open>
         ))}
       </div>
