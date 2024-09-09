@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -21,8 +21,6 @@ type TReInputProps = {
   autoComplete?: string;
   placeholder?: string;
   defaultValue?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control?: any;
   className?: string;
 };
 const ReInput = ({
