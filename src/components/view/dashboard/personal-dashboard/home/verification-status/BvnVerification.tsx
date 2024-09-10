@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
@@ -15,7 +16,6 @@ import {
   TBvnVerification,
 } from '@/lib/validations/personal/home.validation';
 import { bvnVerification } from '@/lib/actions/personal/verification.action';
-import { toast } from '@/components/ui/use-toast';
 
 const defaultValues = {
   bvn: '',
@@ -51,26 +51,14 @@ export default function BvnVerification() {
       const response = await bvnVerification(transformedData);
 
       if (response?.success) {
-        toast({
-          title: 'Success',
-          description: 'BVN Verification submitted successfully!',
-        });
+        toast.success('BVN Verification submitted successfully!');
         close(BVN_VERIFICATION_WINDOW);
         open(VERIFICATION_SUCCESS_WINDOW);
       } else {
-        toast({
-          title: 'Error',
-          description: response.error,
-          variant: 'destructive',
-        });
+        toast.error(response.error || 'BVN verification failed');
       }
     } catch (error) {
-      console.error('Verification error:', error);
-      toast({
-        title: 'BVN verification failed',
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
-        variant: 'destructive',
-      });
+      toast.error('BVN verification failed');
     }
   };
   return (

@@ -1,8 +1,9 @@
-import { ArrowRight, ChevronDown, UserCircle } from 'lucide-react';
+import { ArrowRight, UserCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import MobileMenu from './MobileMenu';
+import SolutionMenu from './SolutionMenu';
 
 import {
   DropdownMenu,
@@ -29,68 +30,7 @@ export default function Navbar() {
               Company
             </Link>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center text-gray-600 hover:text-gray-900 focus:outline-none">
-                Solutions <ChevronDown className="ml-1 size-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="ml-12 mt-3 bg-white p-2 font-spaceGrotesk font-medium text-gray-800">
-                <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
-                  <Link href="/pilla-savings" className="flex w-full gap-2">
-                    <Image
-                      src="/assets/root/shared/pilla-savings.svg"
-                      alt="pilla-savings"
-                      width={20}
-                      height={20}
-                    />
-                    Pilla Savings
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
-                  <Link href="/pilla-invest" className="flex w-full gap-2">
-                    <Image
-                      src="/assets/root/shared/pilla-invest.svg"
-                      alt="pilla-savings"
-                      width={20}
-                      height={20}
-                    />
-                    Pilla Invest
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
-                  <Link href="/pilla-rent-finance" className="flex w-full gap-2">
-                    <Image
-                      src="/assets/root/shared/pilla-rent.svg"
-                      alt="pilla-savings"
-                      width={20}
-                      height={20}
-                    />
-                    Pilla Rent Finance
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
-                  <Link href="/pilla-construction-finance" className="flex w-full gap-2">
-                    <Image
-                      src="/assets/root/shared/pilla-construction.svg"
-                      alt="pilla-savings"
-                      width={20}
-                      height={20}
-                    />
-                    Pilla Construction Finance
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="p-2 transition-colors duration-150 hover:bg-gray-100">
-                  <Link href="/pilla-pay" className="flex w-full gap-2">
-                    <Image
-                      src="/assets/root/shared/pilla-pay.svg"
-                      alt="pilla-savings"
-                      width={20}
-                      height={20}
-                    />
-                    Pilla Pay
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SolutionMenu />
             <Link href="/faqs" className="text-gray-600 hover:text-gray-900">
               FAQs
             </Link>
