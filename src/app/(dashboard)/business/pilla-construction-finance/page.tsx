@@ -1,5 +1,11 @@
 import React from 'react';
 
+import PillaConstructionFinance from '@/components/view/dashboard/business-dashboard/Pilla-construction-finance';
+
 export default function page() {
-  return <div>pilla construction finance</div>;
+  return (
+    <div>
+      <PillaConstructionFinance />
+    </div>
+  );
 }
