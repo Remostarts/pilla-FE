@@ -1,11 +1,13 @@
 import React from 'react';
 
-import PersonalInformation from '@/components/view/dashboard/personal-dashboard/settings/PersonalInformation';
-import SideNavigation from '@/components/view/dashboard/personal-dashboard/settings/SideNavigation';
-import AccountLimit from '@/components/view/dashboard/personal-dashboard/settings/AccountLimit';
-import Notifications from '@/components/view/dashboard/personal-dashboard/settings/Notifications';
-import Security from '@/components/view/dashboard/personal-dashboard/settings/Security';
-import SavedCards from '@/components/view/dashboard/personal-dashboard/settings/SavedCards';
+import SideNavigation from '@/components/view/dashboard/business-dashboard/settings/SideNavigation';
+import Profile from '@/components/view/dashboard/business-dashboard/settings/Profile';
+import BusinessProfile from '@/components/view/dashboard/business-dashboard/settings/BusinessProfile';
+import SettlementAccount from '@/components/view/dashboard/business-dashboard/settings/settlement-account/SettlementAccount';
+import Preferences from '@/components/view/dashboard/business-dashboard/settings/Preferences';
+import Security from '@/components/view/dashboard/business-dashboard/settings/Security';
+import Cards from '@/components/view/dashboard/business-dashboard/settings/Cards';
+import Support from '@/components/view/dashboard/business-dashboard/settings/Support';
 
 export const metadata = {
   title: 'Settings',
@@ -18,7 +20,7 @@ interface SectionProps {
 
 export default function Page({ searchParams }: { searchParams: SectionProps }) {
   // Extracting the section from the search params
-  const currentSection = searchParams.section || 'personal-information';
+  const currentSection = searchParams.section || 'profile';
 
   return (
     <section className="flex size-full gap-10 sm:flex-wrap md:flex-wrap lg:flex-nowrap">
@@ -27,11 +29,13 @@ export default function Page({ searchParams }: { searchParams: SectionProps }) {
 
       {/* Content Section */}
       <div className="w-full max-w-7xl">
-        {currentSection === 'personal-information' && <PersonalInformation />}
-        {currentSection === 'account-limit' && <AccountLimit />}
-        {currentSection === 'notifications' && <Notifications />}
+        {currentSection === 'profile' && <Profile />}
+        {currentSection === 'business-profile' && <BusinessProfile />}
+        {currentSection === 'settlement-account' && <SettlementAccount />}
+        {currentSection === 'preferences' && <Preferences />}
         {currentSection === 'security' && <Security />}
-        {currentSection === 'saved-cards' && <SavedCards />}
+        {currentSection === 'cards' && <Cards />}
+        {currentSection === 'support' && <Support />}
       </div>
     </section>
   );

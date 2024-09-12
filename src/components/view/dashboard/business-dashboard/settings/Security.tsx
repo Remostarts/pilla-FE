@@ -1,15 +1,17 @@
 'use client';
 
-import { ArrowRight } from 'lucide-react';
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 import { Heading } from '../../shared/Heading';
 import { Sidebar } from '../../shared/SideBar';
 import { SuccessMessage } from '../../shared/SuccessMessage';
 import Pin from '../../shared/Pin';
+import ChangePassword from '../../shared/ChangePassword';
 
-import ChangePassword from './Security-utils/Password/ChangePassword';
-
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Button } from '@/components/ui/button';
 import {
   CHANGE_PASSWORD_WINDOW,
   CHANGE_TRANSACTION_PIN,
@@ -40,17 +42,38 @@ const links: securityLinks[] = [
 
 export default function Security() {
   return (
-    <div className="size-full max-w-7xl rounded-xl bg-white p-6 font-spaceGrotesk">
-      <Heading heading="Security" />
-      <div className="mt-8 space-y-4">
-        {links.map((data) => (
-          <Sidebar.Open key={data.id} opens={data.window}>
-            <div className="mb-4 flex cursor-pointer items-center justify-between rounded-xl border bg-gray-50 p-4">
-              <span className="text-lg font-bold">{data.actionName}</span>
-              <ArrowRight />
-            </div>
-          </Sidebar.Open>
-        ))}
+    <div className="w-full  rounded-xl bg-white p-6 ">
+      <Heading className="mb-4 text-xl text-[#4D4D4D]" heading="Security" />
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <Label htmlFor="twoFactor" className="text-lg">
+              Two factor authentication for login
+            </Label>
+            <p className="text-md text-gray-500">
+              Require two factor authentication every time you login.
+            </p>
+          </div>
+          <Switch id="twoFactor" />
+        </div>
+        <div>
+          <Heading heading="Notifications" className="mb-4 text-xl text-[#4D4D4D]" />
+          <div className="space-y-6">
+            {links.map((data) => (
+              <Sidebar.Open key={data.id} opens={data.window}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-between rounded-xl py-8 text-lg text-gray-700"
+                >
+                  {data.actionName}
+                  <span className="text-gray-400">
+                    <ArrowRight />
+                  </span>
+                </Button>
+              </Sidebar.Open>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Change Password Window */}
