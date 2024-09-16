@@ -1,5 +1,5 @@
-import { Heading } from '../../../shared/Heading';
-import SubHeading from '../../../shared/SubHeading';
+import { Heading } from '../../../../shared/Heading';
+import SubHeading from '../../../../shared/SubHeading';
 
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';

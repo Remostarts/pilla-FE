@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 
-import { Heading } from '../../../shared/Heading';
-import SubHeading from '../../../shared/SubHeading';
+import { Heading } from '../../../../shared/Heading';
+import SubHeading from '../../../../shared/SubHeading';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';

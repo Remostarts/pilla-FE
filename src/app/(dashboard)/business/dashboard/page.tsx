@@ -4,8 +4,8 @@ import BusinessDashboard from '@/components/view/dashboard/business-dashboard/da
 
 export default function page() {
   return (
-    <div>
+    <section>
       <BusinessDashboard />
-    </div>
+    </section>
   );
 }

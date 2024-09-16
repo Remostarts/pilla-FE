@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import CircularProgressBar from '../../shared/CircularProgressBar';
 
-import BusinessInformationForm from './BusinessInformationForm';
+import BusinessInformationForm from './business-information/BusinessInformationForm';
 import ConstructionDetails from './ConstructionDetails';
 import ConstructionStageDetails from './ConstructionStageDetails';
 import LoanDetails from './LoanDetails';

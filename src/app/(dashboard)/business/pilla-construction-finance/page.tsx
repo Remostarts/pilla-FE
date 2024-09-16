@@ -4,8 +4,8 @@ import PillaConstructionFinance from '@/components/view/dashboard/business-dashb
 
 export default function page() {
   return (
-    <div>
+    <section>
       <PillaConstructionFinance />
-    </div>
+    </section>
   );
 }

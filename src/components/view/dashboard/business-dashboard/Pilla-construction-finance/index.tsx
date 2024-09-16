@@ -1,6 +1,7 @@
 'use client';
 
-import { ArrowUpRight, PlusCircle } from 'lucide-react';
+import React from 'react';
+import { Check, ChevronDown, Minus, PlusCircle } from 'lucide-react';
 import Image from 'next/image';
 
 import DashboardCount from '../../shared/DashboardCount';
@@ -10,6 +11,7 @@ import RepayLoan from '../../personal-dashboard/pilla-rent-finance/repay-loan';
 
 import ApplyLoan from './ApplyLoan';
 import StepForm from './StepForm';
+import LoanHistoryDetails from './LoanHistoryDetails';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,64 +22,115 @@ import {
 } from '@/constants/businessDashboard';
 import { REPAY_LOAN_WINDOW } from '@/constants/pillaRentFinanceData';
 
-const RepaymentHistoryItem = ({
-  date,
-  time,
-  amount,
-}: {
+// Repayment History Item Component
+interface RepaymentHistoryItemProps {
   date: string;
   time: string;
   amount: string;
-}) => (
-  <div className="flex items-center justify-between border-t py-2">
+}
+
+// Loan History Item Component
+interface LoanHistoryItemProps {
+  date: string;
+  status: string;
+  amount: string;
+  payment: string;
+}
+
+// History Card Component
+interface HistoryCardProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const RepaymentHistoryItem: React.FC<RepaymentHistoryItemProps> = ({ date, time, amount }) => (
+  <div className="flex items-center justify-between border-t py-4">
     <div className="flex items-center space-x-4">
-      <div className="rounded-full bg-red-100 p-2">
-        <ArrowUpRight className="size-4 text-red-500" />
+      <div className="p-2">
+        <Image src="/assets/business-dashboard/debit.svg" alt="debit-icon" width={26} height={26} />
       </div>
       <div>
         <p className="font-medium">Repayment</p>
-        <p className="text-sm text-gray-500">
-          {date} | {time}
-        </p>
+        <p className="text-sm text-gray-500">{`${date} | ${time}`}</p>
       </div>
     </div>
     <p className="font-medium">{amount}</p>
   </div>
 );
 
-const LoanHistoryItem = ({
-  date,
-  status,
-  amount,
-  payment,
-}: {
-  date: string;
-  status: string;
-  amount: string;
-  payment: string;
-}) => (
-  <div className="flex items-start justify-between">
-    <div>
-      <p className="text-sm text-gray-500">{date}</p>
-      <div className="flex items-center space-x-2">
-        <div className={`rounded-full p-1 ${status === 'Paid' ? 'bg-green-100' : 'bg-red-100'}`}>
-          <div
-            className={`size-2 rounded-full ${status === 'Paid' ? 'bg-green-500' : 'bg-red-500'}`}
-          />
-        </div>
-        <p>Loan Amount</p>
-      </div>
-      <p className="font-medium">{amount}</p>
+const LoanHistoryItem: React.FC<LoanHistoryItemProps> = ({ date, status, amount, payment }) => (
+  <div className="rounded-lg border p-4">
+    <div className="flex items-center justify-between bg-[#F2F2F2] px-4 py-2">
+      <p className="text-sm">{date}</p>
+      <p className="text-sm">{status}</p>
     </div>
-    <div className="text-right">
-      <p className="text-sm text-gray-500">{status}</p>
-      <p className="font-medium">Weekly Payment</p>
-      <p>{payment}</p>
+    <div className="mt-4 flex items-center space-x-2">
+      {status === 'Paid' ? (
+        <Check className="rounded-full bg-green-500 p-1 text-lg text-white" />
+      ) : (
+        <Minus className="rounded-full bg-red-100 p-1 text-red-500" />
+      )}
+      <div className="flex w-full items-center justify-between">
+        <div className="flex flex-col">
+          <p>Loan Amount</p>
+          <p className="text-lg font-medium">{amount}</p>
+        </div>
+        <div>
+          <p>Weekly Payment</p>
+          <p className="text-lg font-medium">{payment}</p>
+        </div>
+      </div>
     </div>
   </div>
 );
 
+// Action Card Component
+const ActionCard: React.FC = () => (
+  <Card className="bg-white">
+    <CardHeader>
+      <CardTitle>Actions</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <Sidebar.Open opens={REPAY_LOAN_WINDOW}>
+        <Button
+          variant="outline"
+          className="w-full rounded-xl bg-black px-6 py-8 text-center text-lg text-white"
+        >
+          <PlusCircle className="mr-4 size-6" />
+          Repay Loan
+        </Button>
+      </Sidebar.Open>
+    </CardContent>
+  </Card>
+);
+
+const HistoryCard: React.FC<HistoryCardProps> = ({ title, children }) => (
+  <Card className="bg-white">
+    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+      <CardTitle className="text-lg font-medium">{title}</CardTitle>
+      <Button variant="link" size="sm">
+        See All <ChevronDown className="ml-2" />
+      </Button>
+    </CardHeader>
+    <CardContent>{children}</CardContent>
+  </Card>
+);
+
+// Pilla Construction Finance page
 export default function PillaConstructionFinance() {
+  // Sample data for repayment history
+  const repaymentHistoryData: RepaymentHistoryItemProps[] = Array(4).fill({
+    date: 'Aug 14 2022',
+    time: '08:24AM',
+    amount: '₦10,000.00',
+  });
+
+  // Sample data for loan history
+  const loanHistoryData: LoanHistoryItemProps[] = [
+    { date: 'Aug 14 2022', status: 'Paid', amount: '₦ 220,000.00', payment: '₦ 50,000.00' },
+    { date: 'Aug 14 2022', status: 'Pending', amount: '₦ 220,000.00', payment: '₦ 50,000.00' },
+  ];
+
   return (
     <section>
       <div className="container mx-auto space-y-8">
@@ -96,7 +149,6 @@ export default function PillaConstructionFinance() {
                 Finance Rent
               </span>
             </div>
-
             <Sidebar.Open opens={APPLY_FOR_LOAN}>
               <button className="flex items-center gap-2 rounded-md border border-gray-200 bg-white p-3">
                 <Image
@@ -111,70 +163,27 @@ export default function PillaConstructionFinance() {
           </div>
 
           {/* Actions card */}
-          <Card className="bg-white">
-            <CardHeader>
-              <CardTitle>Actions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Sidebar.Open opens={REPAY_LOAN_WINDOW}>
-                <Button
-                  variant="outline"
-                  className="w-full rounded-xl bg-black px-6 py-8 text-center text-lg text-white"
-                >
-                  <PlusCircle className="mr-4 size-6" />
-                  Repay Loan
-                </Button>
-              </Sidebar.Open>
-            </CardContent>
-          </Card>
+          <ActionCard />
         </div>
 
-        {/* Repayment history card */}
         <div className="grid gap-6 md:grid-cols-2">
-          <Card className="bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Repayment History</CardTitle>
-              <Button variant="link" size="sm">
-                See All
-              </Button>
-            </CardHeader>
-            <CardContent>
-              {[...Array(4)].map((_, index) => (
-                <RepaymentHistoryItem
-                  key={index}
-                  date="Aug 14 2022"
-                  time="08:24AM"
-                  amount="₦10,000.00"
-                />
-              ))}
-            </CardContent>
-          </Card>
+          {/* Repayment history card */}
+          <HistoryCard title="Repayment History">
+            {repaymentHistoryData.map((item, index) => (
+              <RepaymentHistoryItem key={index} {...item} />
+            ))}
+          </HistoryCard>
 
-          {/* Loan history card table */}
-          <Card className="bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Loan History</CardTitle>
-              <Button variant="link" size="sm">
-                See All
-              </Button>
-            </CardHeader>
-            <CardContent>
+          {/* Loan history card */}
+          <HistoryCard title="Loan History">
+            <Sidebar.Open opens="loan-history-details">
               <div className="space-y-4">
-                <LoanHistoryItem
-                  date="Aug 14 2022"
-                  status="Paid"
-                  amount="₦ 220,000.00"
-                  payment="₦ 50,000.00"
-                />
-                <LoanHistoryItem
-                  date="Aug 14 2022"
-                  status="Pending"
-                  amount="₦ 220,000.00"
-                  payment="₦ 50,000.00"
-                />
+                {loanHistoryData.map((item, index) => (
+                  <LoanHistoryItem key={index} {...item} />
+                ))}
               </div>
-            </CardContent>
-          </Card>
+            </Sidebar.Open>
+          </HistoryCard>
         </div>
       </div>
 
@@ -183,14 +192,16 @@ export default function PillaConstructionFinance() {
         <ApplyLoan />
       </Sidebar.Window>
 
-      {/* Sidebar Windows */}
       <Sidebar.Window name={APPLY_LOAN_FORM_WINDOW}>
         <StepForm />
       </Sidebar.Window>
 
-      {/* Sidebar Windows */}
       <Sidebar.Window name={REPAY_LOAN_WINDOW}>
         <RepayLoan />
+      </Sidebar.Window>
+
+      <Sidebar.Window name="loan-history-details">
+        <LoanHistoryDetails />
       </Sidebar.Window>
 
       {/* Success Message */}

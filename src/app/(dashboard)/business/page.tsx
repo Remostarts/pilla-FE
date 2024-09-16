@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 
 import { authOptions } from '@/lib/AuthOptions';
-import GetStarted from '@/components/view/dashboard/business-dashboard/getStarted/GetStarted';
+import GetStarted from '@/components/view/dashboard/business-dashboard/getStarted/index';
 
 const BusinessDashboard = async () => {
   const session = await getServerSession(authOptions);
@@ -9,9 +9,7 @@ const BusinessDashboard = async () => {
 
   return (
     <section>
-      <div>
-        <GetStarted />
-      </div>
+      <GetStarted />
     </section>
   );
 };

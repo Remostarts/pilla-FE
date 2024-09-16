@@ -2,16 +2,16 @@ import { Upload } from 'lucide-react';
 
 import { Heading } from '../../../shared/Heading';
 import { Sidebar } from '../../../shared/SideBar';
-import IdentityVerification from '../document-upload/Identity-verification/IdentityVerification';
-import AddressVerification from '../document-upload/address-verification/AddressVerification';
+import DocumentVerificationUpload from '../document-upload/document-verification-upload/DocumentVerificationUpload';
 
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
-import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
+import ReInput from '@/components/re-ui/re-input/ReInput';
 import { nigeriaState } from '@/lib/data/nigeriaStates';
+import { ADDRESS_VERIFICATION, DOCUMENT_IDENTIFICATION } from '@/constants/businessDashboard';
 
-export default function RealEstateOptionForm() {
+export default function LandlordManagerOption() {
   return (
     <div>
       <form className="mt-6 space-y-4">
@@ -53,7 +53,7 @@ export default function RealEstateOptionForm() {
           <ReInput
             label="Address"
             name="address"
-            placeholder="Enter your address"
+            placeholder="Enter Your Address"
             className="bg-gray-100/80"
           />
         </div>
@@ -83,7 +83,7 @@ export default function RealEstateOptionForm() {
             <Label htmlFor="identity" className="mb-2 block text-sm font-semibold text-gray-700">
               Identification Document
             </Label>
-            <Sidebar.Open opens="identification-document">
+            <Sidebar.Open opens={DOCUMENT_IDENTIFICATION}>
               <div className="mb-4 flex cursor-pointer  justify-between rounded-xl border bg-gray-50 p-4">
                 Select File
                 <Upload />
@@ -98,15 +98,8 @@ export default function RealEstateOptionForm() {
             >
               Proof of Address
             </Label>
-            {/* <Input
-            type="file"
-            id="proofOfAddress"
-            value={proofOfAddress}
-            onChange={handleInputChange(setProofOfAddress)}
-            placeholder="Upload proof of address"
-            className="mt-1 block w-full bg-gray-100/60"
-          /> */}
-            <Sidebar.Open opens="proof-of-address">
+
+            <Sidebar.Open opens={ADDRESS_VERIFICATION}>
               <div className="mb-4 flex cursor-pointer  justify-between rounded-xl border bg-gray-50 p-4">
                 Select File
                 <Upload />
@@ -116,12 +109,12 @@ export default function RealEstateOptionForm() {
         </div>
       </form>
 
-      <Sidebar.Window name="identification-document">
-        <IdentityVerification />
+      <Sidebar.Window name={DOCUMENT_IDENTIFICATION}>
+        <DocumentVerificationUpload DocumentUploadName="Identity Verification" />
       </Sidebar.Window>
 
-      <Sidebar.Window name="proof-of-address">
-        <AddressVerification />
+      <Sidebar.Window name={ADDRESS_VERIFICATION}>
+        <DocumentVerificationUpload DocumentUploadName="Address Verification" />
       </Sidebar.Window>
     </div>
   );

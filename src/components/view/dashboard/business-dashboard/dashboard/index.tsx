@@ -28,7 +28,7 @@ import {
 import Pin from '@/components/view/dashboard/shared/Pin';
 import BusinessDashboardCount from '@/components/view/dashboard/business-dashboard/dashboard/BusinessDashboardCount';
 import Collections from '@/components/view/dashboard/business-dashboard/dashboard/Collections';
-import RecentTransactions from '@/components/view/dashboard/business-dashboard/dashboard/RecentTransaction';
+import RecentTransactionsTable from '@/components/view/dashboard/business-dashboard/dashboard/RecentTransactionsTable';
 
 const actionsData: ActionsBtnDataType[] = [
   {
@@ -188,7 +188,7 @@ export default function BusinessDashboard() {
       {/* Collections and Recent Transactions */}
       <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <Collections />
-        <RecentTransactions />
+        <RecentTransactionsTable />
       </div>
     </section>
   );

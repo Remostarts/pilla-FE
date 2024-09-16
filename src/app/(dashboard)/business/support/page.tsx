@@ -4,8 +4,8 @@ import SupportPageContent from '@/components/view/dashboard/personal-dashboard/s
 
 export default function Page() {
   return (
-    <div>
+    <section>
       <SupportPageContent />
-    </div>
+    </section>
   );
 }

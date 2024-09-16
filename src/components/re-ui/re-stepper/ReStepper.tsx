@@ -1,6 +1,8 @@
+import React from 'react';
+import { Check } from 'lucide-react';
+
 import { completedStepsState } from '@/redux/features/shared/StepperSlices';
 import { useAppSelector } from '@/redux/hooks';
-import './stepper.css';
 
 type TStepperProps = {
   currentStep: number;
@@ -17,20 +19,34 @@ const ReStepper = ({ currentStep, steps = [], setFormStep }: TStepperProps) => {
       setFormStep(index);
     }
   };
+
   return (
-    <div className="flex justify-between">
+    <div className="relative flex justify-between">
+      {/* Connector line */}
+
       {steps.map((step, i) => (
-        <button
-          type="button"
-          onClick={handleStepClick(i)}
-          key={i}
-          className={`step-item ${currentStep === i && 'active'} ${
-            i < completedSteps && 'complete'
-          } `}
-        >
-          <div className="step">{i < completedSteps ? i + 1 : i + 1}</div>
-          <p className="text-gray-500">{step}</p>
-        </button>
+        <div key={i} className="relative flex flex-col items-center">
+          <button
+            type="button"
+            onClick={handleStepClick(i)}
+            className={`relative z-10 flex size-8 items-center justify-center rounded-full border-2 ${
+              i <= currentStep
+                ? 'border-green-500 bg-green-500 text-white'
+                : 'border-gray-300 bg-white'
+            }`}
+          >
+            {i < currentStep ? (
+              <Check className="size-5" />
+            ) : (
+              <span className="text-sm">{i + 1}</span>
+            )}
+          </button>
+          <p
+            className={`mt-2 text-sm ${i === currentStep ? 'font-bold text-black' : 'text-gray-500'}`}
+          >
+            {step}
+          </p>
+        </div>
       ))}
     </div>
   );

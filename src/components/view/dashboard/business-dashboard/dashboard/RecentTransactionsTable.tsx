@@ -1,5 +1,4 @@
 import React from 'react';
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 
 import { Sidebar } from '../../shared/SideBar';
@@ -77,7 +76,7 @@ const TransactionItem: React.FC<{ transaction: Transaction }> = ({ transaction }
   </li>
 );
 
-export default function RecentTransactions() {
+export default function RecentTransactionsTable() {
   return (
     <div>
       <Card className="size-full bg-white">

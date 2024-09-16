@@ -12,20 +12,16 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 
-interface UploadedDocuments {
-  [key: string]: string;
-}
-
 interface Director {
   fullName: string;
   position: string;
   bvn: string;
-  document: File | null;
+  document: string | null;
 }
 
 export default function BusinessInformationForm() {
   const [currentDocument, setCurrentDocument] = useState<string>('');
-  const [uploadedDocuments, setUploadedDocuments] = useState<UploadedDocuments>({});
+  const [uploadedDocuments, setUploadedDocuments] = useState<Record<string, string>>({});
   const [directors, setDirectors] = useState<Director[]>([]);
 
   const documents: string[] = [
@@ -36,15 +32,15 @@ export default function BusinessInformationForm() {
   ];
 
   const handleFileUpload = (docName: string, fileName: string) => {
-    setUploadedDocuments((prevDocs) => ({ ...prevDocs, [docName]: fileName }));
+    setUploadedDocuments((prev) => ({ ...prev, [docName]: fileName }));
   };
 
   const handleAddDirector = (director: Director) => {
-    setDirectors((prevDirectors) => [...prevDirectors, director]);
+    setDirectors((prev) => [...prev, director]);
   };
 
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
       {/* Tax Identification Number */}
       <div>
         <ReInput
@@ -79,15 +75,17 @@ export default function BusinessInformationForm() {
         <div className="space-y-2">
           {documents.map((doc, index) => (
             <Sidebar.Open opens="upload-document" key={index}>
-              <div className="flex items-center justify-between rounded border bg-[#F7F7F7] p-4">
-                <span className="text-sm text-gray-600">{uploadedDocuments[doc] || doc}</span>
-                <Upload
-                  className="size-6 cursor-pointer text-[#1A1A1A]"
-                  onClick={() => {
-                    setCurrentDocument(doc);
-                  }}
-                />
-              </div>
+              <button
+                className="flex w-full items-center justify-between rounded border bg-[#F7F7F7] p-4"
+                onClick={() => {
+                  setCurrentDocument(doc);
+                }}
+              >
+                <span className="text-sm text-gray-600">
+                  {uploadedDocuments[doc] ? `Uploaded: ${uploadedDocuments[doc]}` : doc}
+                </span>
+                <Upload className="size-6 cursor-pointer text-[#1A1A1A]" />
+              </button>
             </Sidebar.Open>
           ))}
         </div>
@@ -99,19 +97,27 @@ export default function BusinessInformationForm() {
           Account Signatories *
         </Label>
         <Sidebar.Open opens="add-director">
-          <div className="flex w-full cursor-pointer items-center justify-between rounded border bg-[#F7F7F7] p-4">
+          <button className="flex w-full cursor-pointer items-center justify-between rounded border bg-[#F7F7F7] p-4">
             <span className="text-sm">Click to add director</span>
             <Plus className="size-6 text-[#1A1A1A]" />
-          </div>
+          </button>
         </Sidebar.Open>
         {directors.map((director, index) => (
-          <div key={index} className="flex items-center justify-between border-b py-2">
-            <span>
-              {director.fullName} - {director.position}
-            </span>
+          <div
+            key={index}
+            className="mt-2 flex items-center justify-between rounded-lg bg-gray-100 p-4"
+          >
+            <div>
+              <h3 className="font-semibold">{director.fullName}</h3>
+              <p className="text-sm text-gray-600">{director.position}</p>
+              <p className="text-xs text-gray-500">BVN: {director.bvn}</p>
+              {director.document && (
+                <p className="text-xs text-blue-500">Document: {director.document}</p>
+              )}
+            </div>
             <X
-              className="cursor-pointer text-gray-400"
-              onClick={() => setDirectors(directors.filter((_, i) => i !== index))}
+              className="cursor-pointer text-gray-400 hover:text-red-500"
+              onClick={() => setDirectors((prev) => prev.filter((_, i) => i !== index))}
             />
           </div>
         ))}
