@@ -42,7 +42,7 @@ const ReInput = ({
         control={control}
         name={name}
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="font-spaceGrotesk">
             <FormLabel className="font-spaceGrotesk">{label}</FormLabel>
             <FormControl>
               <div className="flex-center rounded border border-gray-300">

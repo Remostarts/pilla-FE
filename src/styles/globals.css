@@ -44,6 +44,17 @@
   }
 }
 
+.my-custom-toast {
+  position: relative;
+}
+
+.my-custom-toast [data-close-button] {
+  position: absolute !important;
+  right: -10px !important;
+  left: auto !important;
+  top: 0px !important;
+}
+
 @layer base {
   :root {
     --chart-1: 12 76% 61%;

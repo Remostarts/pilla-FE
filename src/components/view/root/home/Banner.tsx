@@ -19,7 +19,7 @@ export default function Banner() {
             Save towards your rent with ease and obtain loan to complete your rent payments.
           </p>
 
-          <ReLink href="/">Open an account</ReLink>
+          <ReLink href="/sign-up">Open an account</ReLink>
 
           {/* Customer satisfaction */}
           <div className="ml-1 mt-12 flex items-center gap-4 sm:mt-16">

@@ -6,6 +6,7 @@ import AccountLimit from '@/components/view/dashboard/personal-dashboard/setting
 import Notifications from '@/components/view/dashboard/personal-dashboard/settings/Notifications';
 import Security from '@/components/view/dashboard/personal-dashboard/settings/Security';
 import SavedCards from '@/components/view/dashboard/personal-dashboard/settings/SavedCards';
+import { getPersonalDetails } from '@/lib/actions/personal/settings.action';
 
 export const metadata = {
   title: 'Settings',
@@ -16,9 +17,10 @@ interface SectionProps {
   section: string;
 }
 
-export default function Page({ searchParams }: { searchParams: SectionProps }) {
+export default async function Page({ searchParams }: { searchParams: SectionProps }) {
   // Extracting the section from the search params
   const currentSection = searchParams.section || 'personal-information';
+  const personalDetails = await getPersonalDetails();
 
   return (
     <section className="flex size-full gap-10 sm:flex-wrap md:flex-wrap lg:flex-nowrap">
@@ -27,7 +29,9 @@ export default function Page({ searchParams }: { searchParams: SectionProps }) {
 
       {/* Content Section */}
       <div className="w-full max-w-7xl">
-        {currentSection === 'personal-information' && <PersonalInformation />}
+        {currentSection === 'personal-information' && (
+          <PersonalInformation personalInfo={personalDetails} />
+        )}
         {currentSection === 'account-limit' && <AccountLimit />}
         {currentSection === 'notifications' && <Notifications />}
         {currentSection === 'security' && <Security />}

@@ -4,11 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname } from 'next/navigation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { ReButton } from '@/components/re-ui/ReButton';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { Form } from '@/components/ui/form';
-import { toast } from '@/components/ui/use-toast';
 import { useOtp } from '@/context/OtpProvider';
 import { personalSignUpSchema } from '@/lib/validations/userAuth.validations';
 import { partialSignup } from '@/lib/actions/auth/signup.actions';
@@ -46,24 +46,12 @@ export default function FillDetails() {
 
       if (response?.success) {
         handleProceed('step', '2');
-        toast({
-          title: 'Success',
-          description: 'Personal information submitted successfully!',
-        });
+        toast.success('Personal information submitted successfully!');
       } else {
-        toast({
-          title: 'Error',
-          description: response.error,
-          variant: 'destructive',
-        });
+        toast.error(response?.errorName || 'Failed to submit information');
       }
     } catch (error) {
-      console.error('Sign up error:', error);
-      toast({
-        title: 'Sign up failed',
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
-        variant: 'destructive',
-      });
+      toast.error(error instanceof Error ? error.message : 'Sign up Failed');
     }
   };
 

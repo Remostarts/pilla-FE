@@ -1,10 +1,12 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { Heading } from '../../shared/Heading';
-import { Sidebar } from '../../shared/SideBar';
+import { Sidebar, useSidebar } from '../../shared/SideBar';
 import { SuccessMessage } from '../../shared/SuccessMessage';
 import Pin from '../../shared/Pin';
 import ChangePassword from '../../shared/ChangePassword';
@@ -18,6 +20,8 @@ import {
   PASSWORD_CHANGED_WINDOW,
 } from '@/constants/SecurityData';
 import { Button } from '@/components/ui/button';
+import { TChangePin } from '@/lib/validations/personal/settings.validation';
+import { updatePin } from '@/lib/actions/personal/settings.action';
 
 interface securityLinks {
   id: number;
@@ -39,6 +43,34 @@ const links: securityLinks[] = [
 ];
 
 export default function Security() {
+  const [currentTransactionPin, setCurrentTransactionPin] = useState('');
+  const [newTransactionPin, setNewTransactionPin] = useState('');
+  const [confirmNewTransactionPin, setConfirmNewTransactionPin] = useState('');
+
+  const { open, close } = useSidebar();
+
+  const submitNewPin = async () => {
+    try {
+      const data = {
+        currentTransactionPin,
+        newTransactionPin,
+        confirmNewTransactionPin,
+      };
+      const response = await updatePin(data);
+      console.log(response);
+      if (response?.success) {
+        toast.success('Pin changed successfully!');
+        close(CONFIRM_NEW_TRANSACTION_PIN);
+        open(NEW_TRANSACTION_PIN_CREATED_WINDOW);
+      } else {
+        toast.error('Pin change fail');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Pin change fail');
+    }
+  };
+
   return (
     <div className="size-full max-w-7xl rounded-xl bg-white p-6 font-spaceGrotesk">
       <Heading heading="Security" />
@@ -82,6 +114,8 @@ export default function Security() {
           btnName="Proceed"
           opens={CREATE_NEW_TRANSACTION_PIN} // Opens the confirm pin window
           closes={CHANGE_TRANSACTION_PIN} // Closes itself
+          name="currentTransactionPin"
+          onChange={(otp: string) => setCurrentTransactionPin(otp)}
         />
       </Sidebar.Window>
 
@@ -93,6 +127,8 @@ export default function Security() {
           btnName="Proceed"
           opens={CONFIRM_NEW_TRANSACTION_PIN} // Opens the next component
           closes={CREATE_NEW_TRANSACTION_PIN} // Closes itself
+          name="newTransactionPin"
+          onChange={(otp: string) => setNewTransactionPin(otp)}
         />
       </Sidebar.Window>
 
@@ -102,8 +138,9 @@ export default function Security() {
           heading="Confirm New PIN"
           subHeading="Create your 4 digit passcode to authorize transaction"
           btnName="Submit"
-          opens={NEW_TRANSACTION_PIN_CREATED_WINDOW} // Opens the next component
-          closes={CONFIRM_NEW_TRANSACTION_PIN} // Closes itself
+          name="confirmNewTransactionPin"
+          onChange={(otp: string) => setConfirmNewTransactionPin(otp)}
+          onSubmit={() => submitNewPin()}
         />
       </Sidebar.Window>
 

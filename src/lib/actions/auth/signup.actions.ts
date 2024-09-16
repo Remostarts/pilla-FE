@@ -33,15 +33,17 @@ export async function partialSignup(formData: TPersonalSignup) {
 }
 
 export async function createPassword(formData: CreatePasswordParams) {
-  const validation = passwordSchema.safeParse(formData);
+  console.log('🌼 🔥🔥 createPassword 🔥🔥 formData🌼', formData);
 
-  if (!validation.success) {
-    let zodErrors = '';
-    validation.error.issues.forEach((issue) => {
-      zodErrors = zodErrors + issue.path[0] + ':' + issue.message + '.';
-    });
-    throw new Error(zodErrors);
-  }
+  // const validation = passwordSchema.safeParse(formData);
+
+  // if (!validation.success) {
+  //   let zodErrors = '';
+  //   validation.error.issues.forEach((issue) => {
+  //     zodErrors = zodErrors + issue.path[0] + ':' + issue.message + '.';
+  //   });
+  //   throw new Error(zodErrors);
+  // }
 
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/auth/register`, {
@@ -52,7 +54,7 @@ export async function createPassword(formData: CreatePasswordParams) {
         password: formData.password,
         confirmPassword: formData.confirmPassword,
         emailVerificationCode: formData.emailVerificationCode,
-        role: formData.role,
+        role: formData.customerType,
       }),
       cache: 'no-store',
     });

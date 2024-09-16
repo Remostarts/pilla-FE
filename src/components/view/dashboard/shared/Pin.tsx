@@ -11,9 +11,23 @@ interface PinPropType {
   btnName: string;
   opens?: string;
   closes?: string;
+  onChange?: (otp: string) => void;
+  name?: string;
+  error?: string | null;
+  onSubmit?: () => void;
 }
 
-export default function Pin({ heading, subHeading, btnName, opens, closes }: PinPropType) {
+export default function Pin({
+  heading,
+  subHeading,
+  btnName,
+  opens,
+  closes,
+  onChange,
+  name,
+  error,
+  onSubmit,
+}: PinPropType) {
   // Use Sidebar Context
   const { close, open } = useSidebar();
 
@@ -23,6 +37,9 @@ export default function Pin({ heading, subHeading, btnName, opens, closes }: Pin
     }
     if (opens) {
       open(opens);
+    }
+    if (onSubmit) {
+      onSubmit();
     }
   };
 
@@ -35,12 +52,13 @@ export default function Pin({ heading, subHeading, btnName, opens, closes }: Pin
 
       {/* Otp Section */}
       <div className="mt-10">
-        <ReOtp count={4} className="gap-8" />
+        <ReOtp count={4} className="gap-8" onChange={onChange} name={name} />
+        {error && <p className="mt-4 font-spaceGrotesk text-red-500">{error}</p>}
       </div>
 
       {/* Btn */}
       <div className="mt-16">
-        <ReButton size="lg" onClick={handleBtnClick}>
+        <ReButton size="lg" onClick={handleBtnClick} disabled={!!error}>
           {btnName}
         </ReButton>
       </div>

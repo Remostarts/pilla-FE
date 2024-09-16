@@ -41,7 +41,7 @@ const ReSelect = ({
       name={name}
       render={({ field }) => (
         <FormItem className="font-spaceGrotesk">
-          <FormLabel className="text-base text-gray-800">{label}</FormLabel>
+          <FormLabel className="text-sm text-gray-800">{label}</FormLabel>
           <FormControl>
             <div className={`rounded border border-gray-300 bg-white ${className}`}>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -63,7 +63,7 @@ const ReSelect = ({
             </div>
           </FormControl>
           <FormDescription className="ml-1">{description}</FormDescription>
-          <FormMessage />
+          <FormMessage className="text-base font-normal text-primary-800" />
         </FormItem>
       )}
     />
