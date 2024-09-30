@@ -1,12 +1,12 @@
 'use client';
 
-import Profile from './Profile';
-import BusinessProfile from './BusinessProfile';
+import Profile from './profile/Profile';
+import BusinessProfile from './business-profile/BusinessProfile';
 import SettlementAccount from './settlement-account/SettlementAccount';
-import Preferences from './Preferences';
-import Security from './Security';
+import Preferences from './preferences/Preferences';
+import Security from './security/Security';
 import Cards from './Cards';
-import Support from './Support';
+import Support from './support/Support';
 
 export default function SettingsContent({ currentSection }: { currentSection: string }) {
   const renderSection = () => {

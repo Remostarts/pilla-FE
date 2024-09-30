@@ -3,11 +3,11 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-import { Heading } from '../../shared/Heading';
-import { Sidebar } from '../../shared/SideBar';
-import { SuccessMessage } from '../../shared/SuccessMessage';
-import Pin from '../../shared/Pin';
-import ChangePassword from '../../shared/ChangePassword';
+import { Heading } from '../../../shared/Heading';
+import { Sidebar } from '../../../shared/SideBar';
+import { SuccessMessage } from '../../../shared/SuccessMessage';
+import Pin from '../../../shared/Pin';
+import ChangePassword from '../../../shared/ChangePassword';
 
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';

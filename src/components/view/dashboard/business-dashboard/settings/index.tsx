@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import SettingsContent from './SettingsContent';
 import SideNavigation from './SideNavigation';
+import SettingsContent from './SettingContent';
 
 export default function SettingsPage() {
   // defining the state of the current section

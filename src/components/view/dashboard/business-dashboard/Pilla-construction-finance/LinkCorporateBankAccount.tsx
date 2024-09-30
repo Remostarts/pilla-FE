@@ -5,15 +5,15 @@ import SubHeading from '../../shared/SubHeading';
 import { Button } from '@/components/ui/button';
 
 interface LinkCorporateBankAccountProps {
-  step: number;
   nextStep: () => void;
-  totalSteps: number;
+  dispatch: any;
+  updateLinkCorporateBankAccount: (data: any) => void;
 }
 
 export default function LinkCorporateBankAccount({
-  step,
   nextStep,
-  totalSteps,
+  dispatch,
+  updateLinkCorporateBankAccount,
 }: LinkCorporateBankAccountProps) {
   return (
     <div>
@@ -64,14 +64,12 @@ export default function LinkCorporateBankAccount({
 
         <p className="mb-4 text-xs">By clicking the button below you agree to Mono T&C.</p>
 
-        {step < totalSteps && (
-          <Button
-            className="w-full rounded-xl bg-white py-3 font-semibold text-blue-600 hover:bg-white/90"
-            onClick={nextStep}
-          >
-            Click to continue
-          </Button>
-        )}
+        <Button
+          className="w-full rounded-xl bg-white py-3 font-semibold text-blue-600 hover:bg-white/90"
+          onClick={nextStep}
+        >
+          Click to continue
+        </Button>
       </div>
     </div>
   );

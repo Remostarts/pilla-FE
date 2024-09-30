@@ -18,6 +18,7 @@ type ReRadioGroupProps = {
   options: { label: string; value: string }[];
   description?: string;
   onChange?: (value: string) => void; // Accepting an onChange prop
+  value?: string;
 };
 
 const ReRadioGroup = ({ name, label, options, description, onChange }: ReRadioGroupProps) => {

@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 
-export default function CircularProgressBar({ step, totalSteps }) {
+interface CircularProgressBarProps {
+  step: number;
+  totalSteps: number;
+}
+
+export default function CircularProgressBar({ step, totalSteps }: CircularProgressBarProps) {
   const [progress, setProgress] = useState(0);
   const radius = 18;
   const circumference = 2 * Math.PI * radius;

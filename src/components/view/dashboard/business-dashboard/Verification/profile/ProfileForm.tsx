@@ -1,6 +1,5 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { Heading } from '../../../shared/Heading';
 import SubHeading from '../../../shared/SubHeading';
@@ -8,30 +7,31 @@ import LandlordManagerOption from '../landlord-manager-option/LandlordManagerOpt
 import PropertyDeveloperOptionForm from '../property-developer-option/PropertyDeveloperOptionForm';
 
 import ReRadioGroup from '@/components/re-ui/ReRadio';
+import { FormValues } from '@/lib/validations/business/verification.validation';
 
-// interface for profile form section
+// defining the profile props array
 interface ProfileFormProps {
   onCategorySelect: (category: 'landlord' | 'developer' | 'realEstate') => void;
 }
 
 export default function ProfileForm({ onCategorySelect }: ProfileFormProps) {
-  const [category, setCategory] = useState<string>(''); // to store user selected category
-  const [showForm, setShowForm] = useState<boolean>(false); // to show form based on user selection
+  const { watch } = useFormContext<FormValues>();
 
+  // watching the category changes
+  const category = watch('profile.category');
+
+  // function to handle category selection
   const handleCategoryChange = (value: string) => {
-    setCategory(value);
     onCategorySelect(value as 'landlord' | 'developer' | 'realEstate');
-    setShowForm(true);
   };
 
   return (
-    <form>
-      <div className="mx-auto mt-10 w-full rounded-xl bg-white">
-        <Heading heading="Profile" />
-        <SubHeading subHeading="Please tell us about yourself." className="mb-10" />
-
+    <div className="mx-auto mt-10 w-full rounded-xl bg-white">
+      <Heading heading="Profile" />
+      <SubHeading subHeading="Please tell us about yourself." className="mb-10" />
+      <div>
         <ReRadioGroup
-          name="businessCategory"
+          name="profile.category"
           label="Categories of Business"
           options={[
             { label: 'Landlord / Property Manager', value: 'landlord' },
@@ -40,16 +40,16 @@ export default function ProfileForm({ onCategorySelect }: ProfileFormProps) {
           ]}
           onChange={handleCategoryChange}
         />
-
-        {/* conditionally rendering the section as per user select an option */}
-        {showForm && (
-          <>
-            {category === 'landlord' && <LandlordManagerOption />}
-            {category === 'developer' && <PropertyDeveloperOptionForm />}
-            {category === 'realEstate' && <LandlordManagerOption />}
-          </>
-        )}
       </div>
-    </form>
+
+      {/* // conditional rendering the form based on the category */}
+      {category && (
+        <>
+          {category === 'landlord' && <LandlordManagerOption />}
+          {category === 'developer' && <PropertyDeveloperOptionForm />}
+          {category === 'realEstate' && <LandlordManagerOption />}
+        </>
+      )}
+    </div>
   );
 }

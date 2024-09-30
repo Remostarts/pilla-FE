@@ -1,8 +1,17 @@
+import React from 'react';
+
 import { Heading } from '../../../../shared/Heading';
 import SubHeading from '../../../../shared/SubHeading';
 
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
+
+// defining the bank options array
+const bankOptions = [
+  { value: 'bank1', label: 'Bank 1' },
+  { value: 'bank2', label: 'Bank 2' },
+  { value: 'bank3', label: 'Bank 3' },
+];
 
 export default function BankVerificationForm() {
   return (
@@ -14,26 +23,28 @@ export default function BankVerificationForm() {
 
       <div className="ml-16 mt-6 space-y-5">
         <div className="grid grid-cols-2 gap-10">
-          <ReInput label="Enter BVN" name="bvn" className="bg-gray-100/80" />
+          <div>
+            <ReInput label="Enter BVN" name="bankVerification.bvn" className="bg-gray-100/80" />
+          </div>
 
-          <ReSelect
-            name="bank name"
-            label="Bank Name"
-            placeholder="select bank"
-            className="bg-gray-100/80"
-            options={[
-              { value: 'bank1', label: 'bank1' },
-              { value: 'bank2', label: 'bank2' },
-              { value: 'bank3', label: 'bank3' },
-            ]}
-          />
+          <div>
+            <ReSelect
+              label="Bank Name"
+              name="bankVerification.bankName"
+              placeholder="select bank"
+              className="bg-gray-100/80"
+              options={bankOptions}
+            />
+          </div>
 
-          <ReInput
-            label="Account Number"
-            placeholder="Enter Account Number"
-            name="account number"
-            className="bg-gray-100/80"
-          />
+          <div>
+            <ReInput
+              label="Account Number"
+              placeholder="Enter Account Number"
+              name="bankVerification.accountNumber"
+              className="bg-gray-100/80"
+            />
+          </div>
         </div>
 
         <SubHeading subHeading="To help us verify your account, the name on your bank account should match the name you provided on your profile details." />

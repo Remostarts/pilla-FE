@@ -1,8 +1,17 @@
+import React from 'react';
+
 import { Heading } from '../../../../shared/Heading';
 import SubHeading from '../../../../shared/SubHeading';
 
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
+
+// defining the gender options array
+const genderOptions = [
+  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Female' },
+  { value: 'other', label: 'Other' },
+];
 
 export default function NextOfKinForm() {
   return (
@@ -17,35 +26,43 @@ export default function NextOfKinForm() {
         <Heading heading="Personal Information *" size="lg" />
         <div className="mt-4 space-y-5">
           <div className="grid grid-cols-2 gap-10">
-            <ReInput
-              label="First Name"
-              placeholder="Enter your First Name"
-              name="firstName"
-              className="bg-gray-100/80"
-            />
+            <div>
+              <ReInput
+                label="First Name"
+                placeholder="Enter your First Name"
+                name="nextOfKin.firstName"
+                className="bg-gray-100/80"
+              />
+            </div>
 
-            <ReInput
-              label="Last Name"
-              placeholder="Enter your Last Name"
-              name="lastName"
-              className="bg-gray-100/80"
-            />
+            <div>
+              <ReInput
+                label="Last Name"
+                placeholder="Enter your Last Name"
+                name="nextOfKin.lastName"
+                className="bg-gray-100/80"
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-10">
-            <ReSelect
-              name="gender"
-              label="Gender"
-              placeholder="Select"
-              className="bg-gray-100/80"
-              options={[
-                { value: 'male', label: 'Male' },
-                { value: 'female', label: 'Female' },
-                { value: 'other', label: 'Other' },
-              ]}
-            />
+            <div>
+              <ReSelect
+                name="nextOfKin.gender"
+                label="Gender"
+                placeholder="Select"
+                className="bg-gray-100/80"
+                options={genderOptions}
+              />
+            </div>
 
-            <ReInput label="Relationship" name="relationship" className="bg-gray-100/80" />
+            <div>
+              <ReInput
+                label="Relationship"
+                name="nextOfKin.relationship"
+                className="bg-gray-100/80"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -55,19 +72,23 @@ export default function NextOfKinForm() {
         <Heading heading="Contact *" size="lg" />
         <div className="mt-4 space-y-5">
           <div className="grid grid-cols-2 gap-10">
-            <ReInput
-              label="Phone Number"
-              placeholder="Enter your Phone Number"
-              name="phoneNumber"
-              className="bg-gray-100/80"
-            />
+            <div>
+              <ReInput
+                label="Phone Number"
+                placeholder="Enter your Phone Number"
+                name="nextOfKin.phoneNumber"
+                className="bg-gray-100/80"
+              />
+            </div>
 
-            <ReInput
-              label="Email Address"
-              placeholder="Enter your Email Address"
-              name="email"
-              className="bg-gray-100/80"
-            />
+            <div>
+              <ReInput
+                label="Email Address"
+                placeholder="Enter your Email Address"
+                name="nextOfKin.email"
+                className="bg-gray-100/80"
+              />
+            </div>
           </div>
         </div>
       </div>

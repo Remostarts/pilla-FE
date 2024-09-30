@@ -12,20 +12,24 @@ export default function BusinessProfileForm() {
       <Heading heading="Business Profile" className="mt-8 text-2xl font-bold" />
       <SubHeading subHeading="Please tell us about you." className="mb-8 text-gray-600" />
 
-      <form className="space-y-6">
+      <div className="space-y-6">
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">
             Business Information <span className="text-red-500">*</span>
           </h2>
 
           <div>
-            <ReInput name="businessName" label="Business Name" placeholder="Enter business name" />
+            <ReInput
+              label="Business Name"
+              placeholder="Enter business name"
+              name="businessProfile.businessName"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <ReSelect
-                name="businessType"
+                name="businessProfile.businessType"
                 label="Business Type"
                 placeholder="Select business type"
                 options={[
@@ -36,7 +40,7 @@ export default function BusinessProfileForm() {
             </div>
             <div>
               <ReSelect
-                name="registrationType"
+                name="businessProfile.registrationType"
                 label="Registration Type"
                 placeholder="Select registration type"
                 options={[
@@ -47,7 +51,7 @@ export default function BusinessProfileForm() {
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

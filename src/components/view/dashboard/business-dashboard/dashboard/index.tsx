@@ -52,8 +52,18 @@ const actionsData: ActionsBtnDataType[] = [
 ];
 
 const actionsNeededData: ActionsNeededDataType[] = [
-  { id: 1, actionName: 'Verification Status', window: 'verification-status-window' },
-  { id: 2, actionName: 'Set Transaction Pin', window: 'set-transaction-pin-window' },
+  {
+    id: 1,
+    actionName: 'Verification Status',
+    window: 'verification-status-window',
+    isVerified: false,
+  },
+  {
+    id: 2,
+    actionName: 'Set Transaction Pin',
+    window: 'set-transaction-pin-window',
+    isVerified: false,
+  },
 ];
 
 export default function BusinessDashboard() {

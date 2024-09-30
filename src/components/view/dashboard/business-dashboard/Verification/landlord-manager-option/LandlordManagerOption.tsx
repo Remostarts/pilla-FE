@@ -1,28 +1,28 @@
-import { Upload } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
 
 import { Heading } from '../../../shared/Heading';
-import { Sidebar } from '../../../shared/SideBar';
-import DocumentVerificationUpload from '../document-upload/document-verification-upload/DocumentVerificationUpload';
+import FileUploadField from '../file-upload/DocumentUpload';
 
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { nigeriaState } from '@/lib/data/nigeriaStates';
-import { ADDRESS_VERIFICATION, DOCUMENT_IDENTIFICATION } from '@/constants/businessDashboard';
+import ReDatePicker from '@/components/re-ui/ReDatePicker';
 
 export default function LandlordManagerOption() {
+  const { control } = useFormContext();
   return (
     <div>
-      <form className="mt-6 space-y-4">
-        <Separator className="bg-gray-200" />
+      <div className="mt-4 w-full">
+        <Separator className="mb-2 bg-gray-200" />
         <Heading className="mb-3" heading="Personal Information *" />
 
         {/* Gender and DOB Inputs */}
         <div className="grid grid-cols-2 gap-20">
           <div>
             <ReSelect
-              name="gender"
+              name="profile.landlordManager.gender"
               label="Gender"
               placeholder="Select"
               className="bg-gray-100/80"
@@ -34,13 +34,12 @@ export default function LandlordManagerOption() {
             />
           </div>
 
+          {/* Date of Birth */}
           <div>
-            <ReInput
-              label="DOB"
-              type="date"
-              name="dob"
-              placeholder="Date of Birth"
-              className="bg-gray-100/80"
+            <ReDatePicker
+              name="profile.landlordManager.dob"
+              label="Date of Birth"
+              placeholder="Select date"
             />
           </div>
         </div>
@@ -51,8 +50,9 @@ export default function LandlordManagerOption() {
         <Heading className="mb-3" heading="Personal Address *" />
         <div>
           <ReInput
+            type="text"
             label="Address"
-            name="address"
+            name="profile.landlordManager.address"
             placeholder="Enter Your Address"
             className="bg-gray-100/80"
           />
@@ -60,13 +60,18 @@ export default function LandlordManagerOption() {
 
         <div className="grid grid-cols-2 gap-20">
           <div>
-            <ReInput type="text" label="City/Town" name="city" className="bg-gray-100/80" />
+            <ReInput
+              type="text"
+              label="City/Town"
+              name="profile.landlordManager.city"
+              className="bg-gray-100/80"
+            />
           </div>
 
           <div>
             <ReSelect
-              name="state"
               label="State"
+              name="profile.landlordManager.state"
               placeholder="Select"
               options={nigeriaState}
               className="bg-gray-100/80"
@@ -76,46 +81,46 @@ export default function LandlordManagerOption() {
 
         <Separator className="mt-4 bg-gray-200" />
 
-        {/* Verification Inputs */}
+        {/* Verification file upload */}
         <Heading className="mb-3" heading="Verification *" />
         <div className="grid grid-cols-2 gap-20">
+          {/* Identification Document  */}
           <div>
-            <Label htmlFor="identity" className="mb-2 block text-sm font-semibold text-gray-700">
+            <Label className="mb-2 block text-sm font-semibold text-gray-700">
               Identification Document
             </Label>
-            <Sidebar.Open opens={DOCUMENT_IDENTIFICATION}>
-              <div className="mb-4 flex cursor-pointer  justify-between rounded-xl border bg-gray-50 p-4">
-                Select File
-                <Upload />
-              </div>
-            </Sidebar.Open>
+
+            <FileUploadField
+              name="profile.landlordManager.identificationDocument"
+              control={control}
+              label="Identification Document"
+              options={[
+                { value: 'id', label: 'ID Document' },
+                { value: 'certificate', label: 'Certificate' },
+                { value: 'other', label: 'Other' },
+              ]}
+            />
           </div>
 
+          {/* Proof of Address */}
           <div>
-            <Label
-              htmlFor="proofOfAddress"
-              className="mb-2 block text-sm font-semibold text-gray-700"
-            >
+            <Label className="mb-2 block text-sm font-semibold text-gray-700">
               Proof of Address
             </Label>
 
-            <Sidebar.Open opens={ADDRESS_VERIFICATION}>
-              <div className="mb-4 flex cursor-pointer  justify-between rounded-xl border bg-gray-50 p-4">
-                Select File
-                <Upload />
-              </div>
-            </Sidebar.Open>
+            <FileUploadField
+              name="profile.landlordManager.proofOfAddress"
+              control={control}
+              label="Proof of Address"
+              options={[
+                { value: 'id', label: 'ID Document' },
+                { value: 'certificate', label: 'Certificate' },
+                { value: 'other', label: 'Other' },
+              ]}
+            />
           </div>
         </div>
-      </form>
-
-      <Sidebar.Window name={DOCUMENT_IDENTIFICATION}>
-        <DocumentVerificationUpload DocumentUploadName="Identity Verification" />
-      </Sidebar.Window>
-
-      <Sidebar.Window name={ADDRESS_VERIFICATION}>
-        <DocumentVerificationUpload DocumentUploadName="Address Verification" />
-      </Sidebar.Window>
+      </div>
     </div>
   );
 }

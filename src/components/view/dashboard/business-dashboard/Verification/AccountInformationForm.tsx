@@ -15,20 +15,20 @@ export default function AccountInformationForm() {
         className="mb-8 text-gray-600"
       />
 
-      <form className="space-y-6">
+      <div className="space-y-6">
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">
             Bank Information <span className="text-red-500">*</span>
           </h2>
 
           <div>
-            <ReInput name="bvn" label="BVN" placeholder="Enter BVN" />
+            <ReInput name="accountInformation.bvn" label="BVN" placeholder="Enter BVN" />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <ReSelect
-                name="bankName"
+                name="accountInformation.bankName"
                 label="Bank Name"
                 placeholder="select bank"
                 options={[
@@ -40,7 +40,7 @@ export default function AccountInformationForm() {
             </div>
             <div>
               <ReInput
-                name="accountNumber"
+                name="accountInformation.accountNumber"
                 label="Account Number"
                 placeholder="Enter Account Number"
                 type="number"
@@ -49,7 +49,11 @@ export default function AccountInformationForm() {
           </div>
 
           <div>
-            <ReInput name="accountName" label="Account Name" placeholder="Enter Account Name" />
+            <ReInput
+              name="accountInformation.accountName"
+              label="Account Name"
+              placeholder="Enter Account Name"
+            />
           </div>
 
           <p className="mt-4 text-sm text-gray-600">
@@ -57,7 +61,7 @@ export default function AccountInformationForm() {
             provided as your business name.
           </p>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

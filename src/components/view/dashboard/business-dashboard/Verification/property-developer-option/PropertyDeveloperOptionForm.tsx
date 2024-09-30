@@ -6,7 +6,7 @@ import ReSelect from '@/components/re-ui/ReSelect';
 
 export default function PropertyDeveloperOptionForm() {
   return (
-    <form className="mt-6 space-y-4">
+    <div className="mt-6 space-y-4">
       <Separator className="bg-gray-200" />
       <Heading className="mb-3" heading="Business Information *" />
 
@@ -14,7 +14,7 @@ export default function PropertyDeveloperOptionForm() {
       <div>
         <ReInput
           label="Business Name"
-          name="business name"
+          name="profile.propertyDeveloper.businessName"
           placeholder="Enter your business name"
           className="bg-gray-100/80"
         />
@@ -24,7 +24,7 @@ export default function PropertyDeveloperOptionForm() {
       <div className="grid grid-cols-2 gap-20">
         <div>
           <ReSelect
-            name="business type"
+            name="profile.propertyDeveloper.businessType"
             label="Business Type"
             placeholder="Select"
             className="bg-gray-100/80"
@@ -39,7 +39,7 @@ export default function PropertyDeveloperOptionForm() {
         {/* // registration type input Field */}
         <div>
           <ReSelect
-            name="registration type"
+            name="profile.propertyDeveloper.registrationType"
             label="Registration Type"
             placeholder="Select"
             className="bg-gray-100/80"
@@ -51,6 +51,6 @@ export default function PropertyDeveloperOptionForm() {
           />
         </div>
       </div>
-    </form>
+    </div>
   );
 }

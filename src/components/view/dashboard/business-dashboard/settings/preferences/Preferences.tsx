@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Heading } from '../../shared/Heading';
+import { Heading } from '../../../shared/Heading';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';

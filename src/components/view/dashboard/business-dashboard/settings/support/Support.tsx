@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Heading } from '../../shared/Heading';
+import { Heading } from '../../../shared/Heading';
 
 export default function Support() {
   return (

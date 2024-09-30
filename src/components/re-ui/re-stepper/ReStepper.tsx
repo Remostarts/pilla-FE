@@ -22,14 +22,12 @@ const ReStepper = ({ currentStep, steps = [], setFormStep }: TStepperProps) => {
 
   return (
     <div className="relative flex justify-between">
-      {/* Connector line */}
-
       {steps.map((step, i) => (
         <div key={i} className="relative flex flex-col items-center">
           <button
             type="button"
             onClick={handleStepClick(i)}
-            className={`relative z-10 flex size-8 items-center justify-center rounded-full border-2 ${
+            className={`relative  flex size-8 items-center justify-center rounded-full border-2 ${
               i <= currentStep
                 ? 'border-green-500 bg-green-500 text-white'
                 : 'border-gray-300 bg-white'
