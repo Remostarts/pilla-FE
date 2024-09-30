@@ -24,8 +24,8 @@ const defaultValues = {
   isValid: false,
 };
 
-export const SigninFormPersonal = () => {
-  const router = useRouter();
+export const SigninFormAdmin = () => {
+  //   const router = useRouter();
 
   const form = useForm<TInputs>({
     resolver: zodResolver(userLoginSchema),
@@ -36,17 +36,19 @@ export const SigninFormPersonal = () => {
   const { handleSubmit, formState } = form;
   const { isSubmitting } = formState;
 
-  const onSubmit = async (data: TInputs) => {
-    const result = await signIn('pilla-backend', { ...data, redirect: false });
+  const onSubmit = (data: TInputs) => {
+    // const result = await signIn('pilla-backend', { ...data, redirect: false });
 
-    if (result?.ok && !result.error) {
-      toast.success('User login successful');
-      router.refresh();
-      router.push('/');
-    }
-    if (result?.status === 401) {
-      toast.error('Wrong credentials');
-    }
+    // if (result?.ok && !result.error) {
+    //   toast.success('User login successful');
+    //   router.refresh();
+    //   router.push('/');
+    // }
+    // if (result?.status === 401) {
+    //   toast.error('Wrong credentials');
+    // }
+
+    console.log('login data:', data);
   };
 
   return (
@@ -75,7 +77,7 @@ export const SigninFormPersonal = () => {
             <ReButton
               className="w-full rounded-full bg-primary-500 py-6 font-inter font-semibold text-white sm:py-7 sm:text-lg"
               type="submit"
-              isSubmitting={isSubmitting}
+              //   isSubmitting={isSubmitting}
             >
               Log in
             </ReButton>

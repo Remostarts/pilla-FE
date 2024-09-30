@@ -4,7 +4,7 @@ import { SigninFormPersonal } from './SigninFormPersonal';
 
 export const SigninPersonal = () => {
   return (
-    <>
+    <section>
       <div className="mb-6 items-center justify-between lg:flex">
         <h2 className=" font-spaceGrotesk text-2xl font-bold lg:text-3xl">Personal Account</h2>
 
@@ -26,6 +26,6 @@ export const SigninPersonal = () => {
           Sign up
         </Link>
       </p>
-    </>
+    </section>
   );
 };
