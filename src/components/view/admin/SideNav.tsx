@@ -6,11 +6,9 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { AdminSideNavMenu } from '../../../constants/admin/shared';
 
-import { Separator } from '@/components/ui/separator';
-
 export default function SideNav() {
   const pathName = usePathname();
-  const currPage = pathName.split('/')[2];
+  const currPage = pathName.split('/')[3];
   const router = useRouter();
 
   return (
@@ -28,7 +26,7 @@ export default function SideNav() {
             {AdminSideNavMenu.map((nav) => (
               <li className="my-4" key={nav.id}>
                 <Link
-                  href={`/business/${nav.alt}`}
+                  href={`/admin/dashboard/${nav.alt}`}
                   className={`flex items-center gap-4 rounded-md p-4 text-black hover:bg-primary-100 ${nav.alt === currPage && 'bg-primary-100 text-primary-500'}`}
                 >
                   {nav.alt === currPage ? (
