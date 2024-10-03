@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CircularProgressBar from '../../shared/CircularProgressBar';
+import { Sidebar, useSidebar } from '../../shared/SideBar';
 
-import BusinessInformationForm from './BusinessInformationForm';
+import BusinessInformationForm from './business-information/BusinessInformationForm';
 import ConstructionDetails from './ConstructionDetails';
 import ConstructionStageDetails from './ConstructionStageDetails';
 import LoanDetails from './LoanDetails';
@@ -13,13 +15,38 @@ import Declaration from './Declaration';
 
 import { Button } from '@/components/ui/button';
 import { ReButton } from '@/components/re-ui/ReButton';
+import {
+  updateBusinessInformation,
+  updateConstructionDetails,
+  updateConstructionStageDetails,
+  updateLoanDetails,
+  updateLinkCorporateBankAccount,
+  updateDeclaration,
+} from '@/redux/businessConstructionFinanceForm/formSlice';
+import { RootState } from '@/redux/store';
+import {
+  APPLY_FOR_LOAN,
+  APPLY_LOAN_FORM_WINDOW,
+  LOAN_APPLICATION_SUBMIT_SUCCESS,
+} from '@/constants/businessDashboard';
 
 export default function StepForm() {
   const [step, setStep] = useState(1);
   const totalSteps = 6;
+  const dispatch = useDispatch();
+  const formData = useSelector((state: RootState) => state.form);
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, totalSteps));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+
+  const { close } = useSidebar();
+
+  const handleSubmit = () => {
+    console.log('Form Data:', formData);
+    close(APPLY_FOR_LOAN);
+    close(APPLY_LOAN_FORM_WINDOW);
+    // Here you can send the data to your backend or perform any other action
+  };
 
   return (
     <div className=" w-full p-6">
@@ -37,14 +64,42 @@ export default function StepForm() {
         </div>
       </div>
 
-      {step === 1 && <BusinessInformationForm />}
-      {step === 2 && <ConstructionDetails />}
-      {step === 3 && <ConstructionStageDetails />}
-      {step === 4 && <LoanDetails />}
-      {step === 5 && (
-        <LinkCorporateBankAccount step={step} nextStep={nextStep} totalSteps={totalSteps} />
+      {step === 1 && (
+        <BusinessInformationForm
+          nextStep={nextStep}
+          dispatch={dispatch}
+          updateBusinessInformation={updateBusinessInformation}
+        />
       )}
-      {step === 6 && <Declaration />}
+      {step === 2 && (
+        <ConstructionDetails
+          nextStep={nextStep}
+          dispatch={dispatch}
+          updateConstructionDetails={updateConstructionDetails}
+        />
+      )}
+      {step === 3 && (
+        <ConstructionStageDetails
+          nextStep={nextStep}
+          dispatch={dispatch}
+          updateConstructionStageDetails={updateConstructionStageDetails}
+        />
+      )}
+      {step === 4 && (
+        <LoanDetails
+          nextStep={nextStep}
+          dispatch={dispatch}
+          updateLoanDetails={updateLoanDetails}
+        />
+      )}
+      {step === 5 && (
+        <LinkCorporateBankAccount
+          nextStep={nextStep}
+          dispatch={dispatch}
+          updateLinkCorporateBankAccount={updateLinkCorporateBankAccount}
+        />
+      )}
+      {step === 6 && <Declaration dispatch={dispatch} updateDeclaration={updateDeclaration} />}
 
       <div className="mt-6 flex justify-between">
         {step > 1 && (
@@ -52,10 +107,13 @@ export default function StepForm() {
             Previous
           </Button>
         )}
-        {step < totalSteps && (
-          <ReButton className="text-md text-white" onClick={nextStep}>
-            Next
-          </ReButton>
+
+        {step === totalSteps && (
+          <Sidebar.Open opens={LOAN_APPLICATION_SUBMIT_SUCCESS}>
+            <ReButton type="submit" className=" py-3 text-white " onClick={handleSubmit}>
+              Submit
+            </ReButton>
+          </Sidebar.Open>
         )}
       </div>
     </div>

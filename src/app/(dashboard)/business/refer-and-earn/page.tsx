@@ -4,8 +4,8 @@ import ReferAndEarn from '@/components/view/dashboard/personal-dashboard/refer-a
 
 export default function Page() {
   return (
-    <div>
+    <section>
       <ReferAndEarn />
-    </div>
+    </section>
   );
 }

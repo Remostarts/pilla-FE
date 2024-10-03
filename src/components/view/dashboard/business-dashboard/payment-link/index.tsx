@@ -157,7 +157,7 @@ const PaymentDashboard = () => {
 
         <div className="mt-6 grid grid-cols-4 gap-6">
           {actionsData.map((data) => (
-            <Sidebar.Open opens={data.window} key={data.id}>
+            <Sidebar.Open opens={ADD_NEW_PAYMENT_LINK_WINDOW} key={data.id}>
               <ActionBtn actionName={data.actionName} actionImg={data.actionImg} />
             </Sidebar.Open>
           ))}

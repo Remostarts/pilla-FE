@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 import { Heading } from '../../../shared/Heading';
 import { useSidebar } from '../../../shared/SideBar';
@@ -6,24 +8,40 @@ import { useSidebar } from '../../../shared/SideBar';
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReButton } from '@/components/re-ui/ReButton';
+import { Form } from '@/components/ui/form';
+import {
+  settlementAccountSchema,
+  TSettlementAccount,
+} from '@/lib/validations/business/settings.validation';
+
+const defaultValues = {
+  bankName: '',
+  accountNumber: '',
+  accountName: '',
+  isPrimary: false,
+};
 
 export default function AddSettlementAccount() {
   const [isPrimary, setIsPrimary] = useState(false);
   const { close } = useSidebar();
 
-  const handleSave = () => {
-    close('add-settlement-account');
-  };
+  const form = useForm<TSettlementAccount>({
+    resolver: zodResolver(settlementAccountSchema),
+    defaultValues,
+    mode: 'onChange',
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
+  const { handleSubmit } = form;
+
+  const onSubmit = (data: TSettlementAccount) => {
+    close('add-settlement-account');
+    console.log('form data:', data);
   };
 
   return (
-    <div>
+    <Form {...form}>
       <Heading heading="Add Settlement Account" className="mb-4 text-2xl font-bold" />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <ReSelect
             name="bankName"
@@ -41,7 +59,7 @@ export default function AddSettlementAccount() {
           <ReInput name="accountNumber" label="Account Number" className="bg-[#F7F7F7]" />
         </div>
         <div className="mb-4">
-          <ReInput name="nameOnAccount" label="Name on Account" className="bg-[#F7F7F7]" />
+          <ReInput name="accountName" label="Name on Account" className="bg-[#F7F7F7]" />
         </div>
 
         <p className="mb-6 text-sm text-[#666666]">
@@ -61,10 +79,10 @@ export default function AddSettlementAccount() {
             <span className="ml-2 text-sm text-gray-600">Make this my primary bank account</span>
           </label>
         </div>
-        <ReButton type="submit" className="w-full text-lg text-white" onClick={handleSave}>
+        <ReButton type="submit" className="w-full text-lg text-white">
           Save
         </ReButton>
       </form>
-    </div>
+    </Form>
   );
 }

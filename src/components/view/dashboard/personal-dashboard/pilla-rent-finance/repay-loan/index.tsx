@@ -28,7 +28,8 @@ export default function RepayLoan() {
   });
   const { handleSubmit, formState } = form;
 
-  const onSubmit = () => {
+  const onSubmit = (data: TAmount) => {
+    console.log('form data:', data);
     open(TRANSACTION_PIN_WINDOW);
   };
 

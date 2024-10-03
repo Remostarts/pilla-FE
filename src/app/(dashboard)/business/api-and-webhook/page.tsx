@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ApiAndWebhook from '@/components/view/dashboard/business-dashboard/api-and-webhook/ApiAndWebhook';
+import ApiAndWebhook from '@/components/view/dashboard/business-dashboard/api-and-webhook/index';
 
 export default function page() {
   return (
-    <div>
+    <section>
       <ApiAndWebhook />
-    </div>
+    </section>
   );
 }

@@ -50,7 +50,7 @@ export const SigninFormPersonal = () => {
   };
 
   return (
-    <>
+    <section>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="mt-3 space-y-4">
@@ -82,6 +82,6 @@ export const SigninFormPersonal = () => {
           </div>
         </form>
       </Form>
-    </>
+    </section>
   );
 };

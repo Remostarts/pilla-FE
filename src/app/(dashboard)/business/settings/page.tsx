@@ -1,13 +1,13 @@
 import React from 'react';
 
 import SideNavigation from '@/components/view/dashboard/business-dashboard/settings/SideNavigation';
-import Profile from '@/components/view/dashboard/business-dashboard/settings/Profile';
-import BusinessProfile from '@/components/view/dashboard/business-dashboard/settings/BusinessProfile';
+import Profile from '@/components/view/dashboard/business-dashboard/settings/profile/Profile';
+import BusinessProfile from '@/components/view/dashboard/business-dashboard/settings/business-profile/BusinessProfile';
 import SettlementAccount from '@/components/view/dashboard/business-dashboard/settings/settlement-account/SettlementAccount';
-import Preferences from '@/components/view/dashboard/business-dashboard/settings/Preferences';
-import Security from '@/components/view/dashboard/business-dashboard/settings/Security';
+import Preferences from '@/components/view/dashboard/business-dashboard/settings/preferences/Preferences';
+import Security from '@/components/view/dashboard/business-dashboard/settings/security/Security';
 import Cards from '@/components/view/dashboard/business-dashboard/settings/Cards';
-import Support from '@/components/view/dashboard/business-dashboard/settings/Support';
+import Support from '@/components/view/dashboard/business-dashboard/settings/support/Support';
 
 export const metadata = {
   title: 'Settings',
