@@ -46,11 +46,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-interface Transaction {
+interface CreditApplicationDetails {
   id: string;
-  type: string;
-  amount: string;
   name: string;
+  user: string;
+  amount: string;
   date: string;
   status: string;
 }
@@ -63,126 +63,134 @@ declare module 'jspdf' {
 }
 
 // mock transaction data
-const transactions: Transaction[] = [
+const creditApplicationDetails: CreditApplicationDetails[] = [
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
+    name: 'Jordan Smith',
+    user: 'Personal',
     amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
     date: '2024-09-30 18:38:29',
     status: 'Pending',
   },
   {
-    id: 'ID-V7320K5EX',
-    type: 'Bank Transfer',
-    amount: '₦2,000,000.00',
-    name: 'Lila Morgan',
-    date: '2024-09-15 10:22:45',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
   {
-    id: 'ID-W8421L6FY',
-    type: 'Rent Payment',
-    amount: '₦800,000.00',
-    name: 'Zain Ahmed',
-    date: '2024-08-01 14:55:12',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
   {
-    id: 'ID-X9522M7GZ',
-    type: 'Utility',
-    amount: '₦50,000.00',
-    name: 'Eva Chen',
-    date: '2024-07-10 09:30:00',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Pending',
   },
   {
-    id: 'ID-Y0623N8HA',
-    type: 'Loan Repayment',
-    amount: '₦3,000,000.00',
-    name: 'Omar Khalid',
-    date: '2024-06-05 16:42:33',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
   {
-    id: 'ID-Z1724P9IB',
-    type: 'Credit',
-    amount: '₦1,200,000.00',
-    name: 'Sophia Lee',
-    date: '2024-05-20 11:11:11',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Pending',
   },
   {
-    id: 'ID-A2825Q0JC',
-    type: 'Bank Transfer',
-    amount: '₦500,000.00',
-    name: 'Lucas Silva',
-    date: '2024-04-03 08:05:59',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
   {
-    id: 'ID-B3926R1KD',
-    type: 'Rent Payment',
-    amount: '₦900,000.00',
-    name: 'Amelia Brown',
-    date: '2024-03-15 13:20:40',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
   {
-    id: 'ID-C4027S2LE',
-    type: 'Utility',
-    amount: '₦75,000.00',
-    name: 'Yuki Tanaka',
-    date: '2024-02-28 17:00:00',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
   {
-    id: 'ID-D5128T3MF',
-    type: 'Loan Repayment',
-    amount: '₦2,500,000.00',
-    name: 'Elena Rossi',
-    date: '2024-01-10 12:30:15',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Pending',
   },
   {
-    id: 'ID-E6229U4NG',
-    type: 'Credit',
-    amount: '₦1,800,000.00',
-    name: 'Raj Patel',
-    date: '2023-12-22 09:45:30',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Business',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Pending',
   },
   {
-    id: 'ID-F7330V5PH',
-    type: 'Bank Transfer',
-    amount: '₦300,000.00',
-    name: 'Aisha Mohammed',
-    date: '2023-11-05 15:55:22',
-    status: 'Successful',
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
+  },
+  {
+    id: 'ID-U5219J4DE',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    amount: '₦1,500,000.00',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
 ];
 
 // column definitions
-const columns: ColumnDef<Transaction>[] = [
+const columns: ColumnDef<CreditApplicationDetails>[] = [
   {
     accessorKey: 'id',
-    header: 'TRANSACTION ID',
+    header: 'ID',
     cell: ({ row }) => <div>{row.getValue('id')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: 'TYPE',
-    cell: ({ row }) => <div>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'amount',
-    header: 'AMOUNT',
-    cell: ({ row }) => <div>{row.getValue('amount')}</div>,
   },
   {
     accessorKey: 'name',
     header: 'NAME',
     cell: ({ row }) => <div>{row.getValue('name')}</div>,
+  },
+  {
+    accessorKey: 'user',
+    header: 'USER',
+    cell: ({ row }) => <div>{row.getValue('user')}</div>,
+  },
+  {
+    accessorKey: 'amount',
+    header: 'Amount',
+    cell: ({ row }) => <div>{row.getValue('amount')}</div>,
   },
   {
     accessorKey: 'date',
@@ -195,7 +203,7 @@ const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => (
       <div
         className={`inline-block rounded-full px-2 py-1 text-sm ${
-          row.getValue('status') === 'Successful'
+          row.getValue('status') === 'Approved'
             ? 'bg-green-100 text-green-500'
             : 'bg-red-100 text-red-500'
         }`}
@@ -206,7 +214,7 @@ const columns: ColumnDef<Transaction>[] = [
   },
 ];
 
-export default function TransactionTable() {
+export default function CreditApplication() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -218,21 +226,21 @@ export default function TransactionTable() {
 
   // function to export data to excel and downloadable in xlsx format
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(transactions);
+    const worksheet = XLSX.utils.json_to_sheet(creditApplicationDetails);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Transactions');
-    XLSX.writeFile(workbook, 'transactions.xlsx');
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Credit Details');
+    XLSX.writeFile(workbook, 'creditDetails.xlsx');
   };
 
   // function to export data to pdf and downloadable in pdf format
   const exportToPDF = () => {
     const doc = new JsPDF();
     const tableColumn = columns.map((col) => col.header as string);
-    const tableRows = transactions.map((item) => [
+    const tableRows = creditApplicationDetails.map((item) => [
       item.id,
-      item.type,
-      item.amount,
       item.name,
+      item.user,
+      item.amount,
       item.date,
       item.status,
     ]);
@@ -242,11 +250,11 @@ export default function TransactionTable() {
       body: tableRows,
     });
 
-    doc.save('transactions.pdf');
+    doc.save('creditDetails.pdf');
   };
 
   // function to filter data by timeline
-  const filterDataByTimeline = (data: Transaction[], filter: string) => {
+  const filterDataByTimeline = (data: CreditApplicationDetails[], filter: string) => {
     if (!filter) return data;
 
     const currentDate = new Date();
@@ -295,7 +303,7 @@ export default function TransactionTable() {
 
   // optimized function to filter data
   const filteredData = useMemo(
-    () => filterDataByTimeline(transactions, timelineFilter),
+    () => filterDataByTimeline(creditApplicationDetails, timelineFilter),
     [timelineFilter]
   );
 
@@ -366,21 +374,18 @@ export default function TransactionTable() {
           {/* {type filter option} */}
           <Select
             onValueChange={(value) =>
-              table.getColumn('type')?.setFilterValue(value === 'All' ? '' : value)
+              table.getColumn('user')?.setFilterValue(value === 'All users' ? '' : value)
             }
           >
             <SelectTrigger className="w-full p-6">
-              <SelectValue placeholder="Type" />
+              <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent className="bg-white">
               <SelectGroup>
-                <SelectLabel>Type</SelectLabel>
-                <SelectItem value="All">All</SelectItem>
-                <SelectItem value="Credit">Credit</SelectItem>
-                <SelectItem value="Bank Transfer">Bank Transfer</SelectItem>
-                <SelectItem value="Rent Payment">Rent Payment</SelectItem>
-                <SelectItem value="Utility">Utility</SelectItem>
-                <SelectItem value="Loan Repayment">Loan Repayment</SelectItem>
+                <SelectLabel>Users</SelectLabel>
+                <SelectItem value="All users">All users</SelectItem>
+                <SelectItem value="Personal">Personal</SelectItem>
+                <SelectItem value="Business">Business</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -388,7 +393,7 @@ export default function TransactionTable() {
           {/* status filter option*/}
           <Select
             onValueChange={(value) =>
-              table.getColumn('status')?.setFilterValue(value === 'All' ? '' : value)
+              table.getColumn('status')?.setFilterValue(value === 'All status' ? '' : value)
             }
           >
             <SelectTrigger className="w-full p-6">
@@ -397,9 +402,10 @@ export default function TransactionTable() {
             <SelectContent className="bg-white">
               <SelectGroup>
                 <SelectLabel>Status</SelectLabel>
-                <SelectItem value="All">All</SelectItem>
-                <SelectItem value="Successful">Successful</SelectItem>
+                <SelectItem value="All status">All status</SelectItem>
                 <SelectItem value="Pending">Pending</SelectItem>
+                <SelectItem value="Approved">Approved</SelectItem>
+                <SelectItem value="Denied">Denied</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -434,7 +440,7 @@ export default function TransactionTable() {
           <div className="flex items-center space-x-2">
             {/* search field */}
             <Input
-              placeholder="Search Transaction"
+              placeholder="Search..."
               value={globalFilter ?? ''}
               onChange={(event) => setGlobalFilter(event.target.value)}
               className="max-w-sm"

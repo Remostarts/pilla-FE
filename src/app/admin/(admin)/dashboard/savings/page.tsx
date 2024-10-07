@@ -1,5 +1,11 @@
 import React from 'react';
 
+import Savings from '@/components/view/admin/savings';
+
 export default function page() {
-  return <div>savings</div>;
+  return (
+    <section>
+      <Savings />
+    </section>
+  );
 }

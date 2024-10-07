@@ -206,7 +206,7 @@ const columns: ColumnDef<Transaction>[] = [
   },
 ];
 
-export default function TransactionTable() {
+export default function PillaUsers() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -350,7 +350,7 @@ export default function TransactionTable() {
   }, []);
 
   if (isLoading) {
-    return <div className="flex h-full items-center justify-center">Loading...</div>;
+    return <div className="flex h-screen items-center justify-center">Loading...</div>;
   }
 
   if (error) {
@@ -358,7 +358,7 @@ export default function TransactionTable() {
   }
 
   return (
-    <div className="w-full  space-y-4">
+    <div className=" w-full  space-y-4 ">
       {/* Filter section*/}
       <div className="rounded-xl bg-white p-6">
         <Heading heading="Filter" className="mb-6 text-2xl font-semibold" />

@@ -1,5 +1,11 @@
 import React from 'react';
 
+import TransactionTable from '@/components/view/admin/transactions';
+
 export default function page() {
-  return <div>transactions</div>;
+  return (
+    <section>
+      <TransactionTable />
+    </section>
+  );
 }
