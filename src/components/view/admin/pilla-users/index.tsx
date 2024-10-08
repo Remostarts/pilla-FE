@@ -17,6 +17,7 @@ import { ChevronLeft, ChevronRight, Upload } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { jsPDF as JsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { useRouter } from 'next/navigation';
 
 import { Heading } from '../../dashboard/shared/Heading';
 
@@ -46,11 +47,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-interface Transaction {
+interface UserDetails {
   id: string;
-  type: string;
-  amount: string;
   name: string;
+  email: string;
+  user: string;
   date: string;
   status: string;
 }
@@ -63,121 +64,111 @@ declare module 'jspdf' {
 }
 
 // mock transaction data
-const transactions: Transaction[] = [
+const userDetails: UserDetails[] = [
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
     name: 'Talan Rosser',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-09-30 18:38:29',
     status: 'Pending',
   },
   {
     id: 'ID-V7320K5EX',
-    type: 'Bank Transfer',
-    amount: '₦2,000,000.00',
     name: 'Lila Morgan',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-09-15 10:22:45',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-W8421L6FY',
-    type: 'Rent Payment',
-    amount: '₦800,000.00',
     name: 'Zain Ahmed',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-08-01 14:55:12',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-X9522M7GZ',
-    type: 'Utility',
-    amount: '₦50,000.00',
     name: 'Eva Chen',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-07-10 09:30:00',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-Y0623N8HA',
-    type: 'Loan Repayment',
-    amount: '₦3,000,000.00',
     name: 'Omar Khalid',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-06-05 16:42:33',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-Z1724P9IB',
-    type: 'Credit',
-    amount: '₦1,200,000.00',
     name: 'Sophia Lee',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-05-20 11:11:11',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-A2825Q0JC',
-    type: 'Bank Transfer',
-    amount: '₦500,000.00',
     name: 'Lucas Silva',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-04-03 08:05:59',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-B3926R1KD',
-    type: 'Rent Payment',
-    amount: '₦900,000.00',
     name: 'Amelia Brown',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-03-15 13:20:40',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-C4027S2LE',
-    type: 'Utility',
-    amount: '₦75,000.00',
     name: 'Yuki Tanaka',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-02-28 17:00:00',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-D5128T3MF',
-    type: 'Loan Repayment',
-    amount: '₦2,500,000.00',
     name: 'Elena Rossi',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2024-01-10 12:30:15',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-E6229U4NG',
-    type: 'Credit',
-    amount: '₦1,800,000.00',
     name: 'Raj Patel',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2023-12-22 09:45:30',
-    status: 'Successful',
+    status: 'Active',
   },
   {
     id: 'ID-F7330V5PH',
-    type: 'Bank Transfer',
-    amount: '₦300,000.00',
     name: 'Aisha Mohammed',
+    email: 'wH9v8@example.com',
+    user: 'Personal',
     date: '2023-11-05 15:55:22',
-    status: 'Successful',
+    status: 'Active',
   },
 ];
 
 // column definitions
-const columns: ColumnDef<Transaction>[] = [
+const columns: ColumnDef<UserDetails>[] = [
   {
     accessorKey: 'id',
-    header: 'TRANSACTION ID',
+    header: 'ID',
     cell: ({ row }) => <div>{row.getValue('id')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: 'TYPE',
-    cell: ({ row }) => <div>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'amount',
-    header: 'AMOUNT',
-    cell: ({ row }) => <div>{row.getValue('amount')}</div>,
   },
   {
     accessorKey: 'name',
@@ -185,8 +176,18 @@ const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => <div>{row.getValue('name')}</div>,
   },
   {
+    accessorKey: 'email',
+    header: 'EMAIL',
+    cell: ({ row }) => <div>{row.getValue('email')}</div>,
+  },
+  {
+    accessorKey: 'user',
+    header: 'USER',
+    cell: ({ row }) => <div>{row.getValue('user')}</div>,
+  },
+  {
     accessorKey: 'date',
-    header: 'DATE',
+    header: 'DATE JOINED',
     cell: ({ row }) => <div>{row.getValue('date')}</div>,
   },
   {
@@ -195,9 +196,9 @@ const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => (
       <div
         className={`inline-block rounded-full px-2 py-1 text-sm ${
-          row.getValue('status') === 'Successful'
+          row.getValue('status') === 'Active'
             ? 'bg-green-100 text-green-500'
-            : 'bg-red-100 text-red-500'
+            : 'bg-red-100 text-[#FF0421]'
         }`}
       >
         {row.getValue('status')}
@@ -216,23 +217,29 @@ export default function PillaUsers() {
   const [error, setError] = useState<string | null>(null);
   const [timelineFilter, setTimelineFilter] = useState('');
 
+  const router = useRouter();
+
+  const handleRowClick = (row: UserDetails) => {
+    router.push(`/admin/dashboard/pilla-users/${row.id}/user-details`);
+  };
+
   // function to export data to excel and downloadable in xlsx format
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(transactions);
+    const worksheet = XLSX.utils.json_to_sheet(userDetails);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Transactions');
-    XLSX.writeFile(workbook, 'transactions.xlsx');
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Users');
+    XLSX.writeFile(workbook, 'users.xlsx');
   };
 
   // function to export data to pdf and downloadable in pdf format
   const exportToPDF = () => {
     const doc = new JsPDF();
     const tableColumn = columns.map((col) => col.header as string);
-    const tableRows = transactions.map((item) => [
+    const tableRows = userDetails.map((item) => [
       item.id,
-      item.type,
-      item.amount,
       item.name,
+      item.email,
+      item.user,
       item.date,
       item.status,
     ]);
@@ -242,11 +249,11 @@ export default function PillaUsers() {
       body: tableRows,
     });
 
-    doc.save('transactions.pdf');
+    doc.save('usersDetails.pdf');
   };
 
   // function to filter data by timeline
-  const filterDataByTimeline = (data: Transaction[], filter: string) => {
+  const filterDataByTimeline = (data: UserDetails[], filter: string) => {
     if (!filter) return data;
 
     const currentDate = new Date();
@@ -295,7 +302,7 @@ export default function PillaUsers() {
 
   // optimized function to filter data
   const filteredData = useMemo(
-    () => filterDataByTimeline(transactions, timelineFilter),
+    () => filterDataByTimeline(userDetails, timelineFilter),
     [timelineFilter]
   );
 
@@ -362,25 +369,22 @@ export default function PillaUsers() {
       {/* Filter section*/}
       <div className="rounded-xl bg-white p-6">
         <Heading heading="Filter" className="mb-6 text-2xl font-semibold" />
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-4 gap-6">
           {/* {type filter option} */}
           <Select
             onValueChange={(value) =>
-              table.getColumn('type')?.setFilterValue(value === 'All' ? '' : value)
+              table.getColumn('user')?.setFilterValue(value === 'All Users' ? '' : value)
             }
           >
             <SelectTrigger className="w-full p-6">
-              <SelectValue placeholder="Type" />
+              <SelectValue placeholder="All Users" />
             </SelectTrigger>
             <SelectContent className="bg-white">
               <SelectGroup>
-                <SelectLabel>Type</SelectLabel>
-                <SelectItem value="All">All</SelectItem>
-                <SelectItem value="Credit">Credit</SelectItem>
-                <SelectItem value="Bank Transfer">Bank Transfer</SelectItem>
-                <SelectItem value="Rent Payment">Rent Payment</SelectItem>
-                <SelectItem value="Utility">Utility</SelectItem>
-                <SelectItem value="Loan Repayment">Loan Repayment</SelectItem>
+                <SelectLabel>Users</SelectLabel>
+                <SelectItem value="All Users">All users</SelectItem>
+                <SelectItem value="Personal">Personal</SelectItem>
+                <SelectItem value="Business">Business</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -392,14 +396,35 @@ export default function PillaUsers() {
             }
           >
             <SelectTrigger className="w-full p-6">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder="All Status" />
             </SelectTrigger>
             <SelectContent className="bg-white">
               <SelectGroup>
                 <SelectLabel>Status</SelectLabel>
                 <SelectItem value="All">All</SelectItem>
-                <SelectItem value="Successful">Successful</SelectItem>
                 <SelectItem value="Pending">Pending</SelectItem>
+                <SelectItem value="Active">Active</SelectItem>
+                <SelectItem value="Suspended">Suspended</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
+          {/*  tier filter option  */}
+          <Select
+            onValueChange={(value) =>
+              table.getColumn('tier')?.setFilterValue(value === 'All' ? '' : value)
+            }
+          >
+            <SelectTrigger className="w-full p-6">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectGroup>
+                <SelectLabel>Tiers</SelectLabel>
+                <SelectItem value="All">All</SelectItem>
+                <SelectItem value="Tier 1">Tier 1</SelectItem>
+                <SelectItem value="Tier 2">Tier 2</SelectItem>
+                <SelectItem value="Tier 3">Tier 3</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -415,7 +440,6 @@ export default function PillaUsers() {
                 <SelectItem value="all">All</SelectItem>
                 <SelectItem value="This Week">This Week</SelectItem>
                 <SelectItem value="Last Week">Last Week</SelectItem>
-                <SelectItem value="15 Days">15 Days</SelectItem>
                 <SelectItem value="30 Days">30 Days</SelectItem>
                 <SelectItem value="Last Month">Last Month</SelectItem>
                 <SelectItem value="This Quarter">This Quarter</SelectItem>
@@ -434,7 +458,7 @@ export default function PillaUsers() {
           <div className="flex items-center space-x-2">
             {/* search field */}
             <Input
-              placeholder="Search Transaction"
+              placeholder="Search User..."
               value={globalFilter ?? ''}
               onChange={(event) => setGlobalFilter(event.target.value)}
               className="max-w-sm"
@@ -487,7 +511,12 @@ export default function PillaUsers() {
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                  <TableRow
+                    onClick={() => handleRowClick(row.original)}
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                    className="cursor-pointer hover:bg-slate-50"
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
