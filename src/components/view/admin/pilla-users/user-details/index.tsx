@@ -65,7 +65,7 @@ export default function UserDetails() {
   }, [id]);
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <div>No Data Found</div>;
   }
 
   return (
@@ -77,8 +77,8 @@ export default function UserDetails() {
 
           {/* user tabs component  */}
           <Card className="bg-white p-6">
-            <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 p-1">
+            <Tabs defaultValue="overview" className="mb-4 w-full">
+              <TabsList className="mb-6 grid w-full grid-cols-3 border-b-2 border-gray-200">
                 <TabsTrigger
                   value="overview"
                   className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-black data-[state=active]:bg-transparent"

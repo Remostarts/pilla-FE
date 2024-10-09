@@ -29,7 +29,7 @@ export default function ChangeStatus() {
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative w-full  p-6">
-          <Heading heading="Edit Profile" className="mb-4 text-2xl font-bold" />
+          <Heading heading="Change Status" className="mb-4 text-2xl font-bold" />
           <div className="space-y-6">
             <ReRadioGroup
               name="status"

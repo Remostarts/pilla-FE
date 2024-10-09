@@ -18,10 +18,9 @@ import * as XLSX from 'xlsx';
 import { jsPDF as JsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
-import { Heading } from '../../dashboard/shared/Heading';
-import { Sidebar } from '../../dashboard/shared/SideBar';
+import { Heading } from '../../../dashboard/shared/Heading';
 
-import TransactionDetails from './TransactionDetails';
+import CreditCheckDetails from './CheckCreditApplication';
 
 import {
   Select,
@@ -48,20 +47,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Sidebar } from '@/components/view/dashboard/shared/SideBar';
 
-interface Transaction {
+interface CreditApplicationDetails {
   id: string;
-  type: string;
-  amount: string;
   name: string;
+  user: string;
+  linkedBank: string;
   date: string;
   status: string;
-  accountId: string;
-  referenceNo: string;
-  internalReferenceNo: string;
-  beneficiaryAccount: string;
-  beneficiaryBank: string;
-  narrative: string;
 }
 
 // Extend the jsPDF type to include autoTable
@@ -72,166 +66,114 @@ declare module 'jspdf' {
 }
 
 // mock transaction data
-const transactions: Transaction[] = [
+const creditApplicationDetails: CreditApplicationDetails[] = [
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
     status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
   },
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
-    status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
+    status: 'Approved',
   },
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
-    status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
+    status: 'Approved',
   },
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
     status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
   },
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
-    status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
+    status: 'Approved',
   },
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
     status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
   },
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
-    status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
+    status: 'Approved',
   },
   {
     id: 'ID-U5219J4DW',
-    type: 'Credit',
-    amount: '₦1,500,000.00',
-    name: 'Talan Rosser',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
+  },
+  {
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
+  },
+  {
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
     date: '2024-09-30 18:38:29',
     status: 'Pending',
-    accountId: 'PP5186E4CR',
-    referenceNo: 'S5626553620FC',
-    internalReferenceNo: '652425788775',
-    beneficiaryAccount: '235534434',
-    beneficiaryBank: 'Access Bank',
-    narrative: 'Payment for services rendered',
+  },
+  {
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Business',
+    linkedBank: 'Access Bank',
+    date: '2024-09-30 18:38:29',
+    status: 'Pending',
+  },
+  {
+    id: 'ID-U5219J4DW',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
+  },
+  {
+    id: 'ID-U5219J4DE',
+    name: 'Jordan Smith',
+    user: 'Personal',
+    linkedBank: 'Access Bank',
+    date: '2024-09-30 18:38:29',
+    status: 'Approved',
   },
 ];
 
-// column definitions
-const columns: ColumnDef<Transaction>[] = [
-  {
-    accessorKey: 'id',
-    header: 'TRANSACTION ID',
-    cell: ({ row }) => <div>{row.getValue('id')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: 'TYPE',
-    cell: ({ row }) => <div>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'amount',
-    header: 'AMOUNT',
-    cell: ({ row }) => <div>{row.getValue('amount')}</div>,
-  },
-  {
-    accessorKey: 'name',
-    header: 'NAME',
-    cell: ({ row }) => <div>{row.getValue('name')}</div>,
-  },
-  {
-    accessorKey: 'date',
-    header: 'DATE',
-    cell: ({ row }) => <div>{row.getValue('date')}</div>,
-  },
-  {
-    accessorKey: 'status',
-    header: 'STATUS',
-    cell: ({ row }) => (
-      <div
-        className={`inline-block rounded-full px-2 py-1 text-sm ${
-          row.getValue('status') === 'Successful'
-            ? 'bg-green-100 text-green-500'
-            : 'bg-red-100 text-red-500'
-        }`}
-      >
-        {row.getValue('status')}
-      </div>
-    ),
-  },
-];
-
-export default function TransactionTable() {
+export default function CreditApplication() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -241,25 +183,78 @@ export default function TransactionTable() {
   const [error, setError] = useState<string | null>(null);
   const [timelineFilter, setTimelineFilter] = useState('');
 
-  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const [selectedApplication, setSelectedApplication] = useState<CreditApplicationDetails | null>(
+    null
+  );
+
+  // Function to handle row click
+  const handleRowClick = (row: CreditApplicationDetails) => {
+    if (row.status === 'Pending') {
+      setSelectedApplication(row);
+    }
+  };
+
+  // Modify the columns definition
+  const columns: ColumnDef<CreditApplicationDetails>[] = [
+    {
+      accessorKey: 'id',
+      header: 'ID',
+      cell: ({ row }) => <div>{row.getValue('id')}</div>,
+    },
+    {
+      accessorKey: 'name',
+      header: 'NAME',
+      cell: ({ row }) => <div>{row.getValue('name')}</div>,
+    },
+    {
+      accessorKey: 'user',
+      header: 'USER',
+      cell: ({ row }) => <div>{row.getValue('user')}</div>,
+    },
+    {
+      accessorKey: 'linkedBank',
+      header: 'LINKED BANK',
+      cell: ({ row }) => <div>{row.getValue('linkedBank')}</div>,
+    },
+    {
+      accessorKey: 'date',
+      header: 'DATE',
+      cell: ({ row }) => <div>{row.getValue('date')}</div>,
+    },
+    {
+      accessorKey: 'status',
+      header: 'STATUS',
+      cell: ({ row }) => (
+        <div
+          className={`inline-block rounded-full px-2 py-1 text-sm ${
+            row.getValue('status') === 'Approved'
+              ? 'bg-green-100 text-green-500'
+              : 'bg-red-100 text-red-500'
+          }`}
+        >
+          {row.getValue('status')}
+        </div>
+      ),
+    },
+  ];
 
   // function to export data to excel and downloadable in xlsx format
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(transactions);
+    const worksheet = XLSX.utils.json_to_sheet(creditApplicationDetails);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Transactions');
-    XLSX.writeFile(workbook, 'transactions.xlsx');
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Credit Details');
+    XLSX.writeFile(workbook, 'creditDetails.xlsx');
   };
 
   // function to export data to pdf and downloadable in pdf format
   const exportToPDF = () => {
     const doc = new JsPDF();
     const tableColumn = columns.map((col) => col.header as string);
-    const tableRows = transactions.map((item) => [
+    const tableRows = creditApplicationDetails.map((item) => [
       item.id,
-      item.type,
-      item.amount,
       item.name,
+      item.user,
+      item.linkedBank,
       item.date,
       item.status,
     ]);
@@ -269,11 +264,11 @@ export default function TransactionTable() {
       body: tableRows,
     });
 
-    doc.save('transactions.pdf');
+    doc.save('creditDetails.pdf');
   };
 
   // function to filter data by timeline
-  const filterDataByTimeline = (data: Transaction[], filter: string) => {
+  const filterDataByTimeline = (data: CreditApplicationDetails[], filter: string) => {
     if (!filter) return data;
 
     const currentDate = new Date();
@@ -322,11 +317,11 @@ export default function TransactionTable() {
 
   // optimized function to filter data
   const filteredData = useMemo(
-    () => filterDataByTimeline(transactions, timelineFilter),
+    () => filterDataByTimeline(creditApplicationDetails, timelineFilter),
     [timelineFilter]
   );
 
-  // table instance to filter data with react table
+  // function to filter data with react table
   const table = useReactTable({
     data: filteredData,
     columns,
@@ -350,11 +345,6 @@ export default function TransactionTable() {
       globalFilter,
     },
   });
-
-  // Function to handle row click
-  const handleRowClick = (transaction: Transaction) => {
-    setSelectedTransaction(transaction);
-  };
 
   // function to clear filters
   const clearFilters = () => {
@@ -391,7 +381,7 @@ export default function TransactionTable() {
 
   return (
     <div>
-      <div className="w-full  space-y-4">
+      <div className="w-full space-y-4">
         {/* Filter section*/}
         <div className="rounded-xl bg-white p-6">
           <Heading heading="Filter" className="mb-6 text-2xl font-semibold" />
@@ -399,21 +389,18 @@ export default function TransactionTable() {
             {/* {type filter option} */}
             <Select
               onValueChange={(value) =>
-                table.getColumn('type')?.setFilterValue(value === 'All' ? '' : value)
+                table.getColumn('user')?.setFilterValue(value === 'All users' ? '' : value)
               }
             >
               <SelectTrigger className="w-full p-6">
-                <SelectValue placeholder="Type" />
+                <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent className="bg-white">
                 <SelectGroup>
-                  <SelectLabel>Type</SelectLabel>
-                  <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="Credit">Credit</SelectItem>
-                  <SelectItem value="Bank Transfer">Bank Transfer</SelectItem>
-                  <SelectItem value="Rent Payment">Rent Payment</SelectItem>
-                  <SelectItem value="Utility">Utility</SelectItem>
-                  <SelectItem value="Loan Repayment">Loan Repayment</SelectItem>
+                  <SelectLabel>Users</SelectLabel>
+                  <SelectItem value="All users">All users</SelectItem>
+                  <SelectItem value="Personal">Personal</SelectItem>
+                  <SelectItem value="Business">Business</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -421,7 +408,7 @@ export default function TransactionTable() {
             {/* status filter option*/}
             <Select
               onValueChange={(value) =>
-                table.getColumn('status')?.setFilterValue(value === 'All' ? '' : value)
+                table.getColumn('status')?.setFilterValue(value === 'All status' ? '' : value)
               }
             >
               <SelectTrigger className="w-full p-6">
@@ -430,9 +417,10 @@ export default function TransactionTable() {
               <SelectContent className="bg-white">
                 <SelectGroup>
                   <SelectLabel>Status</SelectLabel>
-                  <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="Successful">Successful</SelectItem>
+                  <SelectItem value="All status">All status</SelectItem>
                   <SelectItem value="Pending">Pending</SelectItem>
+                  <SelectItem value="Approved">Approved</SelectItem>
+                  <SelectItem value="Denied">Denied</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -460,13 +448,14 @@ export default function TransactionTable() {
             </Select>
           </div>
         </div>
+
         {/* table section */}
         <div className="rounded-xl bg-white p-6">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center space-x-2">
               {/* search field */}
               <Input
-                placeholder="Search Transaction"
+                placeholder="Search..."
                 value={globalFilter ?? ''}
                 onChange={(event) => setGlobalFilter(event.target.value)}
                 className="max-w-sm"
@@ -498,33 +487,32 @@ export default function TransactionTable() {
           {/* table section */}
           <div className="rounded-md border">
             <Table>
-              {/* table header */}
               <TableHeader className="bg-[#F2F2F2]">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead key={header.id}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(header.column.columnDef.header, header.getContext())}
-                        </TableHead>
-                      );
-                    })}
+                    {headerGroup.headers.map((header) => (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    ))}
                   </TableRow>
                 ))}
               </TableHeader>
-
-              {/* table body */}
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
-                    <Sidebar.Open opens="TRANSACTION_DETAILS_WINDOW" key={row.id}>
+                    <Sidebar.Open key={row.id} opens="CHECK_CREDIT_APPLICATION">
                       <TableRow
                         key={row.id}
                         data-state={row.getIsSelected() && 'selected'}
-                        onClick={() => handleRowClick(row.original as Transaction)}
-                        className="cursor-pointer hover:bg-gray-100"
+                        onClick={() => handleRowClick(row.original)}
+                        className={
+                          row.original.status === 'Pending'
+                            ? 'cursor-pointer hover:bg-gray-100'
+                            : ''
+                        }
                       >
                         {row.getVisibleCells().map((cell) => (
                           <TableCell key={cell.id}>
@@ -592,9 +580,9 @@ export default function TransactionTable() {
         </div>
       </div>
 
-      {/* transaction details window */}
-      <Sidebar.Window name="TRANSACTION_DETAILS_WINDOW">
-        <TransactionDetails transaction={selectedTransaction} />
+      {/* Check Credit Application Sidebar Windows */}
+      <Sidebar.Window name="CHECK_CREDIT_APPLICATION">
+        <CreditCheckDetails application={selectedApplication} />
       </Sidebar.Window>
     </div>
   );
