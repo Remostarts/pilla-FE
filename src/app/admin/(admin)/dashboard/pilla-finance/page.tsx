@@ -1,5 +1,11 @@
 import React from 'react';
 
+import PillaFinance from '@/components/view/admin/pilla-finance';
+
 export default function page() {
-  return <div>pilla finance</div>;
+  return (
+    <section>
+      <PillaFinance />
+    </section>
+  );
 }

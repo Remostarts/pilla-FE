@@ -1,4 +1,7 @@
-'use client';
+import { CircleDollarSign } from 'lucide-react';
+
+import AdminDashboardCard from '../shared/AdminDashboardCard';
+import AdminDashboardCount from '../shared/AdminDashboardCount';
 
 import { MultiBarChart } from './MultiBarChart';
 import { MultipleLinesChart } from './MultipleLinesChart';
@@ -9,43 +12,49 @@ import { Card } from '@/components/ui/card';
 export default function Dashboard() {
   return (
     <div className="min-h-screen p-6">
-      <Card className="mb-6 bg-primary-500 p-6 text-white">
-        <div className="flex items-center space-x-2">
-          <div className="flex size-8 items-center justify-center rounded-full bg-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-5 text-orange-500"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <div className="text-sm font-medium">Balance</div>
-            <div className="text-3xl font-bold">₦ 1,000,000,000.00</div>
-          </div>
-        </div>
-      </Card>
+      <AdminDashboardCard
+        title="Total Savings"
+        icon={<CircleDollarSign className="size-6" />}
+        content="₦ 20,00,000.00"
+        className="mb-6 bg-primary-500 text-white"
+      />
 
       <div className="mb-6 grid grid-cols-3 gap-6">
-        <StatCard title="Total Users" value="1,000,000" />
-        <StatCard title="Personal Account" value="700,000" />
-        <StatCard title="Business Account" value="300,000" />
+        <AdminDashboardCount
+          countHead="Total Users"
+          countNumber="1,000,000"
+          className="bg-white text-black"
+        />
+        <AdminDashboardCount
+          countHead="Personal Account"
+          countNumber="1,000,000"
+          className="bg-white text-black"
+        />
+        <AdminDashboardCount
+          countHead="Business Account"
+          countNumber="1,000,000"
+          className="bg-white text-black"
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-6">
         <div className=" space-y-6">
+          {/* cards  */}
           <div className="grid grid-cols-2 gap-6">
-            <StatCard title="Business Verification" value="1000" />
-            <StatCard title="Finance Request" value="1000" />
+            <AdminDashboardCount
+              countHead="Business Verification"
+              countNumber="1,000,000"
+              className="bg-white text-black"
+            />
+
+            <AdminDashboardCount
+              countHead="Finance Request"
+              countNumber="1,000,000"
+              className="bg-white text-black"
+            />
           </div>
+
+          {/* recent user section  */}
           <Card className="bg-white p-6">
             <div className="flex items-center justify-between">
               <h2 className="mb-4 text-lg font-semibold">Recent Users</h2>
@@ -77,6 +86,7 @@ export default function Dashboard() {
           </Card>
         </div>
 
+        {/* transaction section  */}
         <div className=" space-y-6">
           <Card className="bg-white p-6">
             <div className="mb-4 flex items-center justify-between">
@@ -95,9 +105,12 @@ export default function Dashboard() {
                 </select>
               </div>
             </div>
+
+            {/* line chart  */}
             <MultipleLinesChart />
           </Card>
 
+          {/* user report section  */}
           <Card className="bg-white p-6">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold">User Report</h2>
@@ -112,19 +125,12 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+
+            {/* bar chart  */}
             <MultiBarChart />
           </Card>
         </div>
       </div>
     </div>
-  );
-}
-
-function StatCard({ title, value }: { title: string; value: string }) {
-  return (
-    <Card className="bg-white p-6">
-      <h2 className="mb-2 text-sm text-gray-500">{title}</h2>
-      <p className="text-2xl font-semibold">{value}</p>
-    </Card>
   );
 }

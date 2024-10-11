@@ -1,11 +1,11 @@
 import React from 'react';
 
-import PillaUsers from '@/components/view/admin/pilla-users';
+import RoleDetails from '@/components/view/admin/roles/RoleDetails';
 
 export default function page() {
   return (
     <section>
-      <PillaUsers />
+      <RoleDetails />
     </section>
   );
 }

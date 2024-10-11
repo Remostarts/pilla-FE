@@ -1,5 +1,11 @@
 import React from 'react';
 
+import Investment from '@/components/view/admin/investment';
+
 export default function page() {
-  return <div>investment</div>;
+  return (
+    <section>
+      <Investment />
+    </section>
+  );
 }
