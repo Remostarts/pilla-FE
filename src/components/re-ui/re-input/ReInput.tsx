@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -20,57 +20,45 @@ type TReInputProps = {
   type?: string;
   autoComplete?: string;
   placeholder?: string;
-  control?: any;
+  defaultValue?: string;
+  className?: string;
 };
-
 const ReInput = ({
   name,
   label,
   description,
-  prefix,
   suffix,
+
   type = 'text',
-  autoComplete = 'off',
+  autoComplete = 'on',
   placeholder,
+  defaultValue,
+  className,
 }: TReInputProps) => {
   const { control } = useFormContext();
-  const [isFocused, setIsFocused] = useState(false);
-
   return (
     <div>
       <FormField
         control={control}
         name={name}
         render={({ field }) => (
-          <FormItem>
-            <FormLabel className="text-base text-gray-800">{label}</FormLabel>
+          <FormItem className="font-spaceGrotesk">
+            <FormLabel className="font-spaceGrotesk">{label}</FormLabel>
             <FormControl>
-              <div
-                className={`flex-center gap-2 rounded border ${
-                  isFocused ? 'border-primary-400' : 'border-gray-300'
-                }`}
-              >
-                <div className="text-sm">{prefix}</div>
+              <div className="flex-center rounded border border-gray-300">
                 <Input
-                  className="rounded border-none px-3"
+                  className={`border-none font-spaceGrotesk ${className}`}
                   placeholder={placeholder}
                   type={type}
                   autoComplete={autoComplete}
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={() => {
-                    setIsFocused(false);
-                    field.onBlur();
-                  }}
-                  onChange={field.onChange}
-                  value={field.value}
-                  name={field.name}
-                  ref={field.ref}
+                  defaultValue={defaultValue}
+                  {...field}
                 />
                 {suffix}
               </div>
             </FormControl>
-            <FormDescription className="text-gray-600">{description}</FormDescription>
-            <FormMessage />
+            <FormDescription>{description}</FormDescription>
+            <FormMessage className="text-base font-normal text-primary-800" />
           </FormItem>
         )}
       />

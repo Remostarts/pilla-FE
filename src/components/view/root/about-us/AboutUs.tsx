@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import Avatars from '../../../../../public/assets/root/shared/avatars.png';
+
 export default function AboutUs() {
   return (
     <section className="py-16">
@@ -16,7 +18,7 @@ export default function AboutUs() {
 
             {/* Avatars image */}
             <div className="-ml-1">
-              <Image src="/assets/root/shared/avatars.png" width={170} height={170} alt="avatars" />
+              <Image src={Avatars} width={170} height={170} alt="avatars" />
             </div>
           </div>
           <div>

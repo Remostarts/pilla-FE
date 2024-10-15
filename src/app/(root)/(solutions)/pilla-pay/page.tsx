@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
+import ReLink from '@/components/re-ui/ReLink';
 
 export const metadata = {
   title: 'Pay',
@@ -33,12 +34,7 @@ export default function Page() {
               From rent collections to dream homes payments, land use charge and utilities, we
               simplify it all. Join us for effortless transactions today.
             </p>
-            <Link
-              href="/"
-              className="-ml-1 rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Pay Now
-            </Link>
+            <ReLink href="/">Pay Now</ReLink>
           </div>
           {/* Hero Image */}
           <div className="rounded-t-3xl py-12">
@@ -87,12 +83,7 @@ export default function Page() {
               <li>Developers</li>
               <li>Government Agencies</li>
             </ul>
-            <Link
-              href="/"
-              className="rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Pay Now
-            </Link>
+            <ReLink href="/">Pay Now</ReLink>
           </div>
         </div>
       </div>

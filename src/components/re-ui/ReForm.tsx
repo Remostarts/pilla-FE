@@ -7,7 +7,7 @@ import { FieldValues, Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import NoSSRWrapper from '../ui-utils/NoSSRWrapper';
 
 import { Form } from '@/components/ui/form';
-import { Prettify } from '@/types';
+// import { Prettify } from '@/types';
 
 export type FormConfig = {
   defaultValues?: FieldValues;
@@ -44,7 +44,7 @@ function ReForm<T extends FieldValues>({
   // useEffect(() => reset(defaultValues), [defaultValues, reset, form]);
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="relative  space-y-3 overflow-x-hidden">
+      <form onSubmit={handleSubmit(onSubmit)} className="relative space-y-3 overflow-x-hidden">
         {children}
       </form>
       <NoSSRWrapper>

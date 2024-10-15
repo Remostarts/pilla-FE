@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 
 import SubHeading from '../../../shared/SubHeading';
@@ -20,43 +18,54 @@ import {
   PROOF_OF_ADDRESS_WINDOW,
   VERIFICATION_SUCCESS_WINDOW,
 } from '@/constants/homeData';
+import { DashboardResponseType } from '@/types/personalDashBHome.type';
 
-const verificationBtnData = [
-  {
-    id: 1,
-    heading: 'BVN Verification',
-    subHeading: 'Enter BVN to complete BVN verification',
-    img: '/assets/personal-dashboard/home/bvn-verification-icon.svg',
-    window: 'bvn-verification-window',
-    status: 'complete',
-  },
-  {
-    id: 2,
-    heading: 'Identity Verification',
-    subHeading: 'Upload ID to complete identity verification',
-    img: '/assets/personal-dashboard/home/identity-verification-icon.svg',
-    window: 'identity-verification-window',
-    status: 'pending',
-  },
-  {
-    id: 3,
-    heading: 'Proof of Address',
-    subHeading: 'Upload an utility bill',
-    img: '/assets/personal-dashboard/home/proof-of-address-icon.svg',
-    window: 'proof-of-address-window',
-    status: 'pending',
-  },
-  {
-    id: 4,
-    heading: 'Next of Kin',
-    subHeading: 'Add next of kin details',
-    img: '/assets/personal-dashboard/home/next-of-kin-icon.svg',
-    window: 'next-of-kin-window',
-    status: 'pending',
-  },
-];
+interface VerificationHomeProps {
+  personalData: DashboardResponseType;
+}
 
-export default function VerificationHome() {
+export default function VerificationHome({ personalData }: VerificationHomeProps) {
+  const { bankVerification, identityVerification, proofOfAddress, nextOfKin } = personalData.data;
+
+  const verificationBtnData = [
+    {
+      id: 1,
+      heading: 'BVN Verification',
+      subHeading: 'Enter BVN to complete BVN verification',
+      img: '/assets/personal-dashboard/home/bvn-verification-icon.svg',
+      window: 'bvn-verification-window',
+      status: 'complete',
+      isVerified: bankVerification,
+    },
+    {
+      id: 2,
+      heading: 'Identity Verification',
+      subHeading: 'Upload ID to complete identity verification',
+      img: '/assets/personal-dashboard/home/identity-verification-icon.svg',
+      window: 'identity-verification-window',
+      status: 'pending',
+      isVerified: identityVerification,
+    },
+    {
+      id: 3,
+      heading: 'Proof of Address',
+      subHeading: 'Upload an utility bill',
+      img: '/assets/personal-dashboard/home/proof-of-address-icon.svg',
+      window: 'proof-of-address-window',
+      status: 'pending',
+      isVerified: proofOfAddress,
+    },
+    {
+      id: 4,
+      heading: 'Next of Kin',
+      subHeading: 'Add next of kin details',
+      img: '/assets/personal-dashboard/home/next-of-kin-icon.svg',
+      window: 'next-of-kin-window',
+      status: 'pending',
+      isVerified: nextOfKin,
+    },
+  ];
+
   return (
     <div className="p-4">
       <Heading heading="Get started with Pilla" size="2xl" />
@@ -64,7 +73,7 @@ export default function VerificationHome() {
 
       <div className="mt-10 space-y-6">
         {verificationBtnData.map((data) => (
-          <Sidebar.Open key={data.id} opens={data.window}>
+          <Sidebar.Open key={data.id} opens={data.isVerified ? '' : data.window}>
             <button className="flex w-full items-center justify-between rounded-lg bg-gray-100 p-5">
               <div className="flex items-center space-x-3 xl:space-x-6">
                 <div className="relative">
@@ -76,12 +85,21 @@ export default function VerificationHome() {
                 </div>
               </div>
 
-              <Image
-                src="/assets/personal-dashboard/home/caution-triangle-icon.svg"
-                alt="caution-triangle-icon"
-                width={25}
-                height={25}
-              />
+              {!data.isVerified ? (
+                <Image
+                  src="/assets/personal-dashboard/home/caution-triangle-icon.svg"
+                  alt="caution-triangle-icon"
+                  width={25}
+                  height={25}
+                />
+              ) : (
+                <Image
+                  src="/assets/personal-dashboard/home/correct-triangle-icon.svg"
+                  alt="caution-triangle-icon"
+                  width={25}
+                  height={25}
+                />
+              )}
             </button>
           </Sidebar.Open>
         ))}

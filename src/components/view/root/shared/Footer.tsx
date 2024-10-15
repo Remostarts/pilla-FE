@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="mt-20 w-full bg-black text-white sm:mt-28">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 py-12 sm:grid-cols-2 sm:py-20 md:grid-cols-3 lg:grid-cols-5">
           <div className="col-span-1">
             <Image
@@ -19,23 +19,26 @@ export default function Footer() {
           {/* Company address */}
           <div className="col-span-1">
             <h3 className="mb-2 font-spaceGrotesk text-lg font-bold">Pilla Headquarters</h3>
-            <div className="text-sm xl:text-base">
-              <p className="font-inter">Plot 3, Wole Olateju Crescent</p>
-              <p className="font-inter">Admiralty Way, Lekki Phase 1</p>
-              <p className="font-inter">Lagos</p>
+            <div className="font-inter text-base md:text-sm xl:text-base">
+              <p className="whitespace-nowrap">Plot 3, Wole Olateju Crescent,</p>
+              <p>
+                <span className="whitespace-nowrap">Admiralty Way,</span>{' '}
+                <span className="whitespace-nowrap">Lekki Phase 1,</span>
+              </p>
+              <p>Lagos</p>
             </div>
           </div>
 
           {/* Company Phone */}
           <div className="col-span-1 md:ml-8">
             <p className="mb-2 font-spaceGrotesk text-lg font-bold">Phone</p>
-            <p className="-ml-1 font-inter text-sm xl:text-base">+234 705 400 0050</p>
+            <p className="-ml-1 font-inter text-base md:text-sm xl:text-base">+234 705 400 0050</p>
           </div>
 
           {/* Company Email */}
           <div className="col-span-1">
             <p className="mb-2 font-spaceGrotesk text-lg font-bold">Email</p>
-            <p className="font-inter text-sm xl:text-base">hello@pilla.africa</p>
+            <p className="font-inter text-base lg:text-sm xl:text-base">hello@pilla.africa</p>
 
             {/* Social logos */}
             <div className="mt-4 flex items-center space-x-5">
@@ -101,7 +104,7 @@ export default function Footer() {
             </div>
           </nav>
           <div>
-            <select className="mt-4 rounded border border-gray-700 bg-black px-2 py-1 font-inter text-sm text-white sm:mt-0 sm:text-xs lg:text-sm">
+            <select className="mt-4 cursor-pointer rounded border border-gray-700 bg-black px-2 py-1 font-inter text-sm text-white sm:mt-0 sm:text-xs lg:text-sm">
               <option>English (United States)</option>
             </select>
           </div>

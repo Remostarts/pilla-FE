@@ -25,7 +25,7 @@ const supportByImages = [
 
 export default function Sponsor() {
   return (
-    <div className="mt-8 sm:mt-12">
+    <div className="my-10 sm:my-16">
       <div>
         <h2 className="text-center font-spaceGrotesk text-2xl font-bold text-gray-900 sm:text-3xl">
           Trusted by
@@ -55,7 +55,7 @@ export default function Sponsor() {
         </Marquee>
       </div>
 
-      <div className="mt-20">
+      <div className="mt-28 sm:mt-32">
         <h2 className="mb-12 text-center font-spaceGrotesk text-2xl font-bold text-gray-900 sm:text-3xl">
           Supported by
         </h2>

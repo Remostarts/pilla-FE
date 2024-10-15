@@ -131,13 +131,21 @@ function Agreement({ children }: { children: ReactNode }) {
 }
 
 // Summary Button Component
-function Button({ children, onClick }: { children: ReactNode; onClick: () => void }) {
+function Button({
+  children,
+  onClick,
+  type,
+}: {
+  children: ReactNode;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+}) {
   const { selectedMethod, agreementChecked, hasAgreement } = useSummary();
   const isDisabled = !selectedMethod || (hasAgreement && !agreementChecked);
 
   return (
     <div className="mt-12">
-      <ReButton size="lg" onClick={onClick} disabled={isDisabled}>
+      <ReButton size="lg" onClick={onClick} disabled={isDisabled} type={type}>
         {children}
       </ReButton>
     </div>

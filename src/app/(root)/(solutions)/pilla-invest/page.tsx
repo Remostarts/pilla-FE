@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
+import ReLink from '@/components/re-ui/ReLink';
 
 export const metadata = {
   title: 'Invest',
@@ -67,12 +68,7 @@ export default function Page() {
             <p className="mb-12 font-inter text-lg text-gray-800 md:text-base  lg:text-xl lg:leading-8">
               Unlock your journey to financial growth and security today.
             </p>
-            <Link
-              href="/"
-              className="-ml-1 rounded-full bg-primary-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-primary-600"
-            >
-              Invest Now
-            </Link>
+            <ReLink href="/">Invest Now</ReLink>
           </div>
           {/* Hero Image */}
           <div className="rounded-t-3xl bg-[#e9ffe5] px-20 pt-16 md:w-4/5 lg:w-1/2 xl:w-2/5">
@@ -124,9 +120,9 @@ export default function Page() {
               <p className="mb-2 font-inter">Minimum Tenure: {plan.tenure}</p>
               <p className="mb-2 font-inter">{plan.roi}</p>
               <p className="mb-4 font-inter">{plan.minimum}</p>
-              <button className="mt-auto self-end rounded-full bg-primary-500 px-6 py-3 font-inter font-semibold text-white transition duration-300 hover:bg-primary-600">
+              <ReLink href="/" className="mt-auto self-end md:py-3">
                 Invest Now
-              </button>
+              </ReLink>
             </div>
           ))}
         </div>
