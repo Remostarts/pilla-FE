@@ -22,9 +22,17 @@ interface TReSelectProps {
   description?: string;
   placeholder?: string;
   options: { value: string; label: string }[];
+  className?: string;
 }
 
-const ReSelect = ({ name, label, description, placeholder, options }: TReSelectProps) => {
+const ReSelect = ({
+  name,
+  label,
+  description,
+  placeholder,
+  options,
+  className,
+}: TReSelectProps) => {
   const { control } = useFormContext();
 
   return (
@@ -32,10 +40,10 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-base text-gray-800">{label}</FormLabel>
+        <FormItem className="font-spaceGrotesk">
+          <FormLabel className="text-sm text-gray-800">{label}</FormLabel>
           <FormControl>
-            <div className={`rounded border border-gray-300 bg-white`}>
+            <div className={`rounded border border-gray-300 bg-white ${className}`}>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="w-full border-none">
                   <SelectValue placeholder={placeholder} />
@@ -45,7 +53,7 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
                     <SelectItem
                       key={option.value}
                       value={option.value}
-                      className="cursor-pointer hover:bg-primary-100"
+                      className="cursor-pointer font-spaceGrotesk hover:bg-primary-100"
                     >
                       {option.label}
                     </SelectItem>
@@ -55,7 +63,7 @@ const ReSelect = ({ name, label, description, placeholder, options }: TReSelectP
             </div>
           </FormControl>
           <FormDescription className="ml-1">{description}</FormDescription>
-          <FormMessage />
+          <FormMessage className="text-base font-normal text-primary-800" />
         </FormItem>
       )}
     />

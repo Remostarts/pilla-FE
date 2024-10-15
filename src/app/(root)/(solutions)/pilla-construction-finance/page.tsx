@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
+import ReLink from '@/components/re-ui/ReLink';
 
 export const metadata = {
   title: 'Construction',
@@ -54,12 +55,7 @@ export default function Page() {
               building materials or interior décor finishing, complete your projects effortlessly
               and fast-track your journey to project delivery.
             </p>
-            <Link
-              href="/"
-              className="-ml-1 rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Get Loan Now
-            </Link>
+            <ReLink href="/">Get Loan Now</ReLink>
           </div>
           {/* Hero Image */}
           <div className="rounded-t-3xl bg-[#fffee5] py-12 pl-16">
@@ -135,12 +131,7 @@ export default function Page() {
               successfully complete real estate construction projects by fulfilling payment
               obligations to suppliers and contractors.
             </p>
-            <Link
-              href="/"
-              className="rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Get Loan Now
-            </Link>
+            <ReLink href="/">Get Loan Now</ReLink>
           </div>
         </div>
       </div>
@@ -163,12 +154,7 @@ export default function Page() {
                 </li>
               ))}
             </ul>
-            <Link
-              href="/"
-              className=" rounded-full bg-orange-500 px-8 py-4 font-inter font-semibold text-white transition duration-300 hover:bg-orange-600"
-            >
-              Get Loan Now
-            </Link>
+            <ReLink href="/">Get Loan Now</ReLink>
           </div>
           <div className="flex justify-end md:w-1/2">
             <Image

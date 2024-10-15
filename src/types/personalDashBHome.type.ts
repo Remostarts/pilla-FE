@@ -9,6 +9,7 @@ export type ActionsNeededDataType = {
   id: number;
   window: string;
   actionName: string;
+  isVerified: boolean;
 };
 
 export type NigeriaStateType = {
@@ -22,4 +23,26 @@ export type SavingsPlanDataType = {
   subHeading: string;
   img: string;
   window: string;
+};
+
+export type PinType = {
+  pin: string;
+  confirmPin: string;
+};
+
+export type DashboardResponseType = {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: {
+    userVerification: boolean;
+    bankVerification: boolean;
+    identityVerification: boolean;
+    proofOfAddress: boolean;
+    nextOfKin: boolean;
+    transactionPin: boolean;
+    availableBalance: number;
+    rentFinance: number;
+    pillaSavings: number;
+  };
 };

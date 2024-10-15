@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle2, EyeIcon, EyeOffIcon, Lock } from 'lucide-react';
+import { CheckCircle2, EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -19,23 +19,29 @@ const PasswordValidator = ({ validationRules }: { validationRules: ValidationRul
     className="dropdown left absolute left-20 z-50 flex flex-col items-start justify-start space-y-2 rounded-lg bg-primary-100 p-3 text-left"
   >
     {validationRules.map(({ label, state }) => (
-      <span className="flex-center gap-2" key={Math.random()}>
-        {state ? <CheckCircle2 className="text-green-500" /> : <CheckCircle2 />}
+      <span className="flex items-center gap-2" key={label}>
+        <CheckCircle2 className={state ? 'text-green-500' : 'text-gray-400'} />
         {label}
       </span>
     ))}
   </motion.div>
 );
 
+type RePassInputProps = {
+  isValidationDrop?: boolean;
+  name: string; // Make name required to ensure each input is unique
+  disabled?: boolean;
+  label?: string;
+  className?: string;
+};
+
 const RePassInput = ({
   isValidationDrop = false,
-  name = 'password',
+  name,
   disabled = false,
-}: {
-  isValidationDrop?: boolean;
-  name?: string;
-  disabled?: boolean;
-}) => {
+  label = '',
+  className = '',
+}: RePassInputProps) => {
   const { control, watch } = useFormContext();
   const [showPassword, setShowPassword] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -47,22 +53,12 @@ const RePassInput = ({
     length: false,
   });
 
-  const { length, lower, number, special, upper } = validationState;
   const validationRules: ValidationRule[] = [
-    {
-      label: 'At least one lowercase letter',
-      state: lower,
-    },
-    {
-      label: 'At least one uppercase letter',
-      state: upper,
-    },
-    { label: 'At least one number', state: number },
-    {
-      label: 'At least one special character',
-      state: special,
-    },
-    { label: 'At least 6 characters', state: length },
+    { label: 'At least one lowercase letter', state: validationState.lower },
+    { label: 'At least one uppercase letter', state: validationState.upper },
+    { label: 'At least one number', state: validationState.number },
+    { label: 'At least one special character', state: validationState.special },
+    { label: 'At least 6 characters', state: validationState.length },
   ];
 
   useEffect(() => {
@@ -75,38 +71,32 @@ const RePassInput = ({
     ];
 
     const subscription = watch((value) => {
+      const passwordValue = value[name];
       setValidationState((prevState) => {
         const updatedState = { ...prevState };
         validationRules.forEach(({ regex, stateKey }) => {
-          updatedState[stateKey as keyof typeof prevState] = regex.test(value.password);
+          updatedState[stateKey as keyof typeof prevState] = regex.test(passwordValue);
         });
         return updatedState;
       });
     });
-    const allValidationsPassed = validationRules.every(
-      ({ stateKey }) => validationState[stateKey as keyof typeof validationState]
-    );
-    if (allValidationsPassed) {
-      setIsInputFocused(false);
-    }
 
     return () => subscription.unsubscribe();
-  }, [watch, validationState]);
+  }, [watch, name]);
 
   return (
-    <div>
+    <div className={className}>
       <FormField
         control={control}
         name={name}
         render={({ field }) => (
           <FormItem className="relative">
-            <FormLabel>{name}</FormLabel>
+            <FormLabel>{label}</FormLabel>
             <FormControl>
-              <div className="flex-center focus-visible:ring-2focus-visible:ring-offset-2 gap-2 rounded border border-gray-400  px-2">
-                <Lock />
+              <div className="flex-center rounded border border-gray-300 pr-2 focus-visible:ring-2 focus-visible:ring-offset-2">
                 <Input
-                  className="border-none px-0   focus-visible:ring-0  focus-visible:ring-offset-0"
-                  placeholder="password"
+                  className="border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  placeholder={label}
                   autoComplete="off"
                   disabled={disabled}
                   onFocus={() => setIsInputFocused(true)}
@@ -115,17 +105,22 @@ const RePassInput = ({
                   onBlur={() => setIsInputFocused(false)}
                 />
                 {showPassword ? (
-                  <EyeIcon className="select-none" onClick={() => setShowPassword(false)} />
+                  <EyeIcon
+                    className="cursor-pointer select-none"
+                    onClick={() => setShowPassword(false)}
+                  />
                 ) : (
-                  <EyeOffIcon className="select-none" onClick={() => setShowPassword(true)} />
+                  <EyeOffIcon
+                    className="cursor-pointer select-none"
+                    onClick={() => setShowPassword(true)}
+                  />
                 )}
               </div>
             </FormControl>
-            {/* <FormDescription>this is password</FormDescription> */}
             {isValidationDrop && isInputFocused && (
               <PasswordValidator validationRules={validationRules} />
             )}
-            <FormMessage />
+            <FormMessage className="text-base font-normal text-primary-800" />
           </FormItem>
         )}
       />

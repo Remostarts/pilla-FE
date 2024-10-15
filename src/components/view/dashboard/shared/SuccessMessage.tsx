@@ -43,7 +43,7 @@ function Content({ children }: { children: ReactNode }) {
 }
 
 function Description({ children }: { children: string }) {
-  return <SubHeading subHeading={children} />;
+  return <SubHeading subHeading={children} className="text-center" />;
 }
 
 function AmountAndDate({ amount }: { amount: string }) {

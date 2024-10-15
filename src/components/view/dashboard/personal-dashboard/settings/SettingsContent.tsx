@@ -1,5 +1,7 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+
 import AccountLimit from './AccountLimit';
 import Notifications from './Notifications';
 import Security from './Security';
@@ -7,7 +9,10 @@ import SavedCards from './SavedCards';
 
 import PersonalInformation from '@/components/view/dashboard/personal-dashboard/settings/PersonalInformation';
 
-export default function SettingsContent({ currentSection }: { currentSection: string }) {
+export default function SettingsContent() {
+  const searchParams = useSearchParams();
+  const currentSection = searchParams.get('section');
+
   const renderSection = () => {
     switch (currentSection) {
       case 'account-limit':
@@ -28,5 +33,5 @@ export default function SettingsContent({ currentSection }: { currentSection: st
     }
   };
 
-  return <div className="w-full">{renderSection()}</div>;
+  return <div className="size-full">{renderSection()}</div>;
 }

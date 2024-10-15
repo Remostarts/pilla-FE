@@ -69,6 +69,7 @@ export default function AddMoney() {
       {/* Transaction Pin */}
       <Sidebar.Window name={TRANSACTION_PIN_WINDOW}>
         <Pin
+          name="pin"
           heading="Enter Transaction PIN"
           subHeading="Input your 4 digit passcode to authorize this transaction"
           btnName="Verify"
