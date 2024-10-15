@@ -1,3 +1,6 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Sidebar, useSidebar } from '../../../shared/SideBar';
 import LoanSummary from '../../../shared/summary/LoanSummary';
 import { SuccessMessage } from '../../../shared/SuccessMessage';
@@ -12,6 +15,8 @@ import SubHeading from '@/components/view/dashboard/shared/SubHeading';
 import { useLoanSummary } from '@/context/LoanSummaryProvider';
 import { LOAN_APPLIED_SUCCESS_WINDOW, LOAN_SUMMARY_WINDOW } from '@/constants/pillaRentFinanceData';
 import { TRANSACTION_PIN_WINDOW } from '@/constants/homeData';
+import { applyLoanSchema, TApplyLoan } from '@/lib/validations/personal/finance.validation';
+import { Form } from '@/components/ui/form';
 
 const selectableOptions = [
   { label: '1 Month', value: '1' },
@@ -19,15 +24,27 @@ const selectableOptions = [
   { label: '6 Month', value: '6' },
 ];
 
+const defaultValues = {
+  loanReason: '',
+  amountRequired: '',
+};
+
 export default function ApplyLoan() {
   const { setLoanSummaryData } = useLoanSummary();
   const { open } = useSidebar();
+
+  const form = useForm<TApplyLoan>({
+    resolver: zodResolver(applyLoanSchema),
+    defaultValues,
+    mode: 'onChange',
+  });
+  const { handleSubmit, formState } = form;
 
   const handleSelect = (value: string | number) => {
     console.log('Selected:', value);
   };
 
-  const handleProceed = () => {
+  const onSubmit = () => {
     const loanSummaryData = {
       loanType: 'Rent Payment',
       loanTenor: '3 Months',
@@ -41,72 +58,76 @@ export default function ApplyLoan() {
   };
 
   return (
-    <div className="p-4">
-      <Heading heading="Apply for Loan" size="2xl" />
+    <Form {...form}>
+      <form className="p-4" onSubmit={handleSubmit(onSubmit)}>
+        <Heading heading="Apply for Loan" size="2xl" />
 
-      <div className="mt-2">
-        <SubHeading subHeading="Getting a loan takes just a few steps" />
-      </div>
+        <div className="mt-2">
+          <SubHeading subHeading="Getting a loan takes just a few steps" />
+        </div>
 
-      <div className="mt-8 space-y-5">
-        <ReSelect
-          name="loanReason"
-          label="What is the Loan for?"
-          placeholder="Select"
-          options={[
-            { value: 'option1', label: 'Option 1' },
-            { value: 'option2', label: 'Option 2' },
-            { value: 'other', label: 'Other' },
-          ]}
-        />
+        <div className="mt-8 space-y-5">
+          <ReSelect
+            name="loanReason"
+            label="What is the Loan for?"
+            placeholder="Select"
+            options={[
+              { value: 'option1', label: 'Option 1' },
+              { value: 'option2', label: 'Option 2' },
+              { value: 'other', label: 'Other' },
+            ]}
+          />
 
-        <ReInput
-          label="How much do you need?"
-          placeholder="0.00"
-          name="amountRequired"
-          description="Maximum Amount: ₦ 500,000"
-        />
+          <ReInput
+            label="How much do you need?"
+            placeholder="0.00"
+            name="amountRequired"
+            description="Maximum Amount: ₦ 500,000"
+          />
 
-        <ReSelectable options={selectableOptions} onSelect={handleSelect} />
-      </div>
+          <ReSelectable options={selectableOptions} onSelect={handleSelect} />
+        </div>
 
-      <div className="mt-12">
-        <ReButton size="lg" onClick={handleProceed}>
-          Proceed
-        </ReButton>
-      </div>
+        <div className="mt-12">
+          <ReButton size="lg" type="submit">
+            Proceed
+          </ReButton>
+        </div>
 
-      {/* Loan Sumamry window */}
-      <Sidebar.Window name={LOAN_SUMMARY_WINDOW}>
-        <LoanSummary />
-      </Sidebar.Window>
+        {/* Loan Sumamry window */}
+        <Sidebar.Window name={LOAN_SUMMARY_WINDOW}>
+          <LoanSummary />
+        </Sidebar.Window>
 
-      {/* Transaction Pin */}
-      <Sidebar.Window name={TRANSACTION_PIN_WINDOW}>
-        <Pin
-          heading="Enter Transaction PIN"
-          subHeading="Input your 4 digit passcode to authorize this transaction"
-          btnName="Verify"
-          opens={LOAN_APPLIED_SUCCESS_WINDOW}
-          closes={TRANSACTION_PIN_WINDOW}
-        />
-      </Sidebar.Window>
+        {/* Transaction Pin */}
+        <Sidebar.Window name={TRANSACTION_PIN_WINDOW}>
+          <Pin
+            heading="Enter Transaction PIN"
+            subHeading="Input your 4 digit passcode to authorize this transaction"
+            btnName="Verify"
+            opens={LOAN_APPLIED_SUCCESS_WINDOW}
+            closes={TRANSACTION_PIN_WINDOW}
+          />
+        </Sidebar.Window>
 
-      {/* Success Message for Apply Loan */}
-      <Sidebar.Window name={LOAN_APPLIED_SUCCESS_WINDOW}>
-        <SuccessMessage>
-          <SuccessMessage.Title>Loan Application Submitted</SuccessMessage.Title>
-          <SuccessMessage.Content>
-            <SuccessMessage.Description>
-              Verification and disbursement takes within 24-48 working hours.
-            </SuccessMessage.Description>
-            <div className="-mt-4">
-              <SuccessMessage.Description>Check your e-mail for update.</SuccessMessage.Description>
-            </div>
-          </SuccessMessage.Content>
-          <SuccessMessage.Button closes={LOAN_APPLIED_SUCCESS_WINDOW}>Done</SuccessMessage.Button>
-        </SuccessMessage>
-      </Sidebar.Window>
-    </div>
+        {/* Success Message for Apply Loan */}
+        <Sidebar.Window name={LOAN_APPLIED_SUCCESS_WINDOW}>
+          <SuccessMessage>
+            <SuccessMessage.Title>Loan Application Submitted</SuccessMessage.Title>
+            <SuccessMessage.Content>
+              <SuccessMessage.Description>
+                Verification and disbursement takes within 24-48 working hours.
+              </SuccessMessage.Description>
+              <div className="-mt-4">
+                <SuccessMessage.Description>
+                  Check your e-mail for update.
+                </SuccessMessage.Description>
+              </div>
+            </SuccessMessage.Content>
+            <SuccessMessage.Button closes={LOAN_APPLIED_SUCCESS_WINDOW}>Done</SuccessMessage.Button>
+          </SuccessMessage>
+        </Sidebar.Window>
+      </form>
+    </Form>
   );
 }

@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
@@ -13,7 +14,6 @@ import { NEXT_OF_KIN_SUCCESS_WINDOW, NEXT_OF_KIN_WINDOW } from '@/constants/home
 import { Form } from '@/components/ui/form';
 import { nextOfKinSchema, TNextOfKin } from '@/lib/validations/personal/home.validation';
 import { nextOfKinVerification } from '@/lib/actions/personal/verification.action';
-import { toast } from '@/components/ui/use-toast';
 
 const defaultValues = {
   firstName: '',
@@ -44,26 +44,15 @@ export default function NextOfKin() {
       const response = await nextOfKinVerification(data);
 
       if (response?.success) {
-        toast({
-          title: 'Success',
-          description: 'Next of Kin submitted successfully!',
-        });
+        toast.success('Next of Kin submitted successfully!');
         close(NEXT_OF_KIN_WINDOW);
         open(NEXT_OF_KIN_SUCCESS_WINDOW);
       } else {
-        toast({
-          title: 'Error',
-          description: response.error,
-          variant: 'destructive',
-        });
+        toast.error('Next of Kin submission failed');
       }
     } catch (error) {
       console.error('Verification error:', error);
-      toast({
-        title: 'Next of Kin verification failed',
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
-        variant: 'destructive',
-      });
+      toast.error('Next of Kin submission failed');
     }
   };
 

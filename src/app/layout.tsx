@@ -1,13 +1,11 @@
 /* eslint-disable camelcase */
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
-
 import '../styles/globals.css';
+import { Toaster } from 'sonner';
 
-import { Toaster } from '@/components/ui/toaster';
 import Providers from '@/context/Providers';
 import { TChildrenProps } from '@/types';
-
 const inter = Inter({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -39,7 +37,16 @@ export default function RootLayout({ children }: TChildrenProps) {
       <body className={` ${inter.variable} ${spaceGrotesk.variable} `}>
         <Providers>
           <div>{children}</div>
-          <Toaster />
+          <Toaster
+            richColors
+            closeButton
+            duration={3000}
+            position="top-right"
+            className="font-spaceGrotesk"
+            toastOptions={{
+              className: 'my-custom-toast',
+            }}
+          />
         </Providers>
       </body>
     </html>

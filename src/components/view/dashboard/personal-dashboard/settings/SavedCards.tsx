@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { Heading } from '../../shared/Heading';
 
-// difining the stucture of the card object
+// defining the structure of the card object
 interface Card {
   id: string;
   bank: string;

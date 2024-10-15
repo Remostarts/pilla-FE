@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
@@ -16,7 +17,7 @@ import {
   TIdentityVerification,
 } from '@/lib/validations/personal/home.validation';
 import { identityVerification } from '@/lib/actions/personal/verification.action';
-import { toast } from '@/components/ui/use-toast';
+import ReImageInput from '@/components/re-ui/re-image/ReImage';
 
 const defaultValues = {
   nin: '',
@@ -41,26 +42,14 @@ export default function IdentityVerification() {
       const response = await identityVerification(data);
 
       if (response?.success) {
-        toast({
-          title: 'Success',
-          description: 'Identity verification submitted successfully!',
-        });
+        toast.success('Identity verification submitted successfully!');
         close(IDENTITY_VERIFICATION_WINDOW);
         open(VERIFICATION_SUCCESS_WINDOW);
       } else {
-        toast({
-          title: 'Error',
-          description: response.error,
-          variant: 'destructive',
-        });
+        toast.error('Identity verification failed');
       }
     } catch (error) {
-      console.error('Verification error:', error);
-      toast({
-        title: 'Identity verification failed',
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
-        variant: 'destructive',
-      });
+      toast.error('Identity verification failed');
     }
   };
 
@@ -90,7 +79,7 @@ export default function IdentityVerification() {
 
           <ReInput label="Enter ID Number" name="idNumber" placeholder="Enter ID Number" />
 
-          <ReInput label="Upload ID Image" name="image" placeholder="Select to choose file" />
+          <ReImageInput name="image" label="Upload ID Image" />
         </div>
 
         <div className="mt-12">

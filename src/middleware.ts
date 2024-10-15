@@ -9,17 +9,17 @@ const { ADMIN, BUSINESS, PERSONAL } = userRoles;
 const hybridRoutes = [
   '/',
   '/sign-in',
-  '/sign-in/admin',
+  // '/sign-in/admin',
   '/sign-in/business',
   '/sign-up',
-  '/sign-up/admin',
+  // '/sign-up/admin',
   '/sign-up/business',
   '/sign-up/personal',
 ];
 const rolesRedirect: Record<string, unknown> = {
   business: `${process.env.FRONTEND_URL}/business`,
   personal: `${process.env.FRONTEND_URL}/personal`,
-  admin: `${process.env.FRONTEND_URL}/admin`,
+  // admin: `${process.env.FRONTEND_URL}/admin`,
 };
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
   const role = token?.role as string;
 
   if (
-    (role === ADMIN && pathname.startsWith('/admin')) ||
+    // (role === ADMIN && pathname.startsWith('/admin')) ||
     (role === BUSINESS && pathname.startsWith('/business')) ||
     // (role === PERSONAL && personalRoutes.includes(pathname))
     (role === PERSONAL && pathname.startsWith('/personal'))
@@ -65,6 +65,6 @@ export const config = {
     // business routes
     '/business/:page*',
     // admin routes
-    '/admin/:page*',
+    // '/admin/:page*',
   ],
 };

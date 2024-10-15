@@ -38,7 +38,7 @@ export async function bvnVerification(formData: TBvnVerification) {
       body: JSON.stringify(validation.data),
     });
 
-    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
+    revalidatePath(`${process.env.BACKEND_URL}/user/getPersonalDashboardData`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -67,7 +67,7 @@ export async function identityVerification(formData: TIdentityVerification) {
       body: JSON.stringify(validation.data),
     });
 
-    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
+    revalidatePath(`${process.env.BACKEND_URL}/user/getPersonalDashboardData`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -95,7 +95,7 @@ export async function proofOfAddressVerification(formData: TProofOfAddress) {
       body: JSON.stringify(validation.data),
     });
 
-    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
+    revalidatePath(`${process.env.BACKEND_URL}/user/getPersonalDashboardData`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -123,7 +123,7 @@ export async function nextOfKinVerification(formData: TNextOfKin) {
       body: JSON.stringify(validation.data),
     });
 
-    revalidatePath(`${process.env.BACKEND_URL}/user/verify-bvn`);
+    revalidatePath(`${process.env.BACKEND_URL}/user/getPersonalDashboardData`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
@@ -131,7 +131,7 @@ export async function nextOfKinVerification(formData: TNextOfKin) {
 }
 
 // Get Verification status
-export async function getVerificationStatus() {
+export async function getPersonalDashboardData() {
   const session = (await getServerSession(authOptions)) as any;
   const token = session?.accessToken;
 
@@ -140,7 +140,7 @@ export async function getVerificationStatus() {
   }
 
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/user/getVerificationStatus`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/user/getPersonalDashboardData`, {
       method: 'GET',
       headers: {
         Authorization: token,
@@ -170,6 +170,7 @@ export async function createPin(formData: PinType) {
       body: JSON.stringify(formData),
     });
 
+    revalidatePath(`${process.env.BACKEND_URL}/user/getPersonalDashboardData`);
     return response.json();
   } catch (error) {
     getErrorMessage(error);
