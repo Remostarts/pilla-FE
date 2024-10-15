@@ -2,19 +2,19 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { toast } from 'sonner';
 
 import { ReButton } from '@/components/re-ui/ReButton';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { Form } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/components/ui/use-toast';
 import { createFeedback } from '@/lib/actions/root/contact.action';
 
 // Define the validation schema
 export const contactFormSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   emailAddress: z.string().email('Invalid email address'),
-  message: z.string().optional(),
+  message: z.string().min(10, 'Message should be more than 10 characters'),
 });
 
 type TInputs = z.infer<typeof contactFormSchema>;
@@ -44,26 +44,15 @@ export default function ContactForm() {
       });
 
       if (response.success) {
-        toast({
-          title: 'Success',
-          description: 'Your feedback has been submitted successfully.',
-        });
-        // Reset form or redirect user as needed
+        toast.success('Your feedback has been submitted successfully.');
         form.reset();
       } else {
-        toast({
-          title: 'Error',
-          description: response.error || 'Failed to submit feedback',
-          variant: 'destructive',
-        });
+        toast.error(response.error || 'Failed to submit feedback');
+        form.reset();
       }
     } catch (error) {
-      console.error('Error submitting feedback:', error);
-      toast({
-        title: 'Error',
-        description: 'An unexpected error occurred',
-        variant: 'destructive',
-      });
+      form.reset();
+      toast.error('Failed to submit feedback');
     }
   };
 
@@ -97,7 +86,7 @@ export default function ContactForm() {
               htmlFor="message"
               className="mb-2 block font-spaceGrotesk font-semibold text-gray-800"
             >
-              Message
+              Message *
             </label>
             <Textarea name="message" rows={4} />
           </div>

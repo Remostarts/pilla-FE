@@ -25,7 +25,7 @@ export default function AddCard() {
     defaultValues,
     mode: 'onChange',
   });
-  const { handleSubmit, formState } = form;
+  const { handleSubmit } = form;
 
   const onSubmit = () => {
     close(ADD_CARD_WINDOW);

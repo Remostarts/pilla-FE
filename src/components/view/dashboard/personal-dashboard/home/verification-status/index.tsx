@@ -18,10 +18,14 @@ import {
   PROOF_OF_ADDRESS_WINDOW,
   VERIFICATION_SUCCESS_WINDOW,
 } from '@/constants/homeData';
+import { DashboardResponseType } from '@/types/personalDashBHome.type';
 
-export default function VerificationHome(verificationStatus: any) {
-  const { bankVerification, identityVerification, proofOfAddress, nextOfKin } =
-    verificationStatus.verificationStatus.verificationStatus.data;
+interface VerificationHomeProps {
+  personalData: DashboardResponseType;
+}
+
+export default function VerificationHome({ personalData }: VerificationHomeProps) {
+  const { bankVerification, identityVerification, proofOfAddress, nextOfKin } = personalData.data;
 
   const verificationBtnData = [
     {

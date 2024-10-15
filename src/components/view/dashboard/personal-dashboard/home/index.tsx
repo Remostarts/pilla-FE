@@ -1,16 +1,21 @@
 'use client';
+import { z } from 'zod';
+import { useState } from 'react';
+import { toast } from 'sonner';
+
+import VerificationHome from './verification-status';
+
 import AddCard from '@/components/view/dashboard/personal-dashboard/home/add-money/AddCard';
 import AddMoney from '@/components/view/dashboard/personal-dashboard/home/add-money/AddMoney';
 import PayRent from '@/components/view/dashboard/personal-dashboard/home/pay-rent/PayRent';
 import SendMoneyHome from '@/components/view/dashboard/personal-dashboard/home/send-money';
 import UtilityBillHome from '@/components/view/dashboard/personal-dashboard/home/utility-bill';
-import VerificationHome from '@/components/view/dashboard/personal-dashboard/home/verification-status';
 import ActionBtn from '@/components/view/dashboard/shared/ActionBtn';
 import ArrowedActionButton from '@/components/view/dashboard/shared/ArrowedActionBtn';
 import DashboardCount from '@/components/view/dashboard/shared/DashboardCount';
 import { Heading } from '@/components/view/dashboard/shared/Heading';
 import Pin from '@/components/view/dashboard/shared/Pin';
-import { Sidebar } from '@/components/view/dashboard/shared/SideBar';
+import { Sidebar, useSidebar } from '@/components/view/dashboard/shared/SideBar';
 import { SuccessMessage } from '@/components/view/dashboard/shared/SuccessMessage';
 import {
   ADD_CARD_WINDOW,
@@ -23,7 +28,18 @@ import {
   UTILITY_BILL_WINDOW,
   VERIFICATION_STATUS_WINDOW,
 } from '@/constants/homeData';
-import { ActionsBtnDataType, ActionsNeededDataType } from '@/types/personalDashBHome.type';
+import {
+  ActionsBtnDataType,
+  ActionsNeededDataType,
+  DashboardResponseType,
+} from '@/types/personalDashBHome.type';
+import { createPin } from '@/lib/actions/personal/verification.action';
+
+// Zod schema to validate OTP
+const otpSchema = z
+  .string()
+  .length(4, { message: 'OTP must be exactly 4 digits.' })
+  .refine((value) => /^\d+$/.test(value), { message: 'OTP should only contain numbers.' });
 
 const actionsData: ActionsBtnDataType[] = [
   {
@@ -52,34 +68,73 @@ const actionsData: ActionsBtnDataType[] = [
   },
 ];
 
-const actionsNeededData: ActionsNeededDataType[] = [
-  { id: 1, actionName: 'Verification Status', window: 'verification-status-window' },
-  { id: 2, actionName: 'Set Transaction Pin', window: 'set-transaction-pin-window' },
-];
-type VerificationStatus = {
-  userVerification: boolean;
-  bankVerification: boolean;
-  identityVerification: boolean;
-  proofOfAddress: boolean;
-  nextOfKin: boolean;
-  transactionPin: boolean;
-};
+interface PersonalDashboardProps {
+  personalData: DashboardResponseType;
+}
 
-export type VerificationData = {
-  data: {
-    verificationStatus: VerificationStatus;
+export default function PersonalDashboard({ personalData }: PersonalDashboardProps) {
+  const [otp, setOtp] = useState('');
+  const [confirmOtp, setConfirmOtp] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const { open, close } = useSidebar();
+
+  const { transactionPin } = personalData.data;
+
+  const actionsNeededData: ActionsNeededDataType[] = [
+    {
+      id: 1,
+      actionName: 'Verification Status',
+      window: 'verification-status-window',
+      isVerified: false,
+    },
+    {
+      id: 2,
+      actionName: 'Set Transaction Pin',
+      window: 'set-transaction-pin-window',
+      isVerified: transactionPin,
+    },
+  ];
+
+  const handleOtpChange = (otp: string) => {
+    setOtp(otp);
+    const result = otpSchema.safeParse(otp);
+    if (!result.success) {
+      setError(result.error.issues[0].message);
+    } else {
+      setError(null);
+    }
   };
-};
 
-export default function PersonalDashboard(verificationStatus: any) {
-  const {
-    userVerification,
-    bankVerification,
-    identityVerification,
-    proofOfAddress,
-    nextOfKin,
-    transactionPin,
-  } = verificationStatus.verificationStatus.data;
+  const handleConfirmOtpChange = (otp: string) => {
+    setConfirmOtp(otp);
+    const result = otpSchema.safeParse(otp);
+    if (!result.success) {
+      setError(result.error.issues[0].message);
+    } else {
+      setError(null);
+    }
+  };
+
+  const onSubmit = async () => {
+    try {
+      const response = await createPin({
+        pin: otp,
+        confirmPin: confirmOtp,
+      });
+
+      if (response?.success) {
+        open(TRANSACTION_PIN_CREATED_WINDOW);
+        close(CONFIRM_TRANSACTION_PIN_WINDOW);
+        toast.success('Pin Created successfully');
+      } else {
+        console.log(response);
+        toast.error(response.errorName);
+      }
+    } catch (error) {
+      toast.error('Pin creation failed');
+      console.log('Error while creating password', error);
+    }
+  };
 
   return (
     <section>
@@ -88,11 +143,19 @@ export default function PersonalDashboard(verificationStatus: any) {
         <DashboardCount
           className="bg-primary-950 text-white"
           countHead="Available Balance"
-          countAmount="0.00"
+          countAmount={String(personalData.data.availableBalance) ?? '0.00'}
           headFontWeight="font-light"
         />
-        <DashboardCount className="bg-[#ffe1cc]" countHead="Rent Finance" countAmount="0.00" />
-        <DashboardCount className="bg-[#d3ffcc]" countHead="Pilla Savings" countAmount="0.00" />
+        <DashboardCount
+          className="bg-[#ffe1cc]"
+          countHead="Rent Finance"
+          countAmount={String(personalData.data.rentFinance) ?? '0.00'}
+        />
+        <DashboardCount
+          className="bg-[#d3ffcc]"
+          countHead="Pilla Savings"
+          countAmount={String(personalData.data.pillaSavings) ?? '0.00'}
+        />
       </div>
 
       {/* Actions Section */}
@@ -114,16 +177,19 @@ export default function PersonalDashboard(verificationStatus: any) {
 
         {/* Verification Status */}
         <div className="mt-6 grid grid-cols-2 gap-6">
-          {actionsNeededData.map((data) => (
-            // Sidebar open functionality
-            <Sidebar.Open opens={data.window} key={data.id}>
-              <ArrowedActionButton
-                img="/assets/personal-dashboard/home/caution-icon.svg"
-                btnName={data.actionName}
-                textColor="text-primary-800"
-              />
-            </Sidebar.Open>
-          ))}
+          {actionsNeededData.map(
+            (data) =>
+              // Sidebar open functionality
+              !data.isVerified && (
+                <Sidebar.Open opens={data.window} key={data.id}>
+                  <ArrowedActionButton
+                    img="/assets/personal-dashboard/home/caution-icon.svg"
+                    btnName={data.actionName}
+                    textColor="text-primary-800"
+                  />
+                </Sidebar.Open>
+              )
+          )}
 
           {/* Sidebar window functionality */}
 
@@ -149,7 +215,7 @@ export default function PersonalDashboard(verificationStatus: any) {
           </Sidebar.Window>
 
           <Sidebar.Window name={VERIFICATION_STATUS_WINDOW}>
-            <VerificationHome verificationStatus={verificationStatus} />
+            <VerificationHome personalData={personalData} />
           </Sidebar.Window>
 
           {/* Set Transaction Pin Window */}
@@ -159,7 +225,9 @@ export default function PersonalDashboard(verificationStatus: any) {
               name="pin"
               subHeading="Create your 4 digit passcode to authorize transaction"
               btnName="Proceed"
-              opens={CONFIRM_TRANSACTION_PIN_WINDOW} // Opens the confirm pin window
+              onChange={handleOtpChange}
+              error={error}
+              opens={CONFIRM_TRANSACTION_PIN_WINDOW} // Opens the next component
               closes={SET_TRANSACTION_PIN_WINDOW} // Closes itself
             />
           </Sidebar.Window>
@@ -171,8 +239,9 @@ export default function PersonalDashboard(verificationStatus: any) {
               name="confirmPin"
               subHeading="Confirm your 4 digit passcode to authorize transaction"
               btnName="Submit"
-              opens={TRANSACTION_PIN_CREATED_WINDOW} // Opens the next component
-              closes={CONFIRM_TRANSACTION_PIN_WINDOW} // Closes itself
+              onChange={handleConfirmOtpChange}
+              error={error}
+              onSubmit={onSubmit}
             />
           </Sidebar.Window>
 

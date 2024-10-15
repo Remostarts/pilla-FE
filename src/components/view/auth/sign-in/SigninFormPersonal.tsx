@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { toast } from 'sonner';
 
 import { Heading } from '../../dashboard/shared/Heading';
 
@@ -13,7 +14,6 @@ import { ReButton } from '@/components/re-ui/ReButton';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
 import { Form } from '@/components/ui/form';
-import { useToast } from '@/components/ui/use-toast';
 import { userLoginSchema } from '@/lib/validations/userAuth.validations';
 
 export type TInputs = z.infer<typeof userLoginSchema>;
@@ -26,7 +26,6 @@ const defaultValues = {
 
 export const SigninFormPersonal = () => {
   const router = useRouter();
-  const { toast } = useToast();
 
   const form = useForm<TInputs>({
     resolver: zodResolver(userLoginSchema),
@@ -41,24 +40,17 @@ export const SigninFormPersonal = () => {
     const result = await signIn('pilla-backend', { ...data, redirect: false });
 
     if (result?.ok && !result.error) {
-      toast({
-        title: 'User login successful',
-        description: 'Friday, February 10, 2023 at 5:57 PM',
-      });
+      toast.success('User login successful');
       router.refresh();
       router.push('/');
     }
-    if (result?.error) {
-      toast({
-        title: 'User login failed',
-        description: 'Friday, February 10, 2023 at 5:57 PM',
-      });
+    if (result?.status === 401) {
+      toast.error('Wrong credentials');
     }
-    console.log('🌼 🔥🔥 constonSubmit:SubmitHandler<TInputs>= 🔥🔥 result🌼', result);
   };
 
   return (
-    <>
+    <section>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="mt-3 space-y-4">
@@ -90,6 +82,6 @@ export const SigninFormPersonal = () => {
           </div>
         </form>
       </Form>
-    </>
+    </section>
   );
 };

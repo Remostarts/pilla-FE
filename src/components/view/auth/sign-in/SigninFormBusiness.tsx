@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { toast } from 'sonner';
 
 import { Heading } from '../../dashboard/shared/Heading';
 
@@ -26,7 +27,6 @@ const defaultValues = {
 export const SigninFormBusiness = () => {
   const pathname = usePathname();
   const role = pathname?.split('/')[2];
-  console.log('🌼 🔥🔥 SigninFormBusiness 🔥🔥 pathname🌼', role);
 
   const router = useRouter();
 
@@ -43,10 +43,13 @@ export const SigninFormBusiness = () => {
     const result = await signIn('pilla-backend', { ...data, role, redirect: false });
 
     if (result?.ok && !result.error) {
+      toast.success('User login successful');
       router.refresh();
       router.push('/');
     }
-    console.log('🌼 🔥🔥 constonSubmit:SubmitHandler<TInputs>= 🔥🔥 result🌼', result);
+    if (result?.error) {
+      toast.error('Wrong credentials');
+    }
   };
 
   return (
