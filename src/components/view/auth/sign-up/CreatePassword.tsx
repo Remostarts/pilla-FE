@@ -9,8 +9,8 @@ import { ReButton } from '@/components/re-ui/ReButton';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
 import { Form } from '@/components/ui/form';
 import { useOtp } from '@/context/OtpProvider';
-import { passwordSchema, TPassword } from '@/lib/validations/userAuth.validations';
 import { createPassword } from '@/lib/actions/auth/signup.actions';
+import { passwordSchema, TPassword } from '@/lib/validations/userAuth.validations';
 
 const defaultValues = {
   password: '',
@@ -43,6 +43,7 @@ export default function CreatePassword() {
 
       if (response?.success) {
         router.push('/sign-in');
+
         toast.success('Sign up success');
       } else {
         toast.error('Sign up failed');
