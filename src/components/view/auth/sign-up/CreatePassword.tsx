@@ -3,14 +3,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname, useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { ReButton } from '@/components/re-ui/ReButton';
 import RePassInput from '@/components/re-ui/re-input/RePassInput';
 import { Form } from '@/components/ui/form';
-import { toast } from '@/components/ui/use-toast';
 import { useOtp } from '@/context/OtpProvider';
-import { passwordSchema, TPassword } from '@/lib/validations/userAuth.validations';
 import { createPassword } from '@/lib/actions/auth/signup.actions';
+import { passwordSchema, TPassword } from '@/lib/validations/userAuth.validations';
 
 const defaultValues = {
   password: '',
@@ -31,6 +31,7 @@ export default function CreatePassword() {
   const { isSubmitting } = formState;
 
   const onSubmit: SubmitHandler<TPassword> = async (data) => {
+    console.log(data, otp, pathname, email);
     try {
       const response = await createPassword({
         email,
@@ -42,24 +43,13 @@ export default function CreatePassword() {
 
       if (response?.success) {
         router.push('/sign-in');
-        toast({
-          title: 'Success',
-          description: 'User created successfully!',
-        });
+
+        toast.success('Sign up success');
       } else {
-        toast({
-          title: 'Error',
-          description: response.error,
-          variant: 'destructive',
-        });
+        toast.error('Sign up failed');
       }
-    } catch (e: any) {
-      toast({
-        title: 'Error',
-        description: e.message,
-        variant: 'destructive',
-      });
-      console.log('Error while creating password', e);
+    } catch (error) {
+      toast.error('Sign up failed');
     }
   };
 

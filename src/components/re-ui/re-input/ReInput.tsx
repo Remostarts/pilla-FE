@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -20,7 +20,8 @@ type TReInputProps = {
   type?: string;
   autoComplete?: string;
   placeholder?: string;
-  control?: any;
+  defaultValue?: string;
+  className?: string;
 };
 const ReInput = ({
   name,
@@ -31,6 +32,8 @@ const ReInput = ({
   type = 'text',
   autoComplete = 'on',
   placeholder,
+  defaultValue,
+  className,
 }: TReInputProps) => {
   const { control } = useFormContext();
   return (
@@ -44,10 +47,11 @@ const ReInput = ({
             <FormControl>
               <div className="flex-center rounded border border-gray-300">
                 <Input
-                  className="border-none font-spaceGrotesk"
+                  className={`border-none font-spaceGrotesk ${className}`}
                   placeholder={placeholder}
                   type={type}
                   autoComplete={autoComplete}
+                  defaultValue={defaultValue}
                   {...field}
                 />
                 {suffix}

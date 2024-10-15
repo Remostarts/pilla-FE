@@ -1,12 +1,9 @@
-import { getServerSession } from 'next-auth';
-
 import PersonalDashboard from '@/components/view/dashboard/personal-dashboard/home';
-import { authOptions } from '@/lib/AuthOptions';
-import { getVerificationStatus } from '@/lib/actions/personal/verification.action';
+import { getPersonalDashboardData } from '@/lib/actions/personal/verification.action';
+import { DashboardResponseType } from '@/types/personalDashBHome.type';
 
 export default async function Page() {
-  const verificationStatus = await getVerificationStatus();
-  console.log('🌼 🔥🔥 Page 🔥🔥 verificationStatus🌼', verificationStatus);
+  const personalDashboardResponse: DashboardResponseType = await getPersonalDashboardData();
 
-  return <PersonalDashboard verificationStatus={verificationStatus} />;
+  return <PersonalDashboard personalData={personalDashboardResponse} />;
 }

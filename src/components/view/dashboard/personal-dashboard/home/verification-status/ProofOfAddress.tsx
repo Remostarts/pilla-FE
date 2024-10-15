@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 import SubHeading from '../../../shared/SubHeading';
 import { Heading } from '../../../shared/Heading';
@@ -13,7 +14,7 @@ import { PROOF_OF_ADDRESS_WINDOW, VERIFICATION_SUCCESS_WINDOW } from '@/constant
 import { Form } from '@/components/ui/form';
 import { proofOfAddressSchema, TProofOfAddress } from '@/lib/validations/personal/home.validation';
 import { proofOfAddressVerification } from '@/lib/actions/personal/verification.action';
-import { toast } from '@/components/ui/use-toast';
+import ReImageInput from '@/components/re-ui/re-image/ReImage';
 
 const defaultValues = {
   address: '',
@@ -45,26 +46,14 @@ export default function ProofOfAddress() {
       const response = await proofOfAddressVerification(data);
 
       if (response?.success) {
-        toast({
-          title: 'Success',
-          description: 'Proof of address submitted successfully!',
-        });
+        toast.success('Proof of address submitted successfully!');
         close(PROOF_OF_ADDRESS_WINDOW);
         open(VERIFICATION_SUCCESS_WINDOW);
       } else {
-        toast({
-          title: 'Error',
-          description: response.error,
-          variant: 'destructive',
-        });
+        toast.error('Proof of address submission failed');
       }
     } catch (error) {
-      console.error('Verification error:', error);
-      toast({
-        title: 'Proof of Address failed',
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
-        variant: 'destructive',
-      });
+      toast.error('Proof of address submission failed');
     }
   };
 
@@ -111,7 +100,7 @@ export default function ProofOfAddress() {
             ]}
           />
 
-          <ReInput label="Upload Image" name="image" placeholder="Select to Choose file" />
+          <ReImageInput name="image" label="Upload Image" />
         </div>
 
         <div className="mt-12">

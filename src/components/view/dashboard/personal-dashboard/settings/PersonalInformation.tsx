@@ -3,108 +3,126 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Plus, SquareCheckBig, SquareX } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { UserInfoResponse } from '@/types/settings.type';
+import { updateProfile } from '@/lib/actions/personal/settings.action';
 
 interface UserInfo {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  localGovern: string;
-  state: string;
+  phoneNumber: string | null;
+  address: string | null;
+  city: string | null;
+  localGovern: string | null;
+  state: string | null;
 }
 
 const initialUserInfo: UserInfo = {
-  firstName: 'Seun',
-  lastName: 'Ogunyemi',
-  email: 'seunogunyemi@gmail.com',
-  phoneNumber: '123-456-7890',
-  address: 'Lorem ipsum dolor sit amet consectetur.',
-  city: 'Lorem ipsum',
-  localGovern: 'Lorem ipsum',
-  state: 'Lorem ipsum',
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: null,
+  address: null,
+  city: null,
+  localGovern: null,
+  state: null,
 };
 
-// enter the fields you want to make readonly which will be not editable
 const readonlyFields: Array<keyof UserInfo> = ['email'];
 
-export default function PersonalInformation() {
-  // state for handling profile image
+export default function PersonalInformation({ personalInfo }: { personalInfo: UserInfoResponse }) {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
-  const [isEditing, setIsEditing] = useState<string | null>(null);
   const [editedUserInfo, setEditedUserInfo] = useState<UserInfo>(userInfo);
+  const [isEditing, setIsEditing] = useState<string | null>(null);
+  const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
-    // load the profile image URL from localstorage if available
     const storedImageUrl = localStorage.getItem('profileImage');
     if (storedImageUrl) {
       setProfileImage(storedImageUrl);
     }
 
-    // Load user info from localStorage
-    const storedUserInfo = localStorage.getItem('userInfo');
-    if (storedUserInfo) {
-      setUserInfo(JSON.parse(storedUserInfo));
-      setEditedUserInfo(JSON.parse(storedUserInfo));
+    if (personalInfo && personalInfo.data) {
+      const { firstName, lastName, email, phone } = personalInfo.data;
+      const newUserInfo = {
+        firstName,
+        lastName,
+        email,
+        phoneNumber: phone,
+        address: '',
+        city: '',
+        localGovern: '',
+        state: '',
+      };
+      setUserInfo(newUserInfo);
+      setEditedUserInfo(newUserInfo);
     }
-  }, []);
+  }, [personalInfo]);
 
-  // function to handle image upload and create the image url
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
-
-      // Save the image URL to localstorage
       localStorage.setItem('profileImage', imageUrl);
     }
   };
 
-  // function to handle edit
   const handleEdit = (field: keyof UserInfo) => {
-    // conditionally checking if the filed is present in the readonlyFields or not and if not then make it editable
     if (!readonlyFields.includes(field)) {
       setIsEditing(field);
     }
   };
 
-  // function to handle cancel
   const handleCancel = () => {
     setIsEditing(null);
     setEditedUserInfo(userInfo);
+    setHasChanges(false);
   };
 
-  // function to handle save
-  const handleSave = () => {
-    setUserInfo(editedUserInfo);
+  const handleSave = (field: keyof UserInfo) => {
+    setUserInfo((prev) => ({ ...prev, [field]: editedUserInfo[field] }));
     setIsEditing(null);
-
-    // saving the updated user info to localStorage temporarily
-    localStorage.setItem('userInfo', JSON.stringify(editedUserInfo));
+    setHasChanges(true);
   };
 
-  // function to handle change in input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof UserInfo) => {
     setEditedUserInfo({ ...editedUserInfo, [field]: e.target.value });
   };
 
-  // function to render editable field
-  const renderEditableField = (label: string, value: string, field: keyof UserInfo) => (
+  const handleSubmit = async () => {
+    try {
+      const response = await updateProfile(editedUserInfo);
+      if (response?.success) {
+        toast.success('Profile updated successfully!');
+        setHasChanges(false);
+      } else {
+        toast.error(response?.error || 'Profile update failed');
+      }
+    } catch (error) {
+      toast.error('Profile update failed');
+    }
+  };
+
+  const renderEditableField = (label: string, field: keyof UserInfo) => (
     <div className="ml-4 grid grid-cols-2 items-center">
       <p className="ml-4 font-spaceGrotesk text-gray-600">{label}</p>
       {isEditing === field ? (
         <div className="relative flex items-center gap-2">
           <input
             className="w-full border-b-2 border-primary-500 pb-2 font-inter font-medium focus:outline-none lg:-ml-44"
-            value={editedUserInfo[field]}
+            value={editedUserInfo[field] || ''}
             onChange={(e) => handleChange(e, field)}
           />
-          <SquareCheckBig className="cursor-pointer text-green-500" onClick={handleSave} />
+          <SquareCheckBig
+            className="cursor-pointer text-green-500"
+            onClick={() => handleSave(field)}
+          />
           <SquareX className="cursor-pointer text-red-500" onClick={handleCancel} />
         </div>
       ) : (
@@ -112,7 +130,7 @@ export default function PersonalInformation() {
           className={`cursor-pointer text-start font-inter font-medium lg:-ml-44 ${readonlyFields.includes(field) ? 'cursor-not-allowed text-gray-400' : ''}`}
           onClick={() => handleEdit(field)}
         >
-          {value}
+          {userInfo[field] || 'Not provided'}
         </button>
       )}
       <Separator className="col-span-2 my-3 bg-gray-200" />
@@ -123,7 +141,6 @@ export default function PersonalInformation() {
     <div className="size-full rounded-lg bg-white p-6 lg:max-w-7xl">
       <h2 className="mb-6 font-spaceGrotesk text-xl font-bold">Personal Information</h2>
       <div className="mb-10 flex items-center">
-        {/* Profile Image */}
         <div className="relative ml-3 flex size-16 items-center justify-center rounded-full bg-gray-200">
           <label htmlFor="profileImageInput" className="cursor-pointer">
             {profileImage ? (
@@ -157,19 +174,25 @@ export default function PersonalInformation() {
         </div>
       </div>
 
-      {/* Personal Information section*/}
       <div className="flex flex-col gap-4">
-        {renderEditableField('First Name', userInfo.firstName, 'firstName')}
-        {renderEditableField('Last Name', userInfo.lastName, 'lastName')}
-        {renderEditableField('Email Address', userInfo.email, 'email')}
-        {renderEditableField('Phone Number', userInfo.phoneNumber, 'phoneNumber')}
-        {renderEditableField('Address', userInfo.address, 'address')}
-        {renderEditableField('City / Town', userInfo.city, 'city')}
-        {renderEditableField('Local Govern.', userInfo.localGovern, 'localGovern')}
-        {renderEditableField('State', userInfo.state, 'state')}
+        {renderEditableField('First Name', 'firstName')}
+        {renderEditableField('Last Name', 'lastName')}
+        {renderEditableField('Email Address', 'email')}
+        {renderEditableField('Phone Number', 'phoneNumber')}
+        {renderEditableField('Address', 'address')}
+        {renderEditableField('City / Town', 'city')}
+        {renderEditableField('Local Govern.', 'localGovern')}
+        {renderEditableField('State', 'state')}
       </div>
 
-      {/* Contact us button link*/}
+      {hasChanges && (
+        <div className="mt-6 flex justify-end">
+          <Button onClick={handleSubmit} className="bg-primary-500 text-white">
+            Save Changes
+          </Button>
+        </div>
+      )}
+
       <div className="mt-6">
         <p className="text-center text-sm text-gray-600">
           To make any change to your personal information, please{' '}
