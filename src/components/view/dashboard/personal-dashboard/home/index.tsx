@@ -1,6 +1,6 @@
 'use client';
+import React, { useState, useEffect } from 'react';
 import { z } from 'zod';
-import { useState } from 'react';
 import { toast } from 'sonner';
 
 import VerificationHome from './verification-status';
@@ -77,21 +77,35 @@ export default function PersonalDashboard({ personalData }: PersonalDashboardPro
   const [confirmOtp, setConfirmOtp] = useState('');
   const [error, setError] = useState<string | null>(null);
   const { open, close } = useSidebar();
+  const [isVerificationComplete, setIsVerificationComplete] = useState(false);
+  const [isPinSet, setIsPinSet] = useState(false);
 
   const { transactionPin } = personalData.data;
+
+  const { bankVerification, identityVerification, proofOfAddress, nextOfKin } = personalData.data;
+
+  useEffect(() => {
+    // Check if all the actions are verified
+    if (bankVerification && identityVerification && proofOfAddress && nextOfKin) {
+      setIsVerificationComplete(true);
+    }
+
+    // Check if transaction pin is set
+    setIsPinSet(!!transactionPin);
+  }, [transactionPin, bankVerification, identityVerification, proofOfAddress, nextOfKin]);
 
   const actionsNeededData: ActionsNeededDataType[] = [
     {
       id: 1,
       actionName: 'Verification Status',
       window: 'verification-status-window',
-      isVerified: false,
+      isVerified: isVerificationComplete,
     },
     {
       id: 2,
       actionName: 'Set Transaction Pin',
       window: 'set-transaction-pin-window',
-      isVerified: transactionPin,
+      isVerified: isPinSet,
     },
   ];
 
@@ -123,6 +137,7 @@ export default function PersonalDashboard({ personalData }: PersonalDashboardPro
       });
 
       if (response?.success) {
+        setIsPinSet(true);
         open(TRANSACTION_PIN_CREATED_WINDOW);
         close(CONFIRM_TRANSACTION_PIN_WINDOW);
         toast.success('Pin Created successfully');
@@ -135,6 +150,8 @@ export default function PersonalDashboard({ personalData }: PersonalDashboardPro
       console.log('Error while creating password', error);
     }
   };
+
+  const isActionSectionEnabled = isVerificationComplete && isPinSet;
 
   return (
     <section>
@@ -165,100 +182,109 @@ export default function PersonalDashboard({ personalData }: PersonalDashboardPro
         <div className="mt-6 grid grid-cols-4 gap-6">
           {actionsData.map((data) => (
             <Sidebar.Open opens={data.window} key={data.id}>
-              <ActionBtn actionName={data.actionName} actionImg={data.actionImg} />
+              <ActionBtn
+                actionName={data.actionName}
+                actionImg={data.actionImg}
+                disabled={!isActionSectionEnabled}
+                className={isActionSectionEnabled ? 'border-gray-200 bg-white' : 'bg-primary-50'}
+              />
             </Sidebar.Open>
           ))}
         </div>
+        {!isActionSectionEnabled && (
+          <p className="mt-4 text-red-500">
+            Please complete all actions in the &quot;Actions Needed&quot; section to enable these
+            actions.
+          </p>
+        )}
       </div>
 
       {/* Actions Needed Section */}
-      <div className="mt-16">
-        <Heading heading="Actions Needed" />
+      {!isActionSectionEnabled ? (
+        <div className="mt-16">
+          <Heading heading="Actions Needed" />
 
-        {/* Verification Status */}
-        <div className="mt-6 grid grid-cols-2 gap-6">
-          {actionsNeededData.map(
-            (data) =>
-              // Sidebar open functionality
-              !data.isVerified && (
-                <Sidebar.Open opens={data.window} key={data.id}>
-                  <ArrowedActionButton
-                    img="/assets/personal-dashboard/home/caution-icon.svg"
-                    btnName={data.actionName}
-                    textColor="text-primary-800"
-                  />
-                </Sidebar.Open>
-              )
-          )}
-
-          {/* Sidebar window functionality */}
-
-          {/* Add Money and Card Window */}
-          <Sidebar.Window name={ADD_CARD_WINDOW}>
-            <AddCard />
-          </Sidebar.Window>
-
-          <Sidebar.Window name={ADD_MONEY_WINDOW}>
-            <AddMoney />
-          </Sidebar.Window>
-
-          <Sidebar.Window name={SEND_MONEY_WINDOW}>
-            <SendMoneyHome />
-          </Sidebar.Window>
-
-          <Sidebar.Window name={PAY_RENT_WINDOW}>
-            <PayRent />
-          </Sidebar.Window>
-
-          <Sidebar.Window name={UTILITY_BILL_WINDOW}>
-            <UtilityBillHome />
-          </Sidebar.Window>
-
-          <Sidebar.Window name={VERIFICATION_STATUS_WINDOW}>
-            <VerificationHome personalData={personalData} />
-          </Sidebar.Window>
-
-          {/* Set Transaction Pin Window */}
-          <Sidebar.Window name={SET_TRANSACTION_PIN_WINDOW}>
-            <Pin
-              heading="Create PIN"
-              name="pin"
-              subHeading="Create your 4 digit passcode to authorize transaction"
-              btnName="Proceed"
-              onChange={handleOtpChange}
-              error={error}
-              opens={CONFIRM_TRANSACTION_PIN_WINDOW} // Opens the next component
-              closes={SET_TRANSACTION_PIN_WINDOW} // Closes itself
-            />
-          </Sidebar.Window>
-
-          {/* Confirm Transaction Pin Window */}
-          <Sidebar.Window name={CONFIRM_TRANSACTION_PIN_WINDOW}>
-            <Pin
-              heading="Confirm PIN"
-              name="confirmPin"
-              subHeading="Confirm your 4 digit passcode to authorize transaction"
-              btnName="Submit"
-              onChange={handleConfirmOtpChange}
-              error={error}
-              onSubmit={onSubmit}
-            />
-          </Sidebar.Window>
-
-          {/* Transaction Pin Created Success Window */}
-          <Sidebar.Window name={TRANSACTION_PIN_CREATED_WINDOW}>
-            <SuccessMessage>
-              <SuccessMessage.Title>PIN Created</SuccessMessage.Title>
-              <SuccessMessage.Content>
-                <SuccessMessage.Description>You are secured</SuccessMessage.Description>
-              </SuccessMessage.Content>
-              <SuccessMessage.Button closes={TRANSACTION_PIN_CREATED_WINDOW}>
-                Done
-              </SuccessMessage.Button>
-            </SuccessMessage>
-          </Sidebar.Window>
+          <div className="mt-6 grid grid-cols-2 gap-6">
+            {actionsNeededData.map((data) => (
+              <Sidebar.Open opens={data.window} key={data.id}>
+                <ArrowedActionButton
+                  img={
+                    data.isVerified
+                      ? '/assets/personal-dashboard/home/success-tick.svg'
+                      : '/assets/personal-dashboard/home/caution-icon.svg'
+                  }
+                  btnName={data.actionName}
+                  textColor={data.isVerified ? 'text-green-500' : 'text-primary-800'}
+                  disabled={data.isVerified}
+                  className={data.isVerified ? 'bg-green-50' : 'bg-primary-50'}
+                />
+              </Sidebar.Open>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : null}
+
+      {/* Sidebar Windows */}
+      <Sidebar.Window name={ADD_CARD_WINDOW}>
+        <AddCard />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={ADD_MONEY_WINDOW}>
+        <AddMoney />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={SEND_MONEY_WINDOW}>
+        <SendMoneyHome />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={PAY_RENT_WINDOW}>
+        <PayRent />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={UTILITY_BILL_WINDOW}>
+        <UtilityBillHome />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={VERIFICATION_STATUS_WINDOW}>
+        <VerificationHome personalData={personalData} />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={SET_TRANSACTION_PIN_WINDOW}>
+        <Pin
+          heading="Create PIN"
+          name="pin"
+          subHeading="Create your 4 digit passcode to authorize transaction"
+          btnName="Proceed"
+          onChange={handleOtpChange}
+          error={error}
+          opens={CONFIRM_TRANSACTION_PIN_WINDOW}
+          closes={SET_TRANSACTION_PIN_WINDOW}
+        />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={CONFIRM_TRANSACTION_PIN_WINDOW}>
+        <Pin
+          heading="Confirm PIN"
+          name="confirmPin"
+          subHeading="Confirm your 4 digit passcode to authorize transaction"
+          btnName="Submit"
+          onChange={handleConfirmOtpChange}
+          error={error}
+          onSubmit={onSubmit}
+        />
+      </Sidebar.Window>
+
+      <Sidebar.Window name={TRANSACTION_PIN_CREATED_WINDOW}>
+        <SuccessMessage>
+          <SuccessMessage.Title>PIN Created</SuccessMessage.Title>
+          <SuccessMessage.Content>
+            <SuccessMessage.Description>You are secured</SuccessMessage.Description>
+          </SuccessMessage.Content>
+          <SuccessMessage.Button closes={TRANSACTION_PIN_CREATED_WINDOW}>
+            Done
+          </SuccessMessage.Button>
+        </SuccessMessage>
+      </Sidebar.Window>
     </section>
   );
 }

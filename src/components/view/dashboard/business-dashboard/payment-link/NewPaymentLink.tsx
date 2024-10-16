@@ -8,10 +8,7 @@ import { Heading } from '../../shared/Heading';
 import { useSidebar } from '../../shared/SideBar';
 import SubHeading from '../../shared/SubHeading';
 
-import { Textarea } from '@/components/ui/textarea';
 import { ReButton } from '@/components/re-ui/ReButton';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { NewPayment } from '@/types/SharedPaymentLinkTypes';
 import {
   ADD_NEW_PAYMENT_LINK_WINDOW,

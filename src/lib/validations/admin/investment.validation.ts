@@ -3,7 +3,7 @@ import { z } from 'zod';
 // create investment schema
 export const createInvestmentSchema = z.object({
   accountType: z.string().min(1, 'Account type is required'),
-  uploadBanner: z.any().optional(),
+  uploadBanner: z.string().min(1, 'Upload banner is required'),
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
   unitPrice: z.string().min(1, 'Unit price is required'),
@@ -15,7 +15,7 @@ export type TCreateInvestment = z.infer<typeof createInvestmentSchema>;
 
 // edit investment schema
 export const editInvestmentSchema = z.object({
-  uploadBanner: z.any().optional(),
+  uploadBanner: z.string().min(1, 'Upload banner is required'),
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
   unitPrice: z.string().min(1, 'Unit price is required'),

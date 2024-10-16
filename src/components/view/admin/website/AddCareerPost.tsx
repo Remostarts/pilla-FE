@@ -1,22 +1,21 @@
-import { useForm, useFormContext } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Heading } from '../../dashboard/shared/Heading';
-import FileUploadField from '../../dashboard/shared/FileUploadField';
 
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReTextarea } from '@/components/re-ui/ReTextarea';
 import { ReButton } from '@/components/re-ui/ReButton';
 import { Form } from '@/components/ui/form';
 import { careerPostSchema, TCareerPost } from '@/lib/validations/admin/website.validation';
-import { Label } from '@/components/ui/label';
 
 const defaultValues = {
   tag: '',
   title: '',
   content: '',
-  image: null,
+  image: '',
   remote: '',
   employmentType: '',
 };
@@ -29,8 +28,6 @@ export default function AddCareerPost() {
   });
 
   const { handleSubmit } = form;
-
-  const { control } = useFormContext();
 
   const onSubmit = (data: TCareerPost) => {
     console.log('form data:', data);
@@ -62,8 +59,7 @@ export default function AddCareerPost() {
                 <ReTextarea name="content" label="Content *" placeholder="Enter content" />
               </div>
               <div className="space-y-2">
-                <Label>Image *</Label>
-                <FileUploadField name="image" placeholder="Upload image" control={control} />
+                <ReFileUploadField name="image" placeholder="Upload image" label="Upload *" />
               </div>
               <div className="space-y-2">
                 <ReSelect

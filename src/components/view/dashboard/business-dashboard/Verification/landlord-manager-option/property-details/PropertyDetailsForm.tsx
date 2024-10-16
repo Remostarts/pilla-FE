@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
 
 import { Heading } from '../../../../shared/Heading';
 import SubHeading from '../../../../shared/SubHeading';
@@ -12,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { nigeriaState } from '@/lib/data/nigeriaStates';
 import ReSelect from '@/components/re-ui/ReSelect';
-import FileUploadField from '@/components/view/dashboard/shared/FileUploadField';
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import { Label } from '@/components/ui/label';
 
 // defining the property options array
@@ -39,8 +38,6 @@ export default function PropertyDetailsForm() {
   const removeProperty = (index: number) => {
     setProperties(properties.filter((_, i) => i !== index));
   };
-
-  const { control } = useFormContext();
 
   return (
     <div className="mt-10">
@@ -91,9 +88,8 @@ export default function PropertyDetailsForm() {
 
             <div className="space-y-2">
               <Label className=" font-spaceGrotesk">Upload C of O</Label>
-              <FileUploadField
+              <ReFileUploadField
                 name={`propertyDetails.${index}.CofO`}
-                control={control}
                 label="Upload C of O"
                 placeholder="Upload C of O"
               />

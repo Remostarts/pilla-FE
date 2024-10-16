@@ -101,6 +101,7 @@ export default function ProofOfAddress() {
           />
 
           <ReImageInput name="image" label="Upload Image" />
+          {/* <ReInput name="image" label="Upload Image" /> */}
         </div>
 
         <div className="mt-12">
