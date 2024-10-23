@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Sidebar } from '../../../shared/SideBar';
-import FileUploadField from '../../../shared/FileUploadField';
 
 import AddDirector from './AddDirector';
 
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import { Label } from '@/components/ui/label';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReTextarea } from '@/components/re-ui/ReTextarea';
@@ -37,10 +37,10 @@ const defaultValues = {
   tin: '',
   revenue: '',
   projects: '',
-  certificateofIncorporation: null,
-  memorandumAndArticlesOfAssociationFormC07: null,
-  buildersProfessionalLicense: null,
-  boardResolution: null,
+  certificateOfIncorporation: '',
+  memorandumAndArticlesOfAssociationFormC07: '',
+  buildersProfessionalLicense: '',
+  boardResolution: '',
 };
 
 export default function BusinessInformationForm({
@@ -56,7 +56,7 @@ export default function BusinessInformationForm({
     mode: 'onChange',
   });
 
-  const { handleSubmit, control } = form;
+  const { handleSubmit } = form;
 
   const onSubmit = (data: TConstructionBusinessInformation) => {
     // console.log('Form submitted with data:', data);
@@ -100,28 +100,24 @@ export default function BusinessInformationForm({
         <div>
           <Label className="mb-3 block text-sm font-medium text-gray-700">Upload Documents *</Label>
           <div className="space-y-2">
-            <FileUploadField
-              name="certificateofIncorporation"
+            <ReFileUploadField
+              name="certificateOfIncorporation"
               label="Certificate of Incorporation"
               placeholder="Certificate of Incorporation"
-              control={control}
             />
-            <FileUploadField
+            <ReFileUploadField
               name="memorandumAndArticlesOfAssociationFormC07"
               label="Memorandum And Articles Of Association Form C07"
-              control={control}
               placeholder="Memorandum And Articles Of Association Form C07"
             />
-            <FileUploadField
+            <ReFileUploadField
               name="buildersProfessionalLicense"
               label="Builder's Professional License"
-              control={control}
               placeholder="Builder's Professional License"
             />
-            <FileUploadField
+            <ReFileUploadField
               name="boardResolution"
               label="Board Resolution"
-              control={control}
               placeholder="Board Resolution"
             />
           </div>

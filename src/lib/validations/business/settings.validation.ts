@@ -40,10 +40,12 @@ export const constructionBusinessInformationSchema = z.object({
   tin: z.string().min(1, 'TIN name is required'),
   revenue: z.string().min(1, 'Revenue address is required'),
   projects: z.string().min(1, 'Projects are required'),
-  certificateOfIncorporation: z.any().optional(),
-  memorandumAndArticlesOfAssociationFormC07: z.any().optional(),
-  buildersProfessionalLicense: z.any().optional(),
-  boardResolution: z.any().optional(),
+  certificateOfIncorporation: z.string().min(1, 'Certificate of Incorporation is required'),
+  memorandumAndArticlesOfAssociationFormC07: z
+    .string()
+    .min(1, 'Memorandum and Articles of Association Form C07 is required'),
+  buildersProfessionalLicense: z.string().min(1, 'Builders Professional License is required'),
+  boardResolution: z.string().min(1, 'Board Resolution is required'),
 });
 export type TConstructionBusinessInformation = z.infer<
   typeof constructionBusinessInformationSchema
@@ -70,6 +72,7 @@ export const constructionStageDetailsSchema = z.object({
   bankName: z.string().min(1, 'Bank Name is required'),
   bankAccountNumber: z.string().min(1, 'Bank Account Number is required'),
   invoice: z.any().optional(),
+  uploadBanner: z.any().optional(),
 });
 export type TConstructionStageDetails = z.infer<typeof constructionStageDetailsSchema>;
 
@@ -81,7 +84,7 @@ export const loanDetailsSchema = z.object({
   loanAmountTenure: z.string().min(1, 'Loan Amount Tenure is required'),
   collateral: z.string().min(1, 'Collateral is required'),
   estimateValueOfCollateral: z.string().min(1, 'Estimate Value of Collateral is required'),
-  collateralPages: z.any().optional(),
+  collateralPages: z.string().min(1, 'Collateral Pages is required'),
 });
 export type TLoanDetails = z.infer<typeof loanDetailsSchema>;
 

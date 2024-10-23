@@ -1,10 +1,9 @@
-import { useForm, useFormContext } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Heading } from '../../dashboard/shared/Heading';
-import FileUploadField from '../../dashboard/shared/FileUploadField';
 
-import { Label } from '@/components/ui/label';
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReTextarea } from '@/components/re-ui/ReTextarea';
@@ -17,15 +16,13 @@ import {
 
 const defaultValues = {
   period: '',
-  uploadBanner: null,
+  uploadBanner: '',
   title: '',
   description: '',
   unitPrice: '',
   interest: '',
 };
 export default function EditInvestment() {
-  const { control } = useFormContext();
-
   const form = useForm<TEditInvestment>({
     resolver: zodResolver(editInvestmentSchema),
     defaultValues,
@@ -47,8 +44,11 @@ export default function EditInvestment() {
           </div>
           <div className="space-y-4">
             <div>
-              <Label>Upload Banner</Label>
-              <FileUploadField name="uploadBanner" label="Upload Banner" control={control} />
+              <ReFileUploadField
+                name="uploadBanner"
+                label="Upload Banner"
+                placeholder="Upload Banner"
+              />
             </div>
             <div>
               <ReInput name="title" label="Title" placeholder="Enter Title" />
