@@ -154,9 +154,9 @@ export default function BusinessDashboard() {
             <UtilityBillHome />
           </Sidebar.Window>
 
-          <Sidebar.Window name={VERIFICATION_STATUS_WINDOW}>
-            <VerificationHome />
-          </Sidebar.Window>
+          {/* <Sidebar.Window name={VERIFICATION_STATUS_WINDOW}>
+            <VerificationHome  personalData={personalData}/>
+          </Sidebar.Window> */}
 
           {/* Set Transaction Pin Window */}
           <Sidebar.Window name={SET_TRANSACTION_PIN_WINDOW}>

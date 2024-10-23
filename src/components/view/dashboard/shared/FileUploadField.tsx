@@ -13,10 +13,11 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { TConstructionStageDetails } from '@/lib/validations/business/settings.validation';
 
 interface FileUploadComponentProps {
-  name: string;
-  control: Control;
+  name: any;
+  control: Control<TConstructionStageDetails> | any;
   maxSize?: number;
   allowedTypes?: string[];
   placeholder?: string;

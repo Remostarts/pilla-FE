@@ -25,7 +25,7 @@ const defaultValues = {
   period: '',
 };
 export default function CreateInvestment() {
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
 
   const form = useForm<TCreateInvestment>({
     resolver: zodResolver(createInvestmentSchema),
@@ -33,7 +33,7 @@ export default function CreateInvestment() {
     mode: 'onChange',
   });
 
-  const { handleSubmit } = form;
+  const { handleSubmit, control } = form;
 
   const onSubmit = (data: TCreateInvestment) => {
     console.log('form data:', data);
