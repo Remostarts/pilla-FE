@@ -29,7 +29,8 @@ export default function SettingsContent() {
 
       case 'personal-information':
       default:
-        return <PersonalInformation />;
+        return <div>no info</div>;
+      // return <PersonalInformation />;
     }
   };
 

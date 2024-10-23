@@ -1,14 +1,15 @@
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, useFormContext } from 'react-hook-form';
 
+import FileUploadField from '../../dashboard/shared/FileUploadField';
 import { Heading } from '../../dashboard/shared/Heading';
 
-import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
-import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
-import { ReTextarea } from '@/components/re-ui/ReTextarea';
 import { ReButton } from '@/components/re-ui/ReButton';
+import ReSelect from '@/components/re-ui/ReSelect';
+import { ReTextarea } from '@/components/re-ui/ReTextarea';
 import { Form } from '@/components/ui/form';
+import { Label } from '@/components/ui/label';
 import {
   createInvestmentSchema,
   TCreateInvestment,
@@ -23,7 +24,10 @@ const defaultValues = {
   interest: '',
   period: '',
 };
+
 export default function CreateInvestment() {
+  const { control } = useFormContext();
+
   const form = useForm<TCreateInvestment>({
     resolver: zodResolver(createInvestmentSchema),
     defaultValues,
@@ -56,11 +60,8 @@ export default function CreateInvestment() {
               />
             </div>
             <div>
-              <ReFileUploadField
-                name="uploadBanner"
-                label="Upload Banner"
-                placeholder="Upload Banner"
-              />
+              <Label>Upload Banner</Label>
+              <FileUploadField name="uploadBanner" label="Upload Banner" control={control} />
             </div>
             <div>
               <ReInput name="title" label="Title" placeholder="Enter Title" />
