@@ -48,7 +48,7 @@ export const propertyDetailsSchema = z.object({
         address: z.string({ required_error: 'Address is required' }).min(1, 'Address is required'),
         city: z.string({ required_error: 'City is required' }).min(1, 'City is required'),
         state: z.string({ required_error: 'State is required' }).min(1, 'State is required'),
-        CofO: z.any().optional(),
+        CofO: z.string().min(1, 'CofO is required'),
         typeOfProperty: z
           .string({ required_error: 'Type of property is required' })
           .min(1, 'Type of property is required'),
@@ -141,7 +141,7 @@ export const contactSchema = z.object({
     address: z.string({ required_error: 'Address is required' }).min(1, 'Address is required'),
     city: z.string({ required_error: 'City is required' }).min(1, 'City is required'),
     state: z.string({ required_error: 'State is required' }).min(1, 'State is required'),
-    proofOfAddress: z.any().optional(),
+    proofOfAddress: z.string().min(1, 'Proof of Address is required'),
   }),
 });
 

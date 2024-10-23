@@ -1,15 +1,15 @@
-import { useForm, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, useFormContext } from 'react-hook-form';
 
-import { Heading } from '../../dashboard/shared/Heading';
 import FileUploadField from '../../dashboard/shared/FileUploadField';
+import { Heading } from '../../dashboard/shared/Heading';
 
-import { Label } from '@/components/ui/label';
-import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
-import { ReTextarea } from '@/components/re-ui/ReTextarea';
 import { ReButton } from '@/components/re-ui/ReButton';
+import ReSelect from '@/components/re-ui/ReSelect';
+import { ReTextarea } from '@/components/re-ui/ReTextarea';
 import { Form } from '@/components/ui/form';
+import { Label } from '@/components/ui/label';
 import {
   createInvestmentSchema,
   TCreateInvestment,
@@ -17,15 +17,16 @@ import {
 
 const defaultValues = {
   accountType: '',
-  uploadBanner: null,
+  uploadBanner: '',
   title: '',
   description: '',
   unitPrice: '',
   interest: '',
   period: '',
 };
+
 export default function CreateInvestment() {
-  // const { control } = useFormContext();
+  const { control } = useFormContext();
 
   const form = useForm<TCreateInvestment>({
     resolver: zodResolver(createInvestmentSchema),
@@ -33,7 +34,7 @@ export default function CreateInvestment() {
     mode: 'onChange',
   });
 
-  const { handleSubmit, control } = form;
+  const { handleSubmit } = form;
 
   const onSubmit = (data: TCreateInvestment) => {
     console.log('form data:', data);

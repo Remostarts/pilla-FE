@@ -1,11 +1,9 @@
-import { Upload } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Heading } from '../../shared/Heading';
-import FileUploadField from '../../shared/FileUploadField';
 
-import { Label } from '@/components/ui/label';
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { Form } from '@/components/ui/form';
@@ -61,7 +59,7 @@ const defaultValues = {
   emailAddress: '',
   bankName: '',
   bankAccountNumber: '',
-  invoice: null,
+  invoice: '',
 };
 
 export default function ConstructionStageDetails({
@@ -75,7 +73,7 @@ export default function ConstructionStageDetails({
     mode: 'onChange',
   });
 
-  const { handleSubmit, control } = form;
+  const { handleSubmit } = form;
 
   const onSubmit = (data: TConstructionStageDetails) => {
     dispatch(updateConstructionStageDetails(data));
@@ -117,12 +115,7 @@ export default function ConstructionStageDetails({
 
         {/* Upload Building Stage Photos */}
         <div>
-          <FileUploadField
-            name="invoice"
-            placeholder="Upload Invoice"
-            label="Upload Invoice"
-            control={control}
-          />
+          <ReFileUploadField name="invoice" placeholder="Upload Invoice" label="Upload Invoice" />
         </div>
 
         {/* Supplier details */}
