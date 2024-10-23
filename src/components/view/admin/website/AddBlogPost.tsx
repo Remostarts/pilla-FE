@@ -1,22 +1,21 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, useFormContext } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { Heading } from '../../dashboard/shared/Heading';
-import FileUploadField from '../../dashboard/shared/FileUploadField';
 
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import ReSelect from '@/components/re-ui/ReSelect';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import { ReTextarea } from '@/components/re-ui/ReTextarea';
 import { Form } from '@/components/ui/form';
 import { blogPostSchema, TBlogPost } from '@/lib/validations/admin/website.validation';
 import { ReButton } from '@/components/re-ui/ReButton';
-import { Label } from '@/components/ui/label';
 
 const defaultValues = {
   tag: '',
   title: '',
   description: '',
-  image: null,
+  image: '',
 };
 
 export default function AddBlogPost() {
@@ -27,8 +26,6 @@ export default function AddBlogPost() {
   });
 
   const { handleSubmit } = form;
-
-  const { control } = useFormContext();
 
   const onSubmit = (data: TBlogPost) => {
     console.log('form data:', data);
@@ -59,8 +56,7 @@ export default function AddBlogPost() {
                 <ReTextarea name="description" label="Description *" placeholder="Description" />
               </div>
               <div className="space-y-2">
-                <Label>Image *</Label>
-                <FileUploadField name="image" placeholder="Image" control={control} />
+                <ReFileUploadField name="image" placeholder="Image" label="Image" />
               </div>
               <ReButton type="submit" className="w-full text-lg text-white">
                 Submit

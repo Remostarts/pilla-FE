@@ -1,17 +1,14 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 
 import { Heading } from '../../shared/Heading';
 import SubHeading from '../../shared/SubHeading';
-import FileUploadField from '../../shared/FileUploadField';
 
-import { Label } from '@/components/ui/label';
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
 import { nigeriaState } from '@/lib/data/nigeriaStates';
 
 export default function ContactForm() {
-  const { control } = useFormContext();
   return (
     <div className="mx-auto w-full p-6">
       <Heading heading="Business support details" className="mt-8 text-2xl font-bold" />
@@ -91,12 +88,9 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <Label htmlFor="proof-of-address">Upload Proof of Address</Label>
-
-            <FileUploadField
+            <ReFileUploadField
               name="contact.proofOfAddress"
               label="Proof of Address"
-              control={control}
               placeholder="Upload proof of address"
             />
           </div>

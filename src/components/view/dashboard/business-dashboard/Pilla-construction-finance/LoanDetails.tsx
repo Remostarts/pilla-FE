@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import FileUploadField from '../../shared/FileUploadField';
-
+import ReFileUploadField from '@/components/re-ui/ReFileUploadField';
 import ReInput from '@/components/re-ui/re-input/ReInput';
 import ReSelect from '@/components/re-ui/ReSelect';
 import { ReButton } from '@/components/re-ui/ReButton';
@@ -36,7 +35,7 @@ const defaultValues = {
   loanAmountTenure: '',
   collateral: '',
   estimateValueOfCollateral: '',
-  collateralPages: null,
+  collateralPages: '',
 };
 
 export default function LoanDetails({ nextStep, dispatch, updateLoanDetails }: LoanDetailsProps) {
@@ -46,7 +45,7 @@ export default function LoanDetails({ nextStep, dispatch, updateLoanDetails }: L
     defaultValues,
   });
 
-  const { handleSubmit, control } = form;
+  const { handleSubmit } = form;
 
   const onSubmit = (data: TLoanDetails) => {
     dispatch(updateLoanDetails(data));
@@ -116,11 +115,10 @@ export default function LoanDetails({ nextStep, dispatch, updateLoanDetails }: L
 
         {/* Upload Collateral pages */}
         <div>
-          <FileUploadField
+          <ReFileUploadField
             name="collateralPages"
             placeholder="Upload Collateral pages"
             label="Upload Collateral pages"
-            control={control}
           />
         </div>
 
