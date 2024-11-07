@@ -71,7 +71,8 @@ export const constructionStageDetailsSchema = z.object({
   emailAddress: z.string().min(1, 'Email Address is required').email('Enter valid email address'),
   bankName: z.string().min(1, 'Bank Name is required'),
   bankAccountNumber: z.string().min(1, 'Bank Account Number is required'),
-  invoice: z.string().min(1, 'Invoice is required'),
+  invoice: z.any().optional(),
+  uploadBanner: z.any().optional(),
 });
 export type TConstructionStageDetails = z.infer<typeof constructionStageDetailsSchema>;
 
