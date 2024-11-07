@@ -42,6 +42,8 @@ export default function ProofOfAddress() {
   // };
 
   const onSubmit: SubmitHandler<TProofOfAddress> = async (data: TProofOfAddress) => {
+    console.log('🌼 🔥🔥 constonSubmit:SubmitHandler<TProofOfAddress>= 🔥🔥 data🌼', data);
+
     try {
       const response = await proofOfAddressVerification(data);
 
@@ -100,8 +102,8 @@ export default function ProofOfAddress() {
             ]}
           />
 
-          <ReImageInput name="image" label="Upload Image" />
-          {/* <ReInput name="image" label="Upload Image" /> */}
+          {/* <ReImageInput name="image" label="Upload Image" /> */}
+          <ReInput name="image" label="Upload Image" />
         </div>
 
         <div className="mt-12">
