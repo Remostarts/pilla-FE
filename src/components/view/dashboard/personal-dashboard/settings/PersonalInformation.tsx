@@ -32,7 +32,7 @@ const initialUserInfo: UserInfo = {
   state: null,
 };
 
-const readonlyFields: Array<keyof UserInfo> = ['email'];
+const readonlyFields: Array<keyof UserInfo> = ['email', 'phoneNumber'];
 
 export default function PersonalInformation({ personalInfo }: { personalInfo: UserInfoResponse }) {
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -48,16 +48,18 @@ export default function PersonalInformation({ personalInfo }: { personalInfo: Us
     }
 
     if (personalInfo && personalInfo.data) {
-      const { firstName, lastName, email, phone } = personalInfo.data;
+      console.log('🌼 🔥🔥 useEffect 🔥🔥 personalInfo🌼', personalInfo);
+
+      const { firstName, lastName, email, phone, profile } = personalInfo.data;
       const newUserInfo = {
         firstName,
         lastName,
         email,
         phoneNumber: phone,
-        address: '',
-        city: '',
-        localGovern: '',
-        state: '',
+        address: profile?.address,
+        city: profile?.city,
+        localGovern: profile?.localGovernment,
+        state: profile?.state,
       };
       setUserInfo(newUserInfo);
       setEditedUserInfo(newUserInfo);
