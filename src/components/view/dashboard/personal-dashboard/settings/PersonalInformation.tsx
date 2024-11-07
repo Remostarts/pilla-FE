@@ -14,22 +14,22 @@ interface UserInfo {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string | null;
-  address: string | null;
-  city: string | null;
-  localGovern: string | null;
-  state: string | null;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  localGovern: string;
+  state: string;
 }
 
 const initialUserInfo: UserInfo = {
   firstName: '',
   lastName: '',
   email: '',
-  phoneNumber: null,
-  address: null,
-  city: null,
-  localGovern: null,
-  state: null,
+  phoneNumber: '',
+  address: '',
+  city: '',
+  localGovern: '',
+  state: '',
 };
 
 const readonlyFields: Array<keyof UserInfo> = ['email', 'phoneNumber'];
@@ -55,11 +55,11 @@ export default function PersonalInformation({ personalInfo }: { personalInfo: Us
         firstName,
         lastName,
         email,
-        phoneNumber: phone,
-        address: profile?.address,
-        city: profile?.city,
-        localGovern: profile?.localGovernment,
-        state: profile?.state,
+        phoneNumber: phone || '',
+        address: profile?.address || '',
+        city: profile?.city || '',
+        localGovern: profile?.localGovernment || '',
+        state: profile?.state || '',
       };
       setUserInfo(newUserInfo);
       setEditedUserInfo(newUserInfo);
